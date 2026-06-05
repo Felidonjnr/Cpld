@@ -89,7 +89,7 @@ export default function Hero({ onLearnMore }: HeroProps) {
 
             {/* Solid corporate-blue block button for quick alignment simulation */}
             <button
-              onClick={() => onLearnMore('advisory-sim')}
+              onClick={() => onLearnMore('contact')}
               className="bg-[#0F3A6B] hover:bg-[#0B2C52] text-white border-2 border-[#0F3A6B] px-8 py-3.5 text-xs font-serif font-black tracking-wider uppercase rounded-none transition-all duration-150 cursor-pointer flex items-center gap-1.5"
             >
               <span>RUN PRIORITIES AUDIT</span>

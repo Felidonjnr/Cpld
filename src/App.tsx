@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import CoreFocus from './components/CoreFocus';
-import AlignmentSimulator from './components/AlignmentSimulator';
 import Metrics from './components/Metrics';
 import MediaGrid from './components/MediaGrid';
 import Team from './components/Team';
@@ -22,7 +21,7 @@ export default function App() {
 
   // Intersection Observer to scroll-highlight navy navbar items
   useEffect(() => {
-    const sections = ['home', 'core-focus', 'advisory-sim', 'metrics', 'media-grid', 'team', 'insights', 'contact'];
+    const sections = ['home', 'core-focus', 'metrics', 'media-grid', 'team', 'insights', 'contact'];
     const observers = sections.map((secId) => {
       const element = document.getElementById(secId);
       if (!element) return null;
@@ -68,16 +67,6 @@ export default function App() {
     handleNavigate('contact');
   };
 
-  const handleSimulatorDataTransfer = (copiedProfile: {
-    fullName: string;
-    organization: string;
-    subject: string;
-    message: string;
-  }) => {
-    setPrefilledData(copiedProfile);
-    // Smooth scroll is initiated by the child, but we register the state immediately
-  };
-
   return (
     <div 
       id="app-root-frame" 
@@ -92,9 +81,6 @@ export default function App() {
 
       {/* 3. Vertical Structured Core Advisory Tracks */}
       <CoreFocus onSelectTrack={handleContactPartner} />
-
-      {/* 4. Bespoke Subnational Strategy Alignment Simulator */}
-      <AlignmentSimulator onCopyData={handleSimulatorDataTransfer} />
 
       {/* 5. Light-gray Circular Metric Badges Area */}
       <Metrics />

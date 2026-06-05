@@ -143,7 +143,7 @@ export default function Footer({ onScrollToTop }: FooterProps) {
               </h4>
               <ul className="space-y-2.5 text-xs font-sans text-slate-300">
                 <li><a href="#home" className="hover:text-white transition-colors">Home Executive</a></li>
-                <li><a href="#advisory-sim" className="hover:text-white transition-colors">Accoupling Simulator</a></li>
+                <li><a href="#contact" className="hover:text-white transition-colors">Registry Contact Office</a></li>
                 <li><a href="#metrics" className="hover:text-white transition-colors">Impact Analytics</a></li>
                 <li><a href="#media-grid" className="hover:text-white transition-colors">Document Archive Covers</a></li>
                 <li><a href="#team" className="hover:text-white transition-colors">Leadership Partnership</a></li>
