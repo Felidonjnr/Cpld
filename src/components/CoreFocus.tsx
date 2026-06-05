@@ -1,183 +1,124 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { CORE_FOCUS_AREAS } from '../data';
 import { FocusArea } from '../types';
-import { ArrowUpRight, ShieldCheck, HelpCircle, GraduationCap, Network, Building2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { ShieldCheck, Scale, Landmark, Award, HelpCircle, ArrowRight, CheckSquare } from 'lucide-react';
 
-export default function CoreFocus() {
-  const [selectedAreaId, setSelectedAreaId] = useState<string | null>(null);
+interface CoreFocusProps {
+  onSelectTrack?: (trackName: string) => void;
+}
+
+export default function CoreFocus({ onSelectTrack = () => {} }: CoreFocusProps) {
   const focusAreas: FocusArea[] = CORE_FOCUS_AREAS;
 
   const iconMapping: { [key: string]: React.ReactNode } = {
-    "health-systems": <ShieldCheck size={24} className="text-[#C5A880]" />,
-    "governance": <GraduationCap size={24} className="text-[#C5A880]" />,
-    "institutional-dev": <Building2 size={24} className="text-[#C5A880]" />,
-    "strategic-partnerships": <Network size={24} className="text-[#C5A880]" />
+    "health-systems": <ShieldCheck size={28} className="text-[#0F3A6B]" />,
+    "governance": <Scale size={28} className="text-[#0F3A6B]" />,
+    "institutional-dev": <Landmark size={28} className="text-[#0F3A6B]" />,
+    "strategic-partnerships": <Award size={28} className="text-[#0F3A6B]" />
   };
 
   const getIcon = (id: string) => {
-    return iconMapping[id] || <HelpCircle size={24} className="text-[#C5A880]" />;
-  };
-
-  const handleCardClick = (id: string) => {
-    setSelectedAreaId(selectedAreaId === id ? null : id);
+    return iconMapping[id] || <HelpCircle size={28} className="text-[#0F3A6B]" />;
   };
 
   return (
-    <section
-      id="core-focus"
-      className="py-24 sm:py-32 bg-white text-slate-950 border-b border-[#C5A880]/15"
+    <section 
+      id="core-focus" 
+      className="bg-white py-24 px-4 sm:px-6 lg:px-8 border-b border-slate-200"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
         
-        {/* Section Header */}
-        <div className="border-b border-[#C5A880]/20 pb-12 mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <div className="max-w-2xl space-y-4">
-            {/* Tiny Badge */}
-            <span className="text-[10px] font-sans tracking-[0.25em] font-semibold text-[#C5A880] uppercase">
-              Operational Framework
+        {/* Section Header with style token underline accent */}
+        <div className="border-b border-slate-200 pb-8 mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div className="max-w-2xl text-left">
+            <span className="text-[10px] font-mono tracking-[0.2em] font-extrabold text-[#0F3A6B] uppercase block mb-2">
+              EXECUTIVE REGULATORY DOMAINS
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif tracking-tight text-slate-900 leading-tight">
-              Our Core Advisory Modules
+            <h2 className="text-3xl sm:text-4xl font-serif text-slate-900 tracking-tight leading-none uppercase font-black">
+              CORE ADVISORY OPERATIONS
             </h2>
+            {/* Short, thick accent line beneath heading */}
+            <div className="h-[3px] w-24 bg-[#0F3A6B] mt-4 rounded-none" />
           </div>
-          <p className="text-sm font-sans tracking-wide text-gray-500 max-w-sm font-light leading-relaxed">
-            Structuring bespoke development methodologies that link sovereign ambitions with the uncompromising compliance standards of international donors.
+          <p className="text-xs text-slate-500 font-sans max-w-sm leading-relaxed text-left">
+            Bespoke programmatic tracks engineered to bridge public-private governance gaps and coordinate multi-lateral sovereign funding schemes.
           </p>
         </div>
 
-        {/* 4-Column Layout Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {focusAreas.map((area) => {
-            const isSelected = selectedAreaId === area.id;
-            return (
-              <div
-                key={area.id}
-                id={`focus-card-${area.id}`}
-                onClick={() => handleCardClick(area.id)}
-                className={`group border cursor-pointer p-8 relative flex flex-col justify-between transition-all duration-300 rounded-none h-full min-h-[300px] ${
-                  isSelected
-                    ? 'bg-slate-950 text-white border-slate-950 shadow-xl scale-[1.01]'
-                    : 'bg-slate-50 hover:bg-slate-950/5 border-slate-200 hover:border-[#C5A880]/40'
-                }`}
-              >
-                {/* Thin top accent gold bar */}
-                <div 
-                  className={`absolute top-0 left-0 h-[2px] transition-all duration-300 ${
-                    isSelected ? 'w-full bg-[#C5A880]' : 'w-0 group-hover:w-16 bg-[#C5A880]/80'
-                  }`} 
-                />
-
-                {/* Top Section: Number and Icon */}
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <span className={`text-2xl font-serif font-light ${isSelected ? 'text-[#C5A880]' : 'text-slate-300 group-hover:text-slate-400'}`}>
-                      {area.number}
-                    </span>
-                    <div className="p-2.5 border border-[#C5A880]/20 rounded-none">
-                      {getIcon(area.id)}
-                    </div>
-                  </div>
-
-                  {/* Title and Short Description */}
-                  <div className="space-y-3">
-                    <h3 className={`text-lg font-serif font-semibold tracking-tight ${isSelected ? 'text-white' : 'text-slate-900'}`}>
-                      {area.title}
-                    </h3>
-                    <p className={`text-xs font-sans tracking-wide leading-relaxed font-light ${isSelected ? 'text-gray-400' : 'text-gray-500'}`}>
-                      {area.description}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Action Link Banner */}
-                <div className="pt-6 flex items-center justify-between border-t border-[#C5A880]/10 mt-6 text-[10px] font-sans tracking-widest uppercase font-medium">
-                  <span className={isSelected ? 'text-[#C5A880]' : 'text-slate-500 group-hover:text-slate-900'}>
-                    {isSelected ? 'Collapse Details' : 'Analyze Indicators'}
-                  </span>
-                  <ArrowUpRight 
-                    size={13} 
-                    className={`transition-transform duration-300 ${
-                      isSelected ? 'rotate-45 text-[#C5A880]' : 'group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-slate-400 group-hover:text-slate-950'
-                    }`} 
-                  />
+        {/* Vertical Structured List Panels as requested */}
+        <div id="vertical-advisory-panels" className="space-y-6">
+          {focusAreas.map((area) => (
+            <div
+              key={area.id}
+              id={`advisory-item-${area.id}`}
+              className="bg-slate-50 border border-slate-200 p-6 sm:p-8 hover:bg-slate-100/50 hover:border-[#0F3A6B]/60 transition-all duration-150 rounded-none flex flex-col lg:flex-row lg:items-center justify-between gap-8 text-left"
+            >
+              
+              {/* Left Segment: Identifier stamp & minimalist icon */}
+              <div className="flex items-center gap-5 shrink-0">
+                <span className="font-mono text-3xl font-extrabold text-slate-300">
+                  {area.number}
+                </span>
+                <div className="w-14 h-14 bg-white border border-slate-200/80 rounded-none flex items-center justify-center shadow-xs">
+                  {getIcon(area.id)}
                 </div>
               </div>
-            );
-          })}
-        </div>
 
-        {/* Detail Reveal Panel */}
-        <AnimatePresence>
-          {selectedAreaId && (
-            <motion.div
-              id="focus-details-revealer"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="overflow-hidden mt-8"
-            >
-              {(() => {
-                const area = focusAreas.find(a => a.id === selectedAreaId);
-                if (!area) return null;
-                return (
-                  <div className="border border-[#C5A880]/35 bg-slate-950 text-white p-8 md:p-12 relative">
-                    {/* Glowing ornament shadow */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#C5A880]/10 to-transparent pointer-events-none" />
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
-                      
-                      {/* Left: Objectives and outcomes */}
-                      <div className="space-y-6">
-                        <div className="inline-flex items-center space-x-2">
-                          <span className="h-[1px] w-4 bg-[#C5A880]" />
-                          <h4 className="text-xs font-sans tracking-widest uppercase font-semibold text-[#C5A880]">
-                            Targeted Project Indicators
-                          </h4>
-                        </div>
-                        <ul className="space-y-4">
-                          {area.outcomes.map((outcome, idx) => (
-                            <li key={idx} className="flex items-start gap-3">
-                              <span className="flex-shrink-0 h-1.5 w-1.5 rounded-full bg-[#C5A880] mt-1.5" />
-                              <span className="text-sm font-sans tracking-wide leading-relaxed text-gray-300 font-light">
-                                {outcome}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+              {/* Central Segment: Title, Description & Horizontal subcategories with line-art icons */}
+              <div className="flex-1 space-y-4">
+                <div>
+                  <h3 className="text-lg font-serif font-black text-[#0F3A6B] uppercase tracking-tight">
+                    {area.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 font-sans mt-1">
+                    {area.description}
+                  </p>
+                </div>
 
-                      {/* Right: Partner references */}
-                      <div className="space-y-6">
-                        <div className="inline-flex items-center space-x-2">
-                          <span className="h-[1px] w-4 bg-[#C5A880]" />
-                          <h4 className="text-xs font-sans tracking-widest uppercase font-semibold text-[#C5A880]">
-                            Institutional Intersect
-                          </h4>
-                        </div>
-                        <p className="text-xs font-sans tracking-wide leading-relaxed text-gray-400 font-light mb-4">
-                          Connecting regional framework implementation directly with accredited governance channels and sovereign aid missions:
-                        </p>
-                        <div className="flex flex-wrap gap-2.5">
-                          {area.partnerNetworks.map((partner, idx) => (
-                            <span 
-                              key={idx}
-                              className="text-[10px] font-sans tracking-wider border border-[#C5A880]/20 bg-slate-900/50 hover:bg-slate-900 hover:border-[#C5A880] text-[#C5A880] px-3 py-1.5 transition-all"
-                            >
-                              {partner}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
+                {/* Subcategories aligned horizontally alongside minimalist line icons */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-3 border-t border-slate-200/60">
+                  {area.outcomes.map((outcome, idx) => (
+                    <div 
+                      key={idx}
+                      className="flex items-start gap-2.5"
+                    >
+                      <CheckSquare size={14} className="text-[#0F3A6B] shrink-0 mt-0.5" />
+                      <span className="text-[11px] text-slate-700 font-sans font-medium leading-tight">
+                        {outcome}
+                      </span>
                     </div>
-                  </div>
-                );
-              })()}
-            </motion.div>
-          )}
-        </AnimatePresence>
+                  ))}
+                </div>
+
+                {/* Horizontal badge line representing the bilateral alliances */}
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  <span className="text-[9px] font-mono text-slate-400">PARTNERS:</span>
+                  {area.partnerNetworks.map((partner, idx) => (
+                    <span 
+                      key={idx}
+                      className="text-[9px] font-sans font-bold tracking-tight text-[#0F3A6B] uppercase"
+                    >
+                      {partner} {idx < area.partnerNetworks.length - 1 ? '•' : ''}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Segment: Flat, completely square dark navy block button "Know More" */}
+              <div className="shrink-0">
+                <button
+                  id={`read-more-${area.id}`}
+                  onClick={() => onSelectTrack(area.title)}
+                  className="w-full lg:w-auto bg-[#0F3A6B] hover:bg-[#0B2C52] text-white font-serif font-black tracking-widest text-xs uppercase rounded-none py-3 px-6 flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                >
+                  <span>KNOW MORE</span>
+                  <ArrowRight size={13} />
+                </button>
+              </div>
+
+            </div>
+          ))}
+        </div>
 
       </div>
     </section>

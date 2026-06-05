@@ -3,9 +3,7 @@ export interface HeroSlide {
   title: string;
   subtitle: string;
   badge: string;
-  imageTheme: string;
-  align: 'left' | 'center' | 'right';
-  bgColor: string;
+  imageTheme?: string;
 }
 
 export interface FocusArea {
@@ -22,6 +20,7 @@ export interface MetricItem {
   value: string;
   label: string;
   description: string;
+  scopeLabel: string;
 }
 
 export interface TeamMember {
@@ -42,25 +41,18 @@ export interface InsightItem {
   summary: string;
   date: string;
   readTime: string;
-  engagement: string;
   author: string;
 }
 
-export interface AlignmentRequest {
-  partnerType: string;
-  focusArea: string;
-  region: string;
-  projectScope: string;
-  donorName: string;
-  email: string;
-}
-
-export interface AlignmentResult {
-  matchRate: number;
-  strategicPillars: string[];
-  suggestedFramework: string;
-  expectedOutcomes: string[];
-  dpclTrackRecord: string;
+export interface ProjectItem {
+  id: string;
+  title: string;
+  category: 'all' | 'health' | 'governance' | 'strategy';
+  location: string;
+  year: string;
+  imageUrl: string;
+  docCode: string;
+  summary: string;
 }
 
 export interface ConsultationInquiry {

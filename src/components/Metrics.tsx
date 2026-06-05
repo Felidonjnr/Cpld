@@ -1,102 +1,92 @@
 import React from 'react';
 import { GENERAL_METRICS } from '../data';
 import { MetricItem } from '../types';
-import { Award, Briefcase, CheckCircle2 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { Briefcase, Award, CheckCircle2, ShieldCheck, Database, Landmark } from 'lucide-react';
 
 export default function Metrics() {
   const metrics: MetricItem[] = GENERAL_METRICS;
 
   const iconMapping: { [key: string]: React.ReactNode } = {
-    "interventions": <Briefcase size={20} className="text-[#C5A880]" />,
-    "projects": <Award size={20} className="text-[#C5A880]" />,
-    "accountability": <CheckCircle2 size={20} className="text-[#C5A880]" />
+    "interventions": <Briefcase size={28} className="text-[#0F3A6B]" />,
+    "projects": <Award size={28} className="text-[#0F3A6B]" />,
+    "accountability": <CheckCircle2 size={28} className="text-[#0F3A6B]" />
   };
 
   const getIcon = (id: string) => {
-    return iconMapping[id] || <Award size={20} className="text-[#C5A880]" />;
-  };
-
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 70,
-        damping: 15
-      }
-    }
+    return iconMapping[id] || <Award size={28} className="text-[#0F3A6B]" />;
   };
 
   return (
-    <section
-      id="metrics"
-      className="relative bg-slate-950 text-white py-16 sm:py-24 overflow-hidden border-b border-[#C5A880]/10"
+    <section 
+      id="metrics" 
+      className="bg-[#F8FAFC] py-20 px-4 sm:px-6 lg:px-8 border-t border-b border-slate-200/80"
     >
-      {/* Background glowing textures */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-[#C5A880]/5 rounded-full filter blur-[100px] pointer-events-none" />
-        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-slate-900/40 rounded-full filter blur-[100px] pointer-events-none" />
-      </div>
-
-      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+      <div className="max-w-7xl mx-auto">
         
-        {/* Horizontal structure container */}
-        <motion.div
-          id="metrics-grid"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 lg:gap-12"
+        {/* Section Heading with accent underline */}
+        <div className="text-center md:text-left mb-16">
+          <span className="text-[10px] font-mono tracking-[0.2em] font-extrabold text-[#0F3A6B] uppercase block mb-2">
+            MEASURABLE DELIVERABLES & ACCOUNTABILITY
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-serif text-slate-900 tracking-tight leading-none uppercase font-black">
+            SOVEREIGN REGIONAL IMPACT PORTFOLIO
+          </h2>
+          {/* 3px thick font accent line as specified in style tokens */}
+          <div className="h-[3px] w-24 bg-[#0F3A6B] mt-4 mx-auto md:mx-0 rounded-none" />
+          <p className="text-xs text-slate-500 font-sans mt-3 max-w-2xl leading-relaxed">
+            Our interventions are measured by audit readiness, subnational health insurance coverage, and direct compliance benchmarks with global development institutions.
+          </p>
+        </div>
+
+        {/* Multi-column grid containing circular badges */}
+        <div 
+          id="metrics-badges-grid"
+          className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left"
         >
-          {metrics.map((metric, idx) => (
-            <motion.div
+          {metrics.map((metric) => (
+            <div 
               key={metric.id}
-              id={`metric-item-${metric.id}`}
-              variants={itemVariants}
-              className={`flex flex-col space-y-4 md:px-6 lg:px-8 ${
-                idx > 0 ? 'md:border-l md:border-[#C5A880]/15' : ''
-              }`}
+              id={`metric-column-${metric.id}`}
+              className="flex flex-col items-center md:items-start space-y-5"
             >
-              {/* Statistic representation */}
-              <div className="flex items-center space-x-3.5">
-                <div className="p-2 border border-[#C5A880]/15 bg-slate-900">
-                  {getIcon(metric.id)}
-                </div>
-                <span className="text-[10px] font-sans tracking-[0.25em] text-[#C5A880] uppercase font-bold">
-                  {metric.label}
-                </span>
+              
+              {/* Crisp white circular container with soft outer shadow */}
+              <div 
+                id={`circle-badge-${metric.id}`}
+                className="w-20 h-20 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow duration-150 flex items-center justify-center border border-slate-100"
+              >
+                {getIcon(metric.id)}
               </div>
 
-              {/* Large counter number ticker style layout */}
-              <div className="space-y-2">
-                <h3 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-serif tracking-tight font-bold text-white bg-clip-text">
-                  {metric.value}
-                </h3>
-                <p className="text-xs font-sans tracking-wide leading-relaxed text-gray-400 font-light max-w-sm">
+              {/* Data metric directly below the circle in massive black typography */}
+              <div className="space-y-1 w-full">
+                <div className="flex items-baseline justify-center md:justify-start gap-2">
+                  <span className="text-4xl sm:text-5xl font-serif font-black text-slate-950 tracking-tighter">
+                    {metric.value}
+                  </span>
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#0F3A6B] bg-slate-200/60 px-1.5 py-0.5 rounded-none">
+                    {metric.scopeLabel}
+                  </span>
+                </div>
+
+                {/* Highly legible uppercase title label and muted description */}
+                <h4 className="text-sm font-serif font-black tracking-wide text-slate-900 uppercase">
+                  {metric.label}
+                </h4>
+                
+                <p className="text-xs text-slate-500 font-sans leading-relaxed max-w-sm">
                   {metric.description}
                 </p>
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
 
-        {/* Accountability pledge divider */}
-        <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left text-gray-500 text-[10px] font-sans tracking-[0.15em] uppercase">
-          <span>ABUJA COOPERATIVE REGISTER • INITIATIVE ACCREDITATION</span>
-          <span className="text-[#C5A880] font-semibold">VERIFIED DONOR LEVEL STATUS</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Dynamic lower bar matching print specifications */}
+        <div className="mt-16 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left text-slate-400 text-[10px] font-mono uppercase">
+          <span>COOPERATIVE ACCREDITATION NO: DPCL-7193-GF</span>
+          <span>FEDERAL INVENTORY OF STRATEGIC ADVISORY BLUEPRINTS</span>
         </div>
 
       </div>

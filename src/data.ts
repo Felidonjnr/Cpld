@@ -1,32 +1,24 @@
-import { HeroSlide, FocusArea, MetricItem, TeamMember, InsightItem } from './types';
+import { HeroSlide, FocusArea, MetricItem, TeamMember, InsightItem, ProjectItem } from './types';
 
 export const HERO_SLIDES: HeroSlide[] = [
   {
     id: 1,
-    title: "Driving Sustainable Transformation Across Africa",
-    subtitle: "Partnering with global bilateral agencies, philanthropic funds, and state actors to engineer resilient health delivery, civic governance, and strategic operating structures.",
-    badge: "GLOBAL ADVISORY",
-    imageTheme: "ambient-navy",
-    align: 'left',
-    bgColor: "from-slate-900 via-[#0F172A] to-slate-900"
+    title: "DRIVING SUSTAINABLE TRANSFORMATION ACROSS AFRICA",
+    subtitle: "Partnering with global institutions and state governments to build resilient systems, strengthen policy frameworks, and drive sovereign development initiatives with absolute transparency.",
+    badge: "BILATERAL ALLIANCE & POLICY",
+    imageTheme: "health"
   },
   {
     id: 2,
-    title: "Advanced Health Systems Strengthening",
-    subtitle: "Optimizing regional health insurance frameworks, clinical delivery models, state funding systems, and primary care supply chain designs.",
-    badge: "HEALTH STRATEGY",
-    imageTheme: "charcoal-gold",
-    align: 'center',
-    bgColor: "from-slate-950 via-[#111827] to-[#0D1526]"
+    title: "ADVANCED HEALTH SYSTEMS STRENGTHENING",
+    subtitle: "Optimizing institutional health delivery frameworks, subnational insurance policies, and clinical support protocols for maximum human and sovereign impact.",
+    badge: "INSTITUTIONAL CLINICAL DELIVERY"
   },
   {
     id: 3,
-    title: "Governance, Policy & Citizen Engagement",
-    subtitle: "Empowering state councils and civic networks with transparent monitoring methodologies, sustainable public dialog structures, and executive audits.",
-    badge: "GOVERNANCE & REFORM",
-    imageTheme: "slate-minimal",
-    align: 'right',
-    bgColor: "from-slate-900 via-slate-950 to-[#0F172A]"
+    title: "GOVERNANCE & CITIZEN POLICY MONITORING",
+    subtitle: "Strengthening public-private dialog, civic accountability charters, and municipal legislative metrics across primary decentralization zones.",
+    badge: "LEGISLATIVE ACCOUNTABILITY"
   }
 ];
 
@@ -35,64 +27,60 @@ export const CORE_FOCUS_AREAS: FocusArea[] = [
     id: "health-systems",
     number: "01",
     title: "Health Systems Strengthening",
-    description: "Institutional capacity building, subnational financing, and clinical delivery design for international donor health portfolios.",
+    description: "Institutional capacity building, resource optimization, and clinical delivery advisory.",
     outcomes: [
       "Subnational financing architectures",
       "Quality assurance and clinical protocol audits",
       "Primary health care supply chain integration"
     ],
     partnerNetworks: [
-      "The Global Fund to Fight AIDS, TB & Malaria",
-      "Bill & Melinda Gates Foundation (BMGF)",
-      "National & State Primary Health Development Agencies"
+      "The Global Fund and Philanthropic Networks",
+      "Federal Ministry of Health & State Primary Health Schemes"
     ]
   },
   {
     id: "governance",
     number: "02",
     title: "Governance & Citizen Engagement",
-    description: "Strengthening municipal policy framework, local leadership development, policy tracking, and institutionalized accountability dialogs.",
+    description: "Strengthening public policy, policy monitoring, transparency, and public-private dialogue.",
     outcomes: [
       "Inclusive subnational policy audit tools",
       "State-level executive briefing frameworks",
       "Social contract monitoring systems"
     ],
     partnerNetworks: [
-      "Foreign, Commonwealth & Development Office (FCDO)",
-      "State Executive Councils & Civic Coalitions",
-      "National Assembly Legislative Committees"
+      "FCDO Legislative Alignments",
+      "State Executive Councils & Civic Coalitions"
     ]
   },
   {
     id: "institutional-dev",
     number: "03",
     title: "Institutional Development & Strategy",
-    description: "Structuring high-impact administrative processes, audit structures, and operations advice for state development bureaus and donor bodies.",
+    description: "Tailored advisory frameworks for international donors and state agencies.",
     outcomes: [
       "Multi-sectoral program blueprints",
       "Operational performance management tools",
       "Bespoke change management guidelines"
     ],
     partnerNetworks: [
-      "United States Agency for International Development (USAID)",
-      "State Bureaus of Public Service Reforms",
-      "United Nations Development Programme (UNDP)"
+      "UN Agencies & Bilateral Missions",
+      "State Bureaus of Public Service Reforms"
     ]
   },
   {
     id: "strategic-partnerships",
     number: "04",
     title: "Strategic Partnerships",
-    description: "Bridging global capital assets and bilateral agencies with high-integrity local implementation and compliance structures.",
+    description: "Connecting global funding networks (e.g., FCDO, Gates Foundation) with local implementation frameworks.",
     outcomes: [
       "Subgrant administrative frameworks",
-      "FCDO and State-integrated program offices",
-      "Operational security and transparency reports"
+      "Private donor compliance guidelines",
+      "Zonal operational safety reports"
     ],
     partnerNetworks: [
-      "International Philanthropic Advisers",
-      "Bilateral Aid Attachés",
-      "Civil Society Coalition for Accountability and Legislative Advocacy"
+      "International Development Banks",
+      "Civil Society Coalition for Accountability"
     ]
   }
 ];
@@ -101,20 +89,23 @@ export const GENERAL_METRICS: MetricItem[] = [
   {
     id: "interventions",
     value: "15+",
-    label: "State Interventions",
-    description: "Comprehensive advisory models deployed across multiple subnational jurisdictions, improving health access and policy governance."
+    label: "State Interventions Deployed",
+    description: "Rigorous subnational advisory matrices implementing regional health policy and public audits.",
+    scopeLabel: "Sub-Saharan Coverage"
   },
   {
     id: "projects",
     value: "40+",
-    label: "Global Partner Projects",
-    description: "Successful joint portfolios executed with major international donors, UN affiliates, and philanthropic networks."
+    label: "Global Partner Projects Executed",
+    description: "Successful joint portfolios completed under global donor-compliance timelines and fiscal regimes.",
+    scopeLabel: "Accredited Portfolios"
   },
   {
     id: "accountability",
     value: "100%",
-    label: "Project Accountability",
-    description: "Impeccable fiscal, structural, and administrative tracking logs, verified by international audit authorities."
+    label: "Project Fiscal Accountability",
+    description: "Pristine administrative, operational, and auditing scores verified by international compliance bodies.",
+    scopeLabel: "Absolute Compliance"
   }
 ];
 
@@ -144,32 +135,83 @@ export const LEADERSHIP_TEAM: TeamMember[] = [
 export const INSIGHTS_NEWS: InsightItem[] = [
   {
     id: "kaduna-interview",
-    category: "Corporate Engagement",
-    title: "Kaduna State Government Executive Interview & Partnership Plan",
-    summary: "Reviewing our recent policy monitoring framework on public services, accountability governance, and structural health deployments across the northwestern zone.",
+    category: "EXECUTIVE DIALOGUE",
+    title: "Kaduna State Government Executive Interview on Governance Reforms",
+    summary: "Reviewing recent strategic frameworks on governance and development deployment across northwestern subnational zones, prioritizing resource optimization and policy alignment.",
     date: "May 20, 2026",
     readTime: "7 min read",
-    engagement: "Bilateral Strategy",
     author: "DPCL Advisory Council"
   },
   {
     id: "healthy-living",
-    category: "Sustainable Development",
-    title: "Building Healthy Lifestyles & Living: Framework for Subnational Infrastructure",
-    summary: "A comprehensive analysis of public health delivery systems and wellness centers, prioritizing local community funding pathways and municipal engagement models.",
+    category: "PUBLIC HEALTH BLUEPRINT",
+    title: "Building Healthy Lifestyles & Living: Community Infrastructure Strategy",
+    summary: "A proactive look at sustainable community health infrastructure development, exploring localized primary care funding pathways and state-supported health models.",
     date: "April 12, 2026",
     readTime: "12 min read",
-    engagement: "Health Policy Blueprint",
     author: "Dr. K. Ukwaja"
+  }
+];
+
+export const PROJECTS_REPOSITORY: ProjectItem[] = [
+  {
+    id: "proj-1",
+    title: "Subnational Health Financing Audit Report",
+    category: "health",
+    location: "Kaduna & Abuja, Nigeria",
+    year: "2026",
+    imageUrl: "HEALTH",
+    docCode: "DPCL-HFA-2026",
+    summary: "Comprehensive fiscal assessment reviewing allocation efficiencies, state insurance framework penetrations, and primary healthcare fund utilization tracks."
   },
   {
-    id: "fcdo-transparency",
-    category: "Governance Audit",
-    title: "Strengthening Fiscal Integrity in Private Sector Development Alignments",
-    summary: "How modern public-private dialogues yield robust local outcomes. A retro-analysis of FCDO sub-grantees' administrative capacities and policy milestones.",
-    date: "March 05, 2026",
-    readTime: "5 min read",
-    engagement: "Compliance Blueprint",
-    author: "Iro Okechukwu"
+    id: "proj-2",
+    title: "Social Contract Accountability Framework & Briefing",
+    category: "governance",
+    location: "Kano & Kaduna Zones",
+    year: "2025",
+    imageUrl: "GOV",
+    docCode: "DPCL-SCA-05",
+    summary: "Institutional tools aligning civic dialogue metrics with local government planning commissions to foster policy transparency and state accountability covenants."
+  },
+  {
+    id: "proj-3",
+    title: "Multisectoral Donor Strategy Advisory Handbook",
+    category: "strategy",
+    location: "Abuja HQ Secretariat",
+    year: "2026",
+    imageUrl: "STRAT",
+    docCode: "DPCL-MSH-09",
+    summary: "A robust regulatory handbook outlining operational guidelines, compliance limits, and risk-mitigation layers for major bilateral philanthropic donors."
+  },
+  {
+    id: "proj-4",
+    title: "Sub-Grant Accountability Verification Action Report",
+    category: "governance",
+    location: "Sub-Saharan Sovereign Partners",
+    year: "2025",
+    imageUrl: "AUDIT",
+    docCode: "DPCL-SGV-25",
+    summary: "Fiscal monitoring checklists and evidence-based reviews highlighting implementation speeds and resource transparency benchmarks."
+  },
+  {
+    id: "proj-5",
+    title: "Regional Clinical Delivery Protocol and Guidelines Dashboard",
+    category: "health",
+    location: "Wuse II & Abuja Outposts",
+    year: "2026",
+    imageUrl: "MEDIC",
+    docCode: "DPCL-CDP-26",
+    summary: "Systematic guidelines advising state committees on primary clinical performance indicators, drug procurement security, and state-wide immunization tracks."
+  },
+  {
+    id: "proj-6",
+    title: "Strategic Transition Model & Public Sector Re-engineering Roadmap",
+    category: "strategy",
+    location: "Inter-State Public Service Bureau",
+    year: "2025",
+    imageUrl: "REFORM",
+    docCode: "DPCL-STR-25",
+    summary: "A structural transition model ensuring minimum operational downtime during systemic administrative transitions in state institutions."
   }
 ];

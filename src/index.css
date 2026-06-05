@@ -1,26 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Playfair Display", Georgia, serif;
-  --font-sans: "Montserrat", "Inter", sans-serif;
+  --font-serif: "Montserrat", "Inter", sans-serif; /* As requested, commanding geometric sans-serif is the head theme */
+  --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
+  
+  --color-inst-navy: #0F3A6B;
 }
 
 html {
   scroll-behavior: smooth;
+  font-family: var(--font-sans);
 }
 
 body {
-  font-family: var(--font-sans);
-  background-color: #0F172A; /* Sophisticated base dark theme color */
+  background-color: #FFFFFF;
+  color: #0F172A;
 }
 
-/* Luxury card micro-transitions */
-.luxury-card-shadow {
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+/* Custom layout scrollbars and highlights */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #0F3A6B;
+  border-radius: 0px;
 }
 
-.luxury-card-shadow-hover:hover {
-  box-shadow: 0 10px 40px rgba(197, 168, 128, 0.08);
+/* Print simulation styling */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
 }
