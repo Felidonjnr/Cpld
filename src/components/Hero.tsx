@@ -1,144 +1,180 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowLeft, ArrowRight, Landmark, FileText, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, ChevronRight, HelpCircle } from 'lucide-react';
 import { HERO_SLIDES } from '../data';
-import { HeroSlide } from '../types';
+import { HeroSlideItem } from '../data';
 
 interface HeroProps {
   onLearnMore: (targetSectionId: string) => void;
 }
 
 export default function Hero({ onLearnMore }: HeroProps) {
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const slides: HeroSlide[] = HERO_SLIDES;
+  const slides: HeroSlideItem[] = HERO_SLIDES;
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Touch state for swipe detection
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const resetTimeout = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 7500);
-    return () => clearInterval(timer);
-  }, [slides.length]);
+    if (slides.length === 0) return;
+    resetTimeout();
+    timeoutRef.current = setTimeout(
+      () => setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length),
+      6500
+    );
 
-  const handleNext = () => {
-    setCurrentSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
+    return () => {
+      resetTimeout();
+    };
+  }, [currentIndex, slides.length]);
+
+  const handleNext = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (slides.length === 0) return;
+    setCurrentIndex((prev) => (prev + 1) % slides.length);
   };
 
-  const handlePrev = () => {
-    setCurrentSlideIndex((prevIndex) => (prevIndex - 1 + slides.length) % slides.length);
+  const handlePrev = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (slides.length === 0) return;
+    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  // High contrast background placeholders that represent premium pan-African field work & institutional operations
-  const backgroundImages = [
-    "https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&q=80&w=1600", // Institutional infrastructure (African regional trade / development)
-    "https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80&w=1600", // African business specialists coordinating policy
-    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600"  // Multi-sector meeting guidelines workspace
-  ];
+  const currentSlide = slides[currentIndex] || HERO_SLIDES[0];
 
-  const currentSlide = slides[currentSlideIndex];
+  // Swipe gesture implementation handlers
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      handleNext();
+    } else if (isRightSwipe) {
+      handlePrev();
+    }
+  };
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-start text-white overflow-hidden bg-slate-950 pt-20"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+      className="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center text-white overflow-hidden bg-slate-950 pt-28"
     >
-      {/* 1. Full-Bleed Photographic Frame with Dark Tint Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src={backgroundImages[currentSlideIndex]} 
-          alt="Institutional Field Work" 
-          referrerPolicy="no-referrer"
-          className="w-full h-full object-cover object-center transition-all duration-1000 scale-105 filter saturate-[0.85] brightness-[0.35]" 
-        />
-        {/* Additional clean deep gradient tint overlay for extreme high contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-slate-950/75 to-transparent" />
+      
+      {/* Background Frame with Subtle Dark Overlay */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+        {slides.map((slide, idx) => (
+          <div
+            key={slide.id || idx}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              idx === currentIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <img
+              src={slide.imageUrl}
+              alt="DPCL Corporate Context"
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover object-center filter saturate-[0.95] brightness-[0.7] scale-105 transition-all duration-700"
+            />
+            {/* Soft legible overlay screen */}
+            <div className="absolute inset-0 bg-slate-950/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-slate-950/15" />
+          </div>
+        ))}
+
+        {/* Technical fine background coordinates lines */}
+        <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:40px_40px]" />
+      </div>
+
+      <div className="relative w-full max-w-5xl mx-auto px-6 z-10 py-16 text-center space-y-8 flex flex-col items-center">
         
-        {/* Abstract administrative technical grids overlay for structural feeling */}
-        <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
-      </div>
-
-      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 py-16 md:py-24">
-        <div className="max-w-3xl space-y-6 text-left">
-          
-          {/* Subtitle Badge */}
-          <div className="inline-flex items-center gap-2 bg-[#0F3A6B]/90 border border-[#0F3A6B] py-1.5 px-3.5 rounded-none">
-            <Landmark size={12} className="text-white shrink-0" />
-            <span className="text-[10px] font-sans tracking-[0.2em] font-extrabold text-white uppercase leading-none">
-              {currentSlide.badge || "SOVEREIGN DEVELOPMENT"}
-            </span>
-          </div>
-
-          {/* Commanding Left-aligned Headline with Strict Geometric Weight */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white tracking-tight leading-[1.1] font-black uppercase">
-            {currentSlide.title}
-          </h1>
-
-          {/* Descriptive Subtitle Text */}
-          <p className="text-sm sm:text-base md:text-lg text-slate-200 tracking-wide leading-relaxed font-sans max-w-2xl font-normal">
-            {currentSlide.subtitle}
-          </p>
-
-          {/* Primary & Secondary Action Button Deck */}
-          <div className="flex flex-wrap gap-4 pt-6">
-            
-            {/* Pure white ghost button with completely square corners */}
-            <button
-              onClick={() => onLearnMore('core-focus')}
-              className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-slate-950 px-8 py-3.5 text-xs font-serif font-black tracking-wider uppercase rounded-none transition-all duration-150 cursor-pointer"
-            >
-              EXECUTIVE PORTFOLIO BRIEF
-            </button>
-
-            {/* Solid corporate-blue block button for quick alignment simulation */}
-            <button
-              onClick={() => onLearnMore('contact')}
-              className="bg-[#0F3A6B] hover:bg-[#0B2C52] text-white border-2 border-[#0F3A6B] px-8 py-3.5 text-xs font-serif font-black tracking-wider uppercase rounded-none transition-all duration-150 cursor-pointer flex items-center gap-1.5"
-            >
-              <span>RUN PRIORITIES AUDIT</span>
-            </button>
-          </div>
-
+        {/* Subtle sliding badge */}
+        <div className="inline-flex items-center gap-2 bg-[#0F3A6B] border border-[#0F3A6B]/50 py-1.5 px-5 text-[10px] font-extrabold tracking-[0.2em] text-white uppercase select-none rounded-full shadow-lg backdrop-blur-md">
+          {currentSlide.badge || "EXPERT OUTCOMES"}
         </div>
 
-        {/* Slideshow Controls Bar */}
-        <div className="mt-20 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center space-x-6">
-            {slides.map((slide, idx) => (
-              <button
-                key={slide.id}
-                onClick={() => setCurrentSlideIndex(idx)}
-                className="flex items-center gap-2 cursor-pointer font-sans"
-              >
-                <div className={`h-1.5 transition-all duration-300 rounded-none ${
-                    idx === currentSlideIndex ? 'w-12 bg-[#0F3A6B]' : 'w-4 bg-white/20'
-                  }`} 
-                />
-                <span className={`text-[10px] font-mono font-bold ${
-                  idx === currentSlideIndex ? 'text-white' : 'text-slate-400'
-                }`}>
-                  0{idx + 1}
-                </span>
-              </button>
-            ))}
-          </div>
+        {/* Main Heading Text with beautiful display typography */}
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans tracking-tight leading-tight uppercase font-black max-w-4xl text-white">
+          {currentSlide.title}
+        </h2>
 
-          <div className="flex items-center space-x-2">
+        {/* Sub-heading content */}
+        <p className="text-sm sm:text-base md:text-lg text-slate-200 tracking-wide leading-relaxed max-w-2xl mx-auto font-light">
+          {currentSlide.subtitle}
+        </p>
+
+        {/* Prominent MORE Action Button */}
+        <div className="pt-4">
+          <button
+            onClick={() => onLearnMore('core-areas')}
+            className="bg-white text-[#0F3A6B] hover:bg-[#3b82f6] hover:text-white active:scale-95 text-xs sm:text-sm font-sans font-black tracking-widest uppercase rounded-full px-10 py-4 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2.5"
+          >
+            <span>MORE</span>
+            <ChevronRight size={16} />
+          </button>
+        </div>
+
+        {/* Bottom Navigation Dots for direct slide mapping */}
+        <div className="pt-12 flex items-center justify-center gap-3 relative z-20">
+          {slides.map((_, idx) => (
             <button
-              onClick={handlePrev}
-              className="p-3 border border-white/20 hover:border-white text-white bg-transparent hover:bg-white/5 transition-all rounded-none cursor-pointer"
-              aria-label="Previous Slide"
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              className="group p-2 focus:outline-none cursor-pointer"
+              aria-label={`Go to slide ${idx + 1}`}
             >
-              <ArrowLeft size={14} />
+              <div
+                className={`h-2 transition-all duration-300 rounded-full ${
+                  idx === currentIndex 
+                    ? 'w-8 bg-white' 
+                    : 'w-2 bg-white/40 group-hover:bg-white/70'
+                }`}
+              />
             </button>
-            <button
-              onClick={handleNext}
-              className="p-3 border border-white/20 hover:border-white text-white bg-transparent hover:bg-white/5 transition-all rounded-none cursor-pointer"
-              aria-label="Next Slide"
-            >
-              <ArrowRight size={14} />
-            </button>
-          </div>
+          ))}
         </div>
 
       </div>
+
+      {/* Manual Left/Right control arrows for desktop layout accessibility */}
+      <button
+        onClick={handlePrev}
+        className="hidden lg:flex absolute left-6 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full border border-white/10 hover:border-white/30 transition-all cursor-pointer"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft size={20} />
+      </button>
+
+      <button
+        onClick={handleNext}
+        className="hidden lg:flex absolute right-6 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full border border-white/10 hover:border-white/30 transition-all cursor-pointer"
+        aria-label="Next slide"
+      >
+        <ChevronRight size={20} />
+      </button>
+
     </section>
   );
 }

@@ -57,10 +57,11 @@ export interface ProjectItem {
 
 export interface ConsultationInquiry {
   fullName: string;
-  organization: string;
   email: string;
   phone: string;
   subject: string;
   message: string;
-  priority: 'low' | 'medium' | 'high' | 'urgent';
+  organization?: string;
+  priority?: 'low' | 'medium' | 'high' | 'urgent';
+  attachedFileName?: string;
 }

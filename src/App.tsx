@@ -1,55 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import CoreFocus from './components/CoreFocus';
-import Metrics from './components/Metrics';
-import MediaGrid from './components/MediaGrid';
+import CoreAreas from './components/CoreAreas';
+import Milestones from './components/Milestones';
 import Team from './components/Team';
-import Insights from './components/Insights';
+import Affiliations from './components/Affiliations';
+import BlogEvents from './components/BlogEvents';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import AdminPanel from './components/AdminPanel';
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState('home');
   const [partnerConsultationTopic, setPartnerConsultationTopic] = useState<string>('');
-  const [prefilledData, setPrefilledData] = useState<{
-    fullName: string;
-    organization: string;
-    subject: string;
-    message: string;
-  } | null>(null);
-
-  // Intersection Observer to scroll-highlight navy navbar items
-  useEffect(() => {
-    const sections = ['home', 'core-focus', 'metrics', 'media-grid', 'team', 'insights', 'contact'];
-    const observers = sections.map((secId) => {
-      const element = document.getElementById(secId);
-      if (!element) return null;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(secId);
-          }
-        },
-        { threshold: 0.15, rootMargin: '-80px 0px -30% 0px' }
-      );
-      observer.observe(element);
-      return { observer, element };
-    });
-
-    return () => {
-      observers.forEach((obs) => {
-        if (obs) obs.observer.unobserve(obs.element);
-      });
-    };
-  }, []);
+  const [currentView, setCurrentView] = useState<'public' | 'admin'>('public');
 
   const handleNavigate = (sectionId: string) => {
-    setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
     if (element) {
-      const offset = 80; // height of fixed top navbar container
+      const offset = 100; // Offset height due to fixed top utility header & navigation
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;
@@ -67,43 +35,46 @@ export default function App() {
     handleNavigate('contact');
   };
 
+  // If Admin panel is open, render standalone dashboard layout view
+  if (currentView === 'admin') {
+    return <AdminPanel onClose={() => setCurrentView('public')} />;
+  }
+
   return (
     <div 
       id="app-root-frame" 
       className="relative min-h-screen bg-white text-slate-900 font-sans overflow-x-hidden selection:bg-[#0F3A6B]/15 selection:text-slate-950"
     >
       
-      {/* 1. Rigid Geometric Header Navigation */}
-      <Navbar activeSection={activeSection} onNavigate={handleNavigate} />
+      {/* SECTION 1: HEADER & TOP NAVIGATION BAR */}
+      <Navbar onNavigate={handleNavigate} onOpenAdmin={() => setCurrentView('admin')} />
 
-      {/* 2. Full-bleed Immersive Hero Segment */}
+      {/* SECTION 2: HERO CAROUSEL / SLIDER */}
       <Hero onLearnMore={handleNavigate} />
 
-      {/* 3. Vertical Structured Core Advisory Tracks */}
-      <CoreFocus onSelectTrack={handleContactPartner} />
+      {/* SECTION 3: CORE AREAS */}
+      <CoreAreas onLearnMore={handleContactPartner} />
 
-      {/* 5. Light-gray Circular Metric Badges Area */}
-      <Metrics />
+      {/* SECTION 4: KEY MILESTONES (STATS BANNER) */}
+      <Milestones />
 
-      {/* 6. Flat Administrative Search & Media Report Grid */}
-      <MediaGrid />
-
-      {/* 7. Principal Board of Partners */}
+      {/* SECTION 5: OUR TEAM */}
       <Team onContactPartner={handleContactPartner} />
 
-      {/* 8. Intelligence Memorandums & Insights Bento Deck */}
-      <Insights />
+      {/* SECTION 6: PROFESSIONAL AFFILIATIONS */}
+      <Affiliations />
 
-      {/* 9. Core Registry Consultation Office (Contact Block) */}
+      {/* SECTION 7: BLOG & EVENTS */}
+      <BlogEvents />
+
+      {/* SECURE ENGAGEMENT SUB-SECTION (Matches the nav Contact link perfectly) */}
       <Contact 
         partnerConsultationTopic={partnerConsultationTopic} 
         clearTopic={() => setPartnerConsultationTopic('')} 
-        prefilledData={prefilledData}
-        clearPrefilledData={() => setPrefilledData(null)}
       />
 
-      {/* 10. Immersive Newsletter Area & Structured Main Footer */}
-      <Footer onScrollToTop={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+      {/* SECTION 8: FOOTER */}
+      <Footer onNavigate={handleNavigate} onOpenAdmin={() => setCurrentView('admin')} />
 
     </div>
   );

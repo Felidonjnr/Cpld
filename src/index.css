@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Montserrat", "Inter", sans-serif; /* As requested, commanding geometric sans-serif is the head theme */
+  --font-serif: "Plus Jakarta Sans", "Inter", sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
   
@@ -17,18 +17,24 @@ html {
 body {
   background-color: #FFFFFF;
   color: #0F172A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom layout scrollbars and highlights */
+/* Custom layout scrollbars and highlights with friendly rounded curves */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #F1F5F9;
+  background: #F8FAFC;
 }
 ::-webkit-scrollbar-thumb {
   background: #0F3A6B;
-  border-radius: 0px;
+  border-radius: 10px;
+  border: 2px solid #F8FAFC;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #1d4ed8;
 }
 
 /* Print simulation styling */
@@ -38,3 +44,95 @@ body {
     color: black;
   }
 }
+
+/* Institutional Trust Marquee Animation & Filter Rules */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-infinite {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+.animate-marquee-infinite:hover {
+  animation-play-state: paused;
+}
+
+.institutional-logo-item {
+  filter: grayscale(100%) contrast(120%) opacity(50%);
+  transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.institutional-logo-item:hover {
+  filter: grayscale(0%) contrast(100%) opacity(100%);
+  transform: translateY(-2px);
+}
+
+/* Kinetic Carousel Portal Transitions */
+@keyframes portal-enter-up {
+  0% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes portal-exit-up {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120%);
+    opacity: 0;
+  }
+}
+
+@keyframes mask-text-enter-up {
+  0% {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes mask-text-exit-up {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110%);
+    opacity: 0;
+  }
+}
+
+.animate-portal-enter {
+  animation: portal-enter-up 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-portal-exit {
+  animation: portal-exit-up 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-mask-text-enter {
+  animation: mask-text-enter-up 0.70s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-mask-text-exit {
+  animation: mask-text-exit-up 0.70s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+

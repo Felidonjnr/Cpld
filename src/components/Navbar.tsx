@@ -1,31 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Landmark, ShieldCheck } from 'lucide-react';
+import { Menu, X, MapPin, Phone, Facebook, Twitter, Github, Sparkles } from 'lucide-react';
+import { siteConfig } from '../data';
 
 interface NavbarProps {
-  activeSection: string;
   onNavigate: (sectionId: string) => void;
+  onOpenAdmin: () => void;
 }
 
-export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
+export default function Navbar({ onNavigate, onOpenAdmin }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      setIsScrolled(window.scrollY > 40);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const navLinks = [
-    { name: 'HOME', id: 'home' },
-    { name: 'ADVISORY MODULES', id: 'core-focus' },
-    { name: 'IMPACT METRICS', id: 'metrics' },
-    { name: 'DOCUMENT ATTACHMENTS', id: 'media-grid' },
-    { name: 'PRINCIPAL BOARD', id: 'team' },
-    { name: 'INTELLIGENCE MEMOS', id: 'insights' }
-  ];
 
   const handleLinkClick = (id: string) => {
     setIsMenuOpen(false);
@@ -33,155 +25,220 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
   };
 
   return (
-    <>
-      <header
-        id="app-header"
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-white border-b border-slate-200/80 shadow-sm py-0 h-16'
-            : 'bg-white border-b border-slate-100 py-0 h-20'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-          <div className="flex items-center justify-between h-full">
-            
-            {/* Left: Brand Identity Logo */}
-            <div 
-              id="brand-logo-container"
-              className="flex-shrink-0 cursor-pointer flex items-center space-x-3"
-              onClick={() => handleLinkClick('home')}
-            >
-              <div className="p-2 bg-[#0F3A6B] text-white rounded-none">
-                <Landmark size={20} className="stroke-[2]" />
-              </div>
-              <div id="brand-logo" className="flex flex-col">
-                <span className="font-serif text-sm sm:text-base tracking-tight text-[#0F3A6B] font-black leading-none uppercase">
-                  DEVELOPMENT CONSULT
-                </span>
-                <span className="flex items-center gap-1 mt-0.5">
-                  <span className="text-[10px] font-sans tracking-[0.24em] text-slate-500 uppercase font-bold">
-                    PLUS LIMITED
-                  </span>
-                  <span className="h-1 w-1 bg-[#0F3A6B]" />
-                  <span className="text-[9px] font-mono tracking-wider text-slate-500 font-bold">
-                    DPCL
-                  </span>
-                </span>
-              </div>
+    <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+      
+      {/* SECTION 1A: THIN TOP UTILITY BAR (Deep Corporate Navy Accent) */}
+      <div className="bg-[#0B2340] text-slate-200 text-[11px] py-2.5 px-4 sm:px-6 lg:px-8 border-b border-white/5 font-sans relative z-10 hidden md:block select-none">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+          
+          {/* Contact and address left segments */}
+          <div className="flex flex-wrap items-center gap-5 justify-center sm:justify-start">
+            <div className="flex items-center gap-1.5 text-slate-300">
+              <MapPin size={11} className="text-[#3b82f6]" />
+              <span className="font-medium">
+                {siteConfig.contactAddress}
+              </span>
             </div>
-
-            {/* Center: Desktop Institutional Navigation */}
-            <nav id="desktop-navigation" className="hidden lg:flex items-center justify-center space-x-6 h-full">
-              {navLinks.map((link) => (
-                <button
-                  key={link.id}
-                  id={`link-${link.id}`}
-                  onClick={() => handleLinkClick(link.id)}
-                  className={`text-[11px] font-sans tracking-wider uppercase transition-colors duration-150 relative h-full flex items-center px-1 font-bold cursor-pointer ${
-                    activeSection === link.id
-                      ? 'text-[#0F3A6B]'
-                      : 'text-slate-500 hover:text-[#0F3A6B]'
-                  }`}
-                >
-                  {link.name}
-                  {activeSection === link.id && (
-                    <span 
-                      id={`indicator-${link.id}`}
-                      className="absolute bottom-0 left-0 w-full h-[3px] bg-[#0F3A6B]" 
-                    />
-                  )}
-                </button>
-              ))}
-            </nav>
-
-            {/* Right: Contact Us fully block matching navigation height */}
-            <div className="hidden sm:flex items-center h-full">
-              <button
-                id="header-contact-btn"
-                onClick={() => handleLinkClick('contact')}
-                className="bg-[#0F3A6B] text-white hover:bg-[#0B2C52] text-xs font-serif tracking-widest font-black uppercase rounded-none px-8 py-3 h-full flex items-center justify-center transition-all duration-150 cursor-pointer"
-              >
-                CONTACT US
-              </button>
-            </div>
-
-            {/* Mobile menu button */}
-            <div id="mobile-toggle-box" className="flex lg:hidden items-center">
-              <button
-                id="mobile-menu-toggle"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-slate-700 hover:text-[#0F3A6B] p-2 focus:outline-none"
-                aria-label="Toggle Navigation Menu"
-              >
-                {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
-              </button>
+            <div className="flex items-center gap-1.5 text-slate-300">
+              <Phone size={11} className="text-[#3b82f6]" />
+              <span className="font-mono font-bold">{siteConfig.contactPhone}</span>
             </div>
           </div>
-        </div>
-      </header>
 
-      {/* Mobile Drawer (Absolute Sharp Geometry) */}
-      <div
-        id="mobile-nav-panel"
-        className={`fixed inset-0 z-40 transition-transform duration-300 transform lg:hidden ${
+          {/* Social connections */}
+          <div className="flex items-center gap-4">
+            <a 
+              href={siteConfig.socials.facebook} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-[#3b82f6] transition-colors"
+              title="Facebook"
+            >
+              <Facebook size={12} />
+            </a>
+            <a 
+              href={siteConfig.socials.twitter} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-[#3b82f6] transition-colors"
+              title="Twitter"
+            >
+              <Twitter size={12} />
+            </a>
+            <a 
+              href={siteConfig.socials.googlePlus} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-[#3b82f6] flex items-center gap-0.5 transition-colors font-mono font-bold text-[9px]"
+              title="Google+"
+            >
+              <span className="leading-none">G+</span>
+            </a>
+            <a 
+              href={siteConfig.socials.github} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-[#3b82f6] transition-colors"
+              title="GitHub"
+            >
+              <Github size={12} />
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      {/* SECTION 1B: MAIN NAVIGATION BAR (Pristine White) */}
+      <nav 
+        className={`w-full transition-all duration-300 bg-white ${
+          isScrolled 
+            ? 'shadow-lg py-3 border-b border-slate-200' 
+            : 'border-b border-slate-200/60 py-4.5'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            
+            {/* Logo Group */}
+            <div 
+              className="flex items-center space-x-2.5 cursor-pointer shrink-0 select-none text-left"
+              onClick={() => handleLinkClick('home')}
+            >
+              <div className="h-9 w-9 bg-[#0F3A6B] flex items-center justify-center text-white relative flex-shrink-0 rounded-lg shadow-sm">
+                <span className="font-serif font-black text-sm tracking-tighter">{siteConfig.logoText}</span>
+                <span className="absolute bottom-0.5 right-0.5 h-1.5 w-1.5 bg-[#3b82f6] rounded-full" />
+              </div>
+              <div className="flex flex-col">
+                <h1 className="font-sans text-sm sm:text-base font-black tracking-tight text-[#0F3A6B] leading-none uppercase">
+                  {siteConfig.companyName}
+                </h1>
+                <span className="text-[9px] font-mono tracking-[0.22em] text-slate-500 font-bold mt-0.5 uppercase">
+                  PLUS LTD • {siteConfig.shortName}
+                </span>
+              </div>
+            </div>
+
+            {/* Main right-aligned Navigation Links */}
+            <div className="hidden md:flex items-center space-x-8 font-sans">
+              <button 
+                onClick={() => handleLinkClick('home')} 
+                className="text-[12px] font-extrabold tracking-widest text-[#0F3A6B] hover:text-[#3b82f6] transition-colors cursor-pointer uppercase py-1 relative"
+              >
+                HOME
+              </button>
+              
+              <button 
+                onClick={() => handleLinkClick('core-areas')} 
+                className="text-[12px] font-extrabold tracking-widest text-slate-600 hover:text-[#0F3A6B] transition-colors cursor-pointer uppercase py-1 relative"
+              >
+                ABOUT
+              </button>
+
+              <button 
+                onClick={onOpenAdmin} 
+                className="text-[12px] font-extrabold tracking-widest text-[#3b82f6] hover:text-[#0F3A6B] transition-colors cursor-pointer uppercase py-1 flex items-center gap-1 font-mono"
+              >
+                <Sparkles size={12} className="text-[#3b82f6] animate-pulse" />
+                <span>ADMIN CMS</span>
+              </button>
+              
+              <button 
+                onClick={() => handleLinkClick('contact')} 
+                className="bg-[#0F3A6B] text-white hover:bg-[#1d4ed8] text-[11px] font-extrabold tracking-widest uppercase px-6 py-2.5 transition-all duration-300 cursor-pointer rounded-full shadow-sm hover:shadow-md"
+              >
+                CONTACT
+              </button>
+            </div>
+
+            {/* Mobile hamburger toggler */}
+            <div className="md:hidden flex items-center">
+              <button 
+                onClick={() => setIsMenuOpen(!isMenuOpen)} 
+                className="text-[#0F3A6B] focus:outline-none p-1.5"
+                aria-label="Toggle navigation menu"
+              >
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </nav>
+
+      {/* MOBILE FULL-DRAWER NAVIGATION PANEL */}
+      <div 
+        className={`fixed inset-0 z-40 transition-transform duration-300 transform md:hidden ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        {/* Backdrop overlay */}
-        <div
-          id="mobile-overlay"
-          onClick={() => setIsMenuOpen(false)}
-          className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs"
+        <div 
+          className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs" 
+          onClick={() => setIsMenuOpen(false)} 
         />
-
-        {/* Sidebar Container */}
-        <div id="mobile-sidebar-container" className="fixed top-0 right-0 w-4/5 max-w-sm h-full bg-white border-l border-slate-200 px-6 py-6 flex flex-col justify-between overflow-y-auto rounded-none">
-          <div>
-            <div className="flex items-center justify-between pb-6 border-b border-slate-100">
-              <span className="font-serif text-xs tracking-wider text-[#0F3A6B] font-extrabold uppercase flex items-center gap-2">
-                <ShieldCheck size={16} /> ADMINISTRATOR ACCESS
+        
+        <div className="fixed top-0 right-0 w-[80%] max-w-xs h-full bg-white shadow-2xl border-l border-slate-200 p-6 flex flex-col justify-between overflow-y-auto">
+          <div className="space-y-8 text-left">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+              <span className="font-serif text-xs tracking-wider text-[#0F3A6B] font-extrabold uppercase">
+                {siteConfig.shortName} PORTAL
               </span>
-              <button
-                id="sidebar-close"
-                onClick={() => setIsMenuOpen(false)}
-                className="text-slate-400 hover:text-slate-950"
-              >
+              <button onClick={() => setIsMenuOpen(false)} className="text-slate-400 hover:text-slate-900">
                 <X size={20} />
               </button>
             </div>
 
-            {/* Mobile Links List */}
-            <nav className="mt-8 flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <button
-                  key={link.id}
-                  id={`mobile-link-${link.id}`}
-                  onClick={() => handleLinkClick(link.id)}
-                  className={`text-left text-xs font-sans tracking-wide uppercase py-3 px-3 rounded-none font-bold transition-all ${
-                    activeSection === link.id
-                      ? 'bg-slate-100 text-[#0F3A6B] border-l-4 border-[#0F3A6B]'
-                      : 'text-slate-600 hover:bg-slate-50'
-                  }`}
-                >
-                  {link.name}
-                </button>
-              ))}
+            <nav className="flex flex-col space-y-2">
+              <button 
+                onClick={() => handleLinkClick('home')}
+                className="p-3 text-[#0F3A6B] text-xs font-black tracking-widest uppercase hover:bg-[#0F3A6B]/5 rounded-xl text-left bg-[#0F3A6B]/5 transition-all"
+              >
+                HOME
+              </button>
+              <button 
+                onClick={() => handleLinkClick('core-areas')}
+                className="p-3 text-slate-600 hover:text-[#0F3A6B] text-xs font-black tracking-widest uppercase hover:bg-slate-50 rounded-xl text-left transition-all"
+              >
+                ABOUT
+              </button>
+              <button 
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  onOpenAdmin();
+                }}
+                className="p-3 text-[#3b82f6] hover:text-[#0F3A6B] text-xs font-black tracking-widest uppercase hover:bg-slate-50 rounded-xl text-left transition-all"
+              >
+                ADMIN CMS
+              </button>
+              <button 
+                onClick={() => handleLinkClick('contact')}
+                className="p-3 text-slate-600 hover:text-[#0F3A6B] text-xs font-black tracking-widest uppercase hover:bg-slate-50 rounded-xl text-left transition-all"
+              >
+                CONTACT
+              </button>
             </nav>
           </div>
 
-          <div id="mobile-sidebar-footer" className="pt-6 border-t border-slate-100 space-y-4">
-            <button
-              onClick={() => handleLinkClick('contact')}
-              className="bg-[#0F3A6B] text-white py-3 w-full text-xs font-serif tracking-widest uppercase font-extrabold rounded-none block text-center"
-            >
-              DIRECT CONTACT UNIT
-            </button>
-            <p className="text-[10px] text-center text-slate-400">
-              Development Consult Plus Limited. Abuja HQ.
-            </p>
+          <div className="pt-6 border-t border-slate-100 space-y-4 text-xs font-sans text-slate-500 text-left">
+            <div>
+              <p className="font-bold text-[#0F3A6B] uppercase text-[10px] tracking-wider mb-1">
+                SECRETARIAT ADDRESS
+              </p>
+              <p className="leading-tight text-[11px]">
+                {siteConfig.contactAddress}
+              </p>
+            </div>
+            <div>
+              <p className="font-bold text-[#0F3A6B] uppercase text-[10px] tracking-wider mb-1">
+                CONTACT PHONE
+              </p>
+              <p className="font-mono font-bold text-[11px] text-slate-800">
+                {siteConfig.contactPhone}
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </>
+
+    </header>
   );
 }

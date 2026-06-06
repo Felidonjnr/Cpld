@@ -1,217 +1,266 @@
-import { HeroSlide, FocusArea, MetricItem, TeamMember, InsightItem, ProjectItem } from './types';
+export interface SiteConfig {
+  companyName: string;
+  shortName: string;
+  logoText: string;
+  logoPath: string; // Easily replaceable path or indicator
+  contactEmail: string;
+  contactPhone: string;
+  contactAddress: string;
+  officeHours: string;
+  regNumber: string;
+  socials: {
+    facebook: string;
+    twitter: string;
+    github: string;
+    googlePlus: string;
+  };
+}
 
-export const HERO_SLIDES: HeroSlide[] = [
+export const siteConfig: SiteConfig = {
+  companyName: "Development Consult Plus Limited",
+  shortName: "DPCL",
+  logoText: "DP",
+  logoPath: "/assets/logo.png",
+  contactEmail: "k.ukwaja@dpcl-consulting.com",
+  contactPhone: "+234.703.068.4093",
+  contactAddress: "3rd Floor, Valley Plaza, Plot 215, Aminu Kano Crescent, Wuse II, Abuja, FCT, Nigeria.",
+  officeHours: "Monday — Friday: 08:30 to 17:00 (GMT+1 / West Africa Time)",
+  regNumber: "RC-2021-992-DPCL",
+  socials: {
+    facebook: "https://facebook.com",
+    twitter: "https://twitter.com",
+    github: "https://github.com",
+    googlePlus: "https://plus.google.com"
+  }
+};
+
+export interface HeroSlideItem {
+  id: number;
+  badge: string;
+  title: string;
+  subtitle: string;
+  imageUrl: string;
+}
+
+export const HERO_SLIDES: HeroSlideItem[] = [
   {
     id: 1,
-    title: "DRIVING SUSTAINABLE TRANSFORMATION ACROSS AFRICA",
-    subtitle: "Partnering with global institutions and state governments to build resilient systems, strengthen policy frameworks, and drive sovereign development initiatives with absolute transparency.",
-    badge: "BILATERAL ALLIANCE & POLICY",
-    imageTheme: "health"
+    badge: "EXPERT ADVISORY SOLUTIONS",
+    title: "DEVELOPMENT CONSULT PLUS LIMITED",
+    subtitle: "Empowering Lives through Expertise, Vision, and Advanced Technological Endeavors.",
+    imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1600"
   },
   {
     id: 2,
-    title: "ADVANCED HEALTH SYSTEMS STRENGTHENING",
-    subtitle: "Optimizing institutional health delivery frameworks, subnational insurance policies, and clinical support protocols for maximum human and sovereign impact.",
-    badge: "INSTITUTIONAL CLINICAL DELIVERY"
+    badge: "CAPACITY BUILDING",
+    title: "HEALTH SYSTEMS STRENGTHENING",
+    subtitle: "Health Enhancements Achieved through Leadership, Technology, and Systems Strengthening.",
+    imageUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1600"
   },
   {
     id: 3,
-    title: "GOVERNANCE & CITIZEN POLICY MONITORING",
-    subtitle: "Strengthening public-private dialog, civic accountability charters, and municipal legislative metrics across primary decentralization zones.",
-    badge: "LEGISLATIVE ACCOUNTABILITY"
+    badge: "FISCAL ACCOUNTABILITY",
+    title: "PUBLIC FINANCIAL MANAGEMENT",
+    subtitle: "Financial Integrity, Strategy, Compliance, Accountability, and Leadership for Wise Economic Management.",
+    imageUrl: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=1600"
+  },
+  {
+    id: 4,
+    badge: "DEMAND SIDE FINANCING",
+    title: "HEALTH FINANCING",
+    subtitle: "Financially Upholding Needs for Diverse Wellness Ensuring Lifelong Liveliness.",
+    imageUrl: "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80&w=1600"
   }
 ];
 
-export const CORE_FOCUS_AREAS: FocusArea[] = [
+export interface CoreAreaItem {
+  id: string;
+  title: string;
+  text: string;
+  badge: string;
+  iconName: string; // lucide icon name representation
+  routeLink: string;
+}
+
+export const CORE_AREAS_DATA: CoreAreaItem[] = [
   {
     id: "health-systems",
-    number: "01",
     title: "Health Systems Strengthening",
-    description: "Institutional capacity building, resource optimization, and clinical delivery advisory.",
-    outcomes: [
-      "Subnational financing architectures",
-      "Quality assurance and clinical protocol audits",
-      "Primary health care supply chain integration"
-    ],
-    partnerNetworks: [
-      "The Global Fund and Philanthropic Networks",
-      "Federal Ministry of Health & State Primary Health Schemes"
-    ]
+    text: "Foreign Commonwealth and Development Office (FCDO) funded Health Programme in Nigeria, focusing on healthcare system optimization, decentralized medical care, and professional development training.",
+    badge: "FCDO",
+    iconName: "Shield",
+    routeLink: "#contact"
   },
   {
-    id: "governance",
-    number: "02",
+    id: "financial-mgmt",
+    title: "Public Financial Management",
+    text: "Federal Ministry of Finance and Nigeria Governors' Forum funded Strengthening the Fiscal Sustainability, Transparency and Accountability of Nigerian States (SFTAS) framework.",
+    badge: "SFTAS",
+    iconName: "Landmark",
+    routeLink: "#contact"
+  },
+  {
+    id: "health-financing",
+    title: "Health Financing",
+    text: "Bill and Melinda Gates Foundation (BMGF) funded Demand Side Financing (DSF) Program implemented by Results for Development, Washington D.C., in collaboration with the Kaduna State Contributory Health Management Authority (KADCHMA).",
+    badge: "BMGF & R4D",
+    iconName: "Coins",
+    routeLink: "#contact"
+  },
+  {
+    id: "governance-engagement",
     title: "Governance & Citizen Engagement",
-    description: "Strengthening public policy, policy monitoring, transparency, and public-private dialogue.",
-    outcomes: [
-      "Inclusive subnational policy audit tools",
-      "State-level executive briefing frameworks",
-      "Social contract monitoring systems"
-    ],
-    partnerNetworks: [
-      "FCDO Legislative Alignments",
-      "State Executive Councils & Civic Coalitions"
-    ]
-  },
-  {
-    id: "institutional-dev",
-    number: "03",
-    title: "Institutional Development & Strategy",
-    description: "Tailored advisory frameworks for international donors and state agencies.",
-    outcomes: [
-      "Multi-sectoral program blueprints",
-      "Operational performance management tools",
-      "Bespoke change management guidelines"
-    ],
-    partnerNetworks: [
-      "UN Agencies & Bilateral Missions",
-      "State Bureaus of Public Service Reforms"
-    ]
-  },
-  {
-    id: "strategic-partnerships",
-    number: "04",
-    title: "Strategic Partnerships",
-    description: "Connecting global funding networks (e.g., FCDO, Gates Foundation) with local implementation frameworks.",
-    outcomes: [
-      "Subgrant administrative frameworks",
-      "Private donor compliance guidelines",
-      "Zonal operational safety reports"
-    ],
-    partnerNetworks: [
-      "International Development Banks",
-      "Civil Society Coalition for Accountability"
-    ]
+    text: "Empowering communities through fiscal audits, interactive capacity building program implementations, health advocacy boards, and policy compliance verification tasks.",
+    badge: "GOVERNANCE",
+    iconName: "Users",
+    routeLink: "#contact"
   }
 ];
 
-export const GENERAL_METRICS: MetricItem[] = [
-  {
-    id: "interventions",
-    value: "15+",
-    label: "State Interventions Deployed",
-    description: "Rigorous subnational advisory matrices implementing regional health policy and public audits.",
-    scopeLabel: "Sub-Saharan Coverage"
-  },
-  {
-    id: "projects",
-    value: "40+",
-    label: "Global Partner Projects Executed",
-    description: "Successful joint portfolios completed under global donor-compliance timelines and fiscal regimes.",
-    scopeLabel: "Accredited Portfolios"
-  },
-  {
-    id: "accountability",
-    value: "100%",
-    label: "Project Fiscal Accountability",
-    description: "Pristine administrative, operational, and auditing scores verified by international compliance bodies.",
-    scopeLabel: "Absolute Compliance"
-  }
+export interface MilestoneItem {
+  id: string;
+  target: number;
+  label: string;
+  displayValue: string; // display string representation like "45+", "12", etc.
+  suffix?: string;
+  iconName: string;
+}
+
+export const MILESTONES_DATA: MilestoneItem[] = [
+  { id: "partners", target: 5, displayValue: "5+", label: "Professional Affiliations", iconName: "Award" },
+  { id: "projects", target: 45, displayValue: "45+", label: "Projects Coordinated", iconName: "Briefcase" },
+  { id: "facilities", target: 650, displayValue: "650+", label: "Facilities Supported", iconName: "Landmark" },
+  { id: "states", target: 12, displayValue: "12", label: "States Impacted", iconName: "CheckCircle" }
 ];
 
-export const LEADERSHIP_TEAM: TeamMember[] = [
+export interface TeamProfileItem {
+  id: string;
+  name: string;
+  role: string;
+  bio: string;
+  isPending: boolean;
+  avatarText: string;
+  avatarUrl?: string; // easy replacement for custom team avatar paths
+}
+
+export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
+  {
+    id: "ebenezer-uchenna",
+    name: "EBENEZER UCHENNA",
+    role: "PRINCIPAL PARTNER",
+    bio: "As the principal partner, Uche Ebenezer brings extensive experience in the health development sector across Nigeria and sub-Saharan Africa. Specializing in health systems strengthening and health financing, Uche has contributed to projects funded by leading organizations like UNAIDS, USAID, BMGF, The World Bank, and The Global Fund.",
+    isPending: false,
+    avatarText: "EU",
+    avatarUrl: ""
+  },
+  {
+    id: "maikano-adamu",
+    name: "MAIKANO ADAMU",
+    role: "SENIOR MEDICAL REFORM PARTNER",
+    bio: "Maikano Adamu, a distinguished medical doctor, boasts a comprehensive academic background, holding a Master's in Public Health from London Metropolitan University, United Kingdom, and a Master's in Health Policy Planning and Financing from the prestigious London School of Economics and London School of Hygiene and Tropical Medicine.",
+    isPending: false,
+    avatarText: "MA",
+    avatarUrl: ""
+  },
   {
     id: "ukwaja-kingsley",
-    name: "Ukwaja Kingsley",
-    role: "Senior Partner / Managing Director",
-    qualification: "MD, MPH, FCP",
-    bio: "A distinguished health systems specialist with over 18 years of advisory experience with international institutions including USAID, FCDO, and the Global Fund. Expert in crafting subnational strategic health development plans and evidence-informed health policies across Africa.",
-    specialization: "Global Health Policy, Sustainable Financing & Resource Optimization",
-    email: "k.ukwaja@dpcl-consulting.com",
-    avatarText: "UK"
+    name: "UKWAJA KINGSLEY",
+    role: "PROGRAM AUDIT SPECIALIST",
+    bio: "Kingsley is an expert public health consultant with credentials in analytical diagnostic testing and system transparency audits. He coordinates active advisory operations with multiple international agencies.",
+    isPending: false,
+    avatarText: "UK",
+    avatarUrl: ""
   },
   {
     id: "iro-okechukwu",
-    name: "Iro Okechukwu",
-    role: "Director of Strategy & Operations",
-    qualification: "MBA, PMP, Lead Auditor",
-    bio: "An accomplished operations architect in governance, legislative reform, and program compliance. Expert in aligning international donor models with regional policy guidelines, ensuring absolute transparency, high accountability ratings, and optimal resource deployments.",
-    specialization: "Public Sector Re-engineering, Strategic Auditing & Program Management",
-    email: "o.iro@dpcl-consulting.com",
-    avatarText: "IO"
+    name: "IRO OKECHUKWU",
+    role: "LEAD OPERATIONS CONSULTANT",
+    bio: "Okechukwu leads our on-the-ground project monitoring frameworks, ensuring rigorous policy administration and execution across remote primary healthcare clinics.",
+    isPending: false,
+    avatarText: "IO",
+    avatarUrl: ""
   }
 ];
 
-export const INSIGHTS_NEWS: InsightItem[] = [
+export interface AffiliationItem {
+  id: string;
+  fullName: string;
+  initials: string;
+  iconName: string;
+  color: string;
+  svgTag?: string; // custom raw SVG markup option if requested
+}
+
+export const AFFILIATIONS_DATA: AffiliationItem[] = [
   {
-    id: "kaduna-interview",
-    category: "EXECUTIVE DIALOGUE",
-    title: "Kaduna State Government Executive Interview on Governance Reforms",
-    summary: "Reviewing recent strategic frameworks on governance and development deployment across northwestern subnational zones, prioritizing resource optimization and policy alignment.",
-    date: "May 20, 2026",
-    readTime: "7 min read",
-    author: "DPCL Advisory Council"
+    id: "aff-1",
+    fullName: "INSTITUTE OF HEALTH INSURANCE AND MANAGED CARE OF NIGERIA",
+    initials: "IHIMN",
+    iconName: "activity",
+    color: "#3b82f6"
   },
   {
-    id: "healthy-living",
-    category: "PUBLIC HEALTH BLUEPRINT",
-    title: "Building Healthy Lifestyles & Living: Community Infrastructure Strategy",
-    summary: "A proactive look at sustainable community health infrastructure development, exploring localized primary care funding pathways and state-supported health models.",
-    date: "April 12, 2026",
-    readTime: "12 min read",
-    author: "Dr. K. Ukwaja"
+    id: "aff-2",
+    fullName: "PHARMACEUTICAL SOCIETY OF NIGERIA",
+    initials: "PSN",
+    iconName: "pill",
+    color: "#10b981"
+  },
+  {
+    id: "aff-3",
+    fullName: "NIGERIA MEDICAL ASSOCIATION",
+    initials: "NMA",
+    iconName: "heartpulse",
+    color: "#ef4444"
+  },
+  {
+    id: "aff-4",
+    fullName: "ROYAL SOCIETY OF PUBLIC HEALTH OF GREAT BRITAIN",
+    initials: "RSPH",
+    iconName: "globe",
+    color: "#f59e0b"
+  },
+  {
+    id: "aff-5",
+    fullName: "NATIONAL ASSOCIATION FOR PUBLIC HEALTH PRACTITIONERS COUNCIL IN NIGERIA",
+    initials: "NAPHPPCN",
+    iconName: "shieldcheck",
+    color: "#a855f7"
   }
 ];
 
-export const PROJECTS_REPOSITORY: ProjectItem[] = [
+export interface BlogItem {
+  id: string;
+  title: string;
+  date: string;
+  imageUrl: string;
+  text: string;
+  category: string;
+}
+
+export const BLOGS_DATA: BlogItem[] = [
   {
-    id: "proj-1",
-    title: "Subnational Health Financing Audit Report",
-    category: "health",
-    location: "Kaduna & Abuja, Nigeria",
-    year: "2026",
-    imageUrl: "HEALTH",
-    docCode: "DPCL-HFA-2026",
-    summary: "Comprehensive fiscal assessment reviewing allocation efficiencies, state insurance framework penetrations, and primary healthcare fund utilization tracks."
+    id: "blog-1",
+    title: "USA, International Triathlon Event",
+    date: "June 12, 2026",
+    imageUrl: "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?auto=format&fit=crop&w=600&q=80",
+    text: "Reviewing international healthcare preparedness guidelines, participant support benchmarks, and emergency response structures compiled for global extreme athletic formats.",
+    category: "HEALTH POLICY"
   },
   {
-    id: "proj-2",
-    title: "Social Contract Accountability Framework & Briefing",
-    category: "governance",
-    location: "Kano & Kaduna Zones",
-    year: "2025",
-    imageUrl: "GOV",
-    docCode: "DPCL-SCA-05",
-    summary: "Institutional tools aligning civic dialogue metrics with local government planning commissions to foster policy transparency and state accountability covenants."
+    id: "blog-2",
+    title: "New Device Developed by Microsoft",
+    date: "May 28, 2026",
+    imageUrl: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
+    text: "An administrative breakdown exploring cloud-connected diagnostic integration tools designed by Microsoft to improve clinical accuracy in remote decentralization clinics.",
+    category: "DIGITAL INNOVATION"
   },
   {
-    id: "proj-3",
-    title: "Multisectoral Donor Strategy Advisory Handbook",
-    category: "strategy",
-    location: "Abuja HQ Secretariat",
-    year: "2026",
-    imageUrl: "STRAT",
-    docCode: "DPCL-MSH-09",
-    summary: "A robust regulatory handbook outlining operational guidelines, compliance limits, and risk-mitigation layers for major bilateral philanthropic donors."
-  },
-  {
-    id: "proj-4",
-    title: "Sub-Grant Accountability Verification Action Report",
-    category: "governance",
-    location: "Sub-Saharan Sovereign Partners",
-    year: "2025",
-    imageUrl: "AUDIT",
-    docCode: "DPCL-SGV-25",
-    summary: "Fiscal monitoring checklists and evidence-based reviews highlighting implementation speeds and resource transparency benchmarks."
-  },
-  {
-    id: "proj-5",
-    title: "Regional Clinical Delivery Protocol and Guidelines Dashboard",
-    category: "health",
-    location: "Wuse II & Abuja Outposts",
-    year: "2026",
-    imageUrl: "MEDIC",
-    docCode: "DPCL-CDP-26",
-    summary: "Systematic guidelines advising state committees on primary clinical performance indicators, drug procurement security, and state-wide immunization tracks."
-  },
-  {
-    id: "proj-6",
-    title: "Strategic Transition Model & Public Sector Re-engineering Roadmap",
-    category: "strategy",
-    location: "Inter-State Public Service Bureau",
-    year: "2025",
-    imageUrl: "REFORM",
-    docCode: "DPCL-STR-25",
-    summary: "A structural transition model ensuring minimum operational downtime during systemic administrative transitions in state institutions."
+    id: "blog-3",
+    title: "Healthy Lifestyle & Living",
+    date: "April 15, 2026",
+    imageUrl: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=600&q=80",
+    text: "Strategic steps targeting localized preventive disease frameworks, nutrition campaigns, physical fitness integration, and active community wellness guidelines.",
+    category: "PUBLIC HYGIENE & WELLNESS"
   }
 ];
