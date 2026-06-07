@@ -5,9 +5,11 @@ import { siteConfig } from '../data';
 interface NavbarProps {
   onNavigate: (sectionId: string) => void;
   onOpenAdmin: () => void;
+  config?: any;
 }
 
-export default function Navbar({ onNavigate, onOpenAdmin }: NavbarProps) {
+export default function Navbar({ onNavigate, onOpenAdmin, config }: NavbarProps) {
+  const cfg = config || siteConfig;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -36,19 +38,19 @@ export default function Navbar({ onNavigate, onOpenAdmin }: NavbarProps) {
             <div className="flex items-center gap-1.5 text-slate-300">
               <MapPin size={11} className="text-[#3b82f6]" />
               <span className="font-medium">
-                {siteConfig.contactAddress}
+                {cfg.contactAddress}
               </span>
             </div>
             <div className="flex items-center gap-1.5 text-slate-300">
               <Phone size={11} className="text-[#3b82f6]" />
-              <span className="font-mono font-bold">{siteConfig.contactPhone}</span>
+              <span className="font-mono font-bold">{cfg.contactPhone}</span>
             </div>
           </div>
 
           {/* Social connections */}
           <div className="flex items-center gap-4">
             <a 
-              href={siteConfig.socials.facebook} 
+              href={cfg.socials?.facebook || 'https://facebook.com'} 
               target="_blank" 
               rel="noopener noreferrer" 
               className="hover:text-[#3b82f6] transition-colors"
@@ -57,7 +59,7 @@ export default function Navbar({ onNavigate, onOpenAdmin }: NavbarProps) {
               <Facebook size={12} />
             </a>
             <a 
-              href={siteConfig.socials.twitter} 
+              href={cfg.socials?.twitter || 'https://twitter.com'} 
               target="_blank" 
               rel="noopener noreferrer" 
               className="hover:text-[#3b82f6] transition-colors"
@@ -66,7 +68,7 @@ export default function Navbar({ onNavigate, onOpenAdmin }: NavbarProps) {
               <Twitter size={12} />
             </a>
             <a 
-              href={siteConfig.socials.googlePlus} 
+              href={cfg.socials?.googlePlus || 'https://plus.google.com'} 
               target="_blank" 
               rel="noopener noreferrer" 
               className="hover:text-[#3b82f6] flex items-center gap-0.5 transition-colors font-mono font-bold text-[9px]"
@@ -75,7 +77,7 @@ export default function Navbar({ onNavigate, onOpenAdmin }: NavbarProps) {
               <span className="leading-none">G+</span>
             </a>
             <a 
-              href={siteConfig.socials.github} 
+              href={cfg.socials?.github || 'https://github.com'} 
               target="_blank" 
               rel="noopener noreferrer" 
               className="hover:text-[#3b82f6] transition-colors"
@@ -104,16 +106,27 @@ export default function Navbar({ onNavigate, onOpenAdmin }: NavbarProps) {
               className="flex items-center space-x-2.5 cursor-pointer shrink-0 select-none text-left"
               onClick={() => handleLinkClick('home')}
             >
-              <div className="h-9 w-9 bg-[#0F3A6B] flex items-center justify-center text-white relative flex-shrink-0 rounded-lg shadow-sm">
-                <span className="font-serif font-black text-sm tracking-tighter">{siteConfig.logoText}</span>
-                <span className="absolute bottom-0.5 right-0.5 h-1.5 w-1.5 bg-[#3b82f6] rounded-full" />
-              </div>
+              {cfg.logoUrl ? (
+                <div className="h-9 w-9 relative flex-shrink-0 flex items-center justify-center overflow-hidden rounded-lg bg-slate-50 border border-slate-100 p-0.5">
+                  <img 
+                    src={cfg.logoUrl} 
+                    alt={cfg.logoText} 
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              ) : (
+                <div className="h-9 w-9 bg-[#0F3A6B] flex items-center justify-center text-white relative flex-shrink-0 rounded-lg shadow-sm">
+                  <span className="font-serif font-black text-sm tracking-tighter">{cfg.logoText}</span>
+                  <span className="absolute bottom-0.5 right-0.5 h-1.5 w-1.5 bg-[#3b82f6] rounded-full" />
+                </div>
+              )}
               <div className="flex flex-col">
                 <h1 className="font-sans text-sm sm:text-base font-black tracking-tight text-[#0F3A6B] leading-none uppercase">
-                  {siteConfig.companyName}
+                  {cfg.companyName}
                 </h1>
                 <span className="text-[9px] font-mono tracking-[0.22em] text-slate-500 font-bold mt-0.5 uppercase">
-                  PLUS LTD • {siteConfig.shortName}
+                  PLUS LTD • {cfg.shortName}
                 </span>
               </div>
             </div>
@@ -168,7 +181,7 @@ export default function Navbar({ onNavigate, onOpenAdmin }: NavbarProps) {
       {/* MOBILE FULL-DRAWER NAVIGATION PANEL */}
       <div 
         className={`fixed inset-0 z-40 transition-transform duration-300 transform md:hidden ${
-          isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          isMenuOpen ? 'translate-x-0' : 'translate-x-[100%]'
         }`}
       >
         <div 
@@ -180,7 +193,7 @@ export default function Navbar({ onNavigate, onOpenAdmin }: NavbarProps) {
           <div className="space-y-8 text-left">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <span className="font-serif text-xs tracking-wider text-[#0F3A6B] font-extrabold uppercase">
-                {siteConfig.shortName} PORTAL
+                {cfg.shortName} PORTAL
               </span>
               <button onClick={() => setIsMenuOpen(false)} className="text-slate-400 hover:text-slate-900">
                 <X size={20} />
@@ -224,7 +237,7 @@ export default function Navbar({ onNavigate, onOpenAdmin }: NavbarProps) {
                 SECRETARIAT ADDRESS
               </p>
               <p className="leading-tight text-[11px]">
-                {siteConfig.contactAddress}
+                {cfg.contactAddress}
               </p>
             </div>
             <div>
@@ -232,7 +245,7 @@ export default function Navbar({ onNavigate, onOpenAdmin }: NavbarProps) {
                 CONTACT PHONE
               </p>
               <p className="font-mono font-bold text-[11px] text-slate-800">
-                {siteConfig.contactPhone}
+                {cfg.contactPhone}
               </p>
             </div>
           </div>

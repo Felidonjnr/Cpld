@@ -6,12 +6,16 @@ interface AffiliationItem {
   id: string;
   fullName: string;
   initials: string;
-  iconName: string;
+  imageUrl: string;
   color: string;
 }
 
-export default function Affiliations() {
-  const affs: AffiliationItem[] = AFFILIATIONS_DATA;
+interface AffiliationsProps {
+  items?: AffiliationItem[];
+}
+
+export default function Affiliations({ items }: AffiliationsProps) {
+  const affs: AffiliationItem[] = items || AFFILIATIONS_DATA;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState<number | null>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -52,20 +56,6 @@ export default function Affiliations() {
     hasInteractedRef.current = true;
     setPrevIndex(currentIndex);
     setCurrentIndex(index);
-  };
-
-  const renderIcon = (iconName: string, color: string) => {
-    const norm = (iconName || '').toLowerCase().trim();
-    // Dynamically retrieve lucide icon component or default to Globe
-    let IconComp = Globe;
-    if (norm === 'activity') IconComp = Activity;
-    else if (norm === 'pill') IconComp = Pill;
-    else if (norm === 'heartpulse' || norm === 'heart-pulse') IconComp = HeartPulse;
-    else if (norm === 'globe') IconComp = Globe;
-    else if (norm === 'shieldcheck' || norm === 'shield-check') IconComp = ShieldCheck;
-    else if (norm === 'landmark') IconComp = Landmark;
-    
-    return <IconComp size={36} className="stroke-[1.5]" style={{ color }} />;
   };
 
   if (affs.length === 0) return null;
@@ -118,8 +108,16 @@ export default function Affiliations() {
           {/* Exiting portal view */}
           {prevIndex !== null && prevAff && (
             <div className="absolute inset-0 flex flex-col items-center justify-center animate-portal-exit pb-2">
-              <div className="p-3.5 bg-[#091E3A]/40 rounded-full border border-slate-800 shadow-sm mb-2 text-white/90">
-                {renderIcon(prevAff.iconName, prevAff.color)}
+              <div 
+                className="p-1 w-20 h-20 rounded-xl bg-[#091E3A]/80 border shadow-sm mb-2 overflow-hidden flex items-center justify-center"
+                style={{ borderColor: prevAff.color || '#38bdf8' }}
+              >
+                <img 
+                  src={prevAff.imageUrl} 
+                  alt={prevAff.initials} 
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover rounded-lg"
+                />
               </div>
               <span className="text-[11px] font-mono font-black tracking-widest text-[#3b82f6]">
                 {prevAff.initials}
@@ -132,8 +130,16 @@ export default function Affiliations() {
             key={currentIndex} 
             className={`absolute inset-0 flex flex-col items-center justify-center pb-2 ${prevIndex !== null ? 'animate-portal-enter' : ''}`}
           >
-            <div className="p-3.5 bg-[#091E3A]/40 rounded-full border border-slate-800 shadow-sm mb-2 text-white/95 hover:scale-105 transition-transform duration-300">
-              {renderIcon(currentAff.iconName, currentAff.color)}
+            <div 
+              className="p-1 w-20 h-20 rounded-xl bg-[#091E3A]/80 border shadow-sm mb-2 overflow-hidden flex items-center justify-center hover:scale-105 transition-transform duration-300"
+              style={{ borderColor: currentAff.color || '#38bdf8' }}
+            >
+              <img 
+                src={currentAff.imageUrl} 
+                alt={currentAff.initials} 
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover rounded-lg"
+              />
             </div>
             <span className="text-[11px] font-mono font-black tracking-widest text-[#3b82f6]">
               {currentAff.initials}

@@ -5,7 +5,7 @@ import {
   X, Save, Landmark, Target, Award, Shield, Sparkles, HelpCircle
 } from 'lucide-react';
 import { 
-  BLOGS_DATA, TEAM_MEMBERS_DATA, MILESTONES_DATA, CORE_AREAS_DATA, HERO_SLIDES, siteConfig 
+  BLOGS_DATA, TEAM_MEMBERS_DATA, MILESTONES_DATA, CORE_AREAS_DATA, HERO_SLIDES, siteConfig, AFFILIATIONS_DATA 
 } from '../data';
 
 interface AdminPanelProps {
@@ -41,6 +41,17 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
   const [coreAreas, setCoreAreas] = useState<any[]>([]);
   const [milestones, setMilestones] = useState<any[]>([]);
   const [inquiries, setInquiries] = useState<LocalInquiry[]>([]);
+  const [affiliations, setAffiliations] = useState<any[]>([]);
+  const [siteConfigState, setSiteConfigState] = useState<any>(null);
+
+  const [editingAffiliation, setEditingAffiliation] = useState<any | null>(null);
+  const [isAffiliationModalOpen, setIsAffiliationModalOpen] = useState(false);
+  const [affFormData, setAffFormData] = useState({
+    fullName: '',
+    initials: '',
+    imageUrl: '',
+    color: '#3b82f6'
+  });
 
   // Subform Dialog States
   const [isBlogModalOpen, setIsBlogModalOpen] = useState(false);
@@ -151,6 +162,24 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
       ];
       setInquiries(defaultInquiries);
       localStorage.setItem('dpcl_local_inquiries', JSON.stringify(defaultInquiries));
+    }
+
+    // 6. Site Config
+    const localConfig = localStorage.getItem('dpcl_cms_site_config');
+    if (localConfig) {
+      setSiteConfigState(JSON.parse(localConfig));
+    } else {
+      setSiteConfigState(siteConfig);
+      localStorage.setItem('dpcl_cms_site_config', JSON.stringify(siteConfig));
+    }
+
+    // 7. Affiliations
+    const localAffs = localStorage.getItem('dpcl_cms_affiliations');
+    if (localAffs) {
+      setAffiliations(JSON.parse(localAffs));
+    } else {
+      setAffiliations(AFFILIATIONS_DATA);
+      localStorage.setItem('dpcl_cms_affiliations', JSON.stringify(AFFILIATIONS_DATA));
     }
   }, []);
 
@@ -345,13 +374,24 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
       {/* 1. TOP HEADER BRAND RIBBON */}
       <header className="bg-[#0B2340] border-b border-white/5 py-4 px-6 shrink-0 flex items-center justify-between shadow-md">
         <div className="flex items-center space-x-3 cursor-pointer" onClick={onClose}>
-          <div className="h-9 w-9 bg-[#0F3A6B] flex items-center justify-center text-white relative rounded-lg">
-            <span className="font-serif font-black text-sm tracking-tighter">DP</span>
-            <span className="absolute bottom-0.5 right-0.5 h-1.5 w-1.5 bg-[#3b82f6] rounded-full" />
-          </div>
+          {(siteConfigState?.logoUrl || siteConfig.logoUrl) ? (
+            <div className="h-9 w-9 relative flex-shrink-0 flex items-center justify-center overflow-hidden rounded-lg bg-slate-50 border border-slate-100 p-0.5">
+              <img 
+                src={siteConfigState?.logoUrl || siteConfig.logoUrl} 
+                alt="Logo" 
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-contain"
+              />
+            </div>
+          ) : (
+            <div className="h-9 w-9 bg-[#0F3A6B] flex items-center justify-center text-white relative rounded-lg">
+              <span className="font-serif font-black text-sm tracking-tighter">{siteConfigState?.logoText || siteConfig.logoText}</span>
+              <span className="absolute bottom-0.5 right-0.5 h-1.5 w-1.5 bg-[#3b82f6] rounded-full" />
+            </div>
+          )}
           <div className="flex flex-col text-left">
             <h1 className="font-sans text-xs sm:text-sm font-black tracking-tight text-white uppercase leading-none">
-              {siteConfig.companyName}
+              {siteConfigState?.companyName || siteConfig.companyName}
             </h1>
             <span className="text-[8px] font-mono tracking-widest text-[#3b82f6] font-bold mt-1 uppercase">
               PORTAL CMS SYSTEM BOARD
@@ -878,6 +918,189 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
                     </div>
                   </div>
 
+                  {/* General Config settings */}
+                  {siteConfigState && (
+                    <div className="space-y-4 pt-6 border-t border-slate-200">
+                      <h3 className="text-xs font-sans font-extrabold text-[#0f3a6b] uppercase tracking-widest border-b border-slate-200 pb-1.5 flex items-center gap-2">
+                        <Sparkles size={14} className="text-[#3b82f6]" />
+                        <span>GENERAL SITE BRAND & CONTACT SETTINGS</span>
+                      </h3>
+                      
+                      <div className="bg-white border border-slate-200 p-6 rounded-2xl space-y-4 text-left">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1">Company Long Name</label>
+                            <input 
+                              type="text" 
+                              value={siteConfigState.companyName || ''}
+                              onChange={e => {
+                                const updated = { ...siteConfigState, companyName: e.target.value };
+                                setSiteConfigState(updated);
+                                localStorage.setItem('dpcl_cms_site_config', JSON.stringify(updated));
+                              }}
+                              className="w-full text-xs font-sans tracking-wide p-3 border border-slate-200 bg-white rounded-xl focus:outline-none focus:border-[#3b82f6] font-semibold"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1">Company Short initials (e.g. DPCL)</label>
+                            <input 
+                              type="text" 
+                              value={siteConfigState.shortName || ''}
+                              onChange={e => {
+                                const updated = { ...siteConfigState, shortName: e.target.value };
+                                setSiteConfigState(updated);
+                                localStorage.setItem('dpcl_cms_site_config', JSON.stringify(updated));
+                              }}
+                              className="w-full text-xs font-sans tracking-wide p-3 border border-slate-200 bg-white rounded-xl focus:outline-none focus:border-[#3b82f6] font-semibold"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1">Contact Phone</label>
+                            <input 
+                              type="text" 
+                              value={siteConfigState.contactPhone || ''}
+                              onChange={e => {
+                                const updated = { ...siteConfigState, contactPhone: e.target.value };
+                                setSiteConfigState(updated);
+                                localStorage.setItem('dpcl_cms_site_config', JSON.stringify(updated));
+                              }}
+                              className="w-full text-xs font-sans font-mono tracking-wide p-3 border border-slate-200 bg-white rounded-xl focus:outline-none focus:border-[#3b82f6] font-semibold"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1">Contact Email</label>
+                            <input 
+                              type="email" 
+                              value={siteConfigState.contactEmail || ''}
+                              onChange={e => {
+                                const updated = { ...siteConfigState, contactEmail: e.target.value };
+                                setSiteConfigState(updated);
+                                localStorage.setItem('dpcl_cms_site_config', JSON.stringify(updated));
+                              }}
+                              className="w-full text-xs font-sans tracking-wide p-3 border border-slate-200 bg-white rounded-xl focus:outline-none focus:border-[#3b82f6] font-semibold"
+                            />
+                          </div>
+
+                          <div className="md:col-span-2">
+                            <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1">Office Secretariat Address</label>
+                            <input 
+                              type="text" 
+                              value={siteConfigState.contactAddress || ''}
+                              onChange={e => {
+                                const updated = { ...siteConfigState, contactAddress: e.target.value };
+                                setSiteConfigState(updated);
+                                localStorage.setItem('dpcl_cms_site_config', JSON.stringify(updated));
+                              }}
+                              className="w-full text-xs font-sans tracking-wide p-3 border border-slate-200 bg-white rounded-xl focus:outline-none focus:border-[#3b82f6] font-semibold"
+                            />
+                          </div>
+
+                          <div className="md:col-span-2">
+                            <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1">
+                              Custom Logo Image Link (Replace branding icon with custom logo)
+                            </label>
+                            <div className="flex gap-3">
+                              <input 
+                                type="text" 
+                                placeholder="https://example.com/logo.png"
+                                value={siteConfigState.logoUrl || ''}
+                                onChange={e => {
+                                  const updated = { ...siteConfigState, logoUrl: e.target.value };
+                                  setSiteConfigState(updated);
+                                  localStorage.setItem('dpcl_cms_site_config', JSON.stringify(updated));
+                                }}
+                                className="flex-1 text-xs font-sans tracking-wide p-3 border border-slate-200 bg-white rounded-xl focus:outline-none focus:border-[#3b82f6] font-mono"
+                              />
+                              {siteConfigState.logoUrl && (
+                                <div className="h-10 w-10 p-0.5 border border-slate-200 rounded-lg flex items-center justify-center bg-slate-50 overflow-hidden shrink-0">
+                                  <img 
+                                    src={siteConfigState.logoUrl} 
+                                    alt="Preview" 
+                                    referrerPolicy="no-referrer"
+                                    className="h-full w-full object-contain" 
+                                    onError={(e)=>{ (e.target as any).src='https://placehold.co/100x100?text=Error'; }}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-[10px] text-slate-400 mt-1">
+                              Leave this field blank to automatically fall back to the premium default stylized "DP" text-circle brand icon.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="pt-2 flex justify-end">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              triggerStatus('success', 'General site configuration updated successfully!');
+                            }}
+                            className="bg-[#0f3a6b]/10 hover:bg-[#0f3a6b]/15 text-[#0f3a6b] text-xs font-sans font-bold tracking-wider px-5 py-2.5 rounded-xl transition-all flex items-center gap-1 cursor-pointer"
+                          >
+                            <Save size={14} />
+                            <span>Verify Config State</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Professional affiliations editing section */}
+                  <div className="space-y-4 pt-6">
+                    <h3 className="text-xs font-sans font-extrabold text-[#0f3a6b] uppercase tracking-widest border-b border-slate-200 pb-1.5 flex items-center gap-2">
+                      <Award size={14} className="text-[#3b82f6]" />
+                      <span>PROFESSIONAL AFFILIATIONS (WITH CUSTOM IMAGES)</span>
+                    </h3>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                      {affiliations.map((aff) => (
+                        <div key={aff.id} className="bg-white border border-slate-200 p-5 rounded-2xl flex flex-col justify-between">
+                          <div className="flex gap-4 items-start">
+                            <div className="h-12 w-12 rounded-xl border border-slate-200 p-0.5 bg-slate-50 overflow-hidden shrink-0 flex items-center justify-center shadow-xs">
+                              <img 
+                                src={aff.imageUrl} 
+                                alt={aff.initials} 
+                                referrerPolicy="no-referrer"
+                                className="w-full h-full object-cover rounded-lg"
+                                onError={(e)=>{ (e.target as any).src='https://placehold.co/120x120?text=Logo'; }}
+                              />
+                            </div>
+                            <div className="space-y-1">
+                              <span className="bg-emerald-50 text-emerald-800 text-[9px] font-mono font-bold tracking-widest uppercase px-2 py-0.5 rounded-full">
+                                {aff.initials}
+                              </span>
+                              <h4 className="text-xs font-sans font-extrabold text-slate-900 uppercase pt-1 leading-snug">{aff.fullName}</h4>
+                              <p className="text-[10px] text-slate-400 font-mono truncate max-w-xs">{aff.imageUrl}</p>
+                            </div>
+                          </div>
+
+                          <div className="pt-4 mt-4 border-t border-slate-100 flex justify-end">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setEditingAffiliation(aff);
+                                setAffFormData({
+                                  fullName: aff.fullName || '',
+                                  initials: aff.initials || '',
+                                  imageUrl: aff.imageUrl || '',
+                                  color: aff.color || '#3b82f6'
+                                });
+                                setIsAffiliationModalOpen(true);
+                              }}
+                              className="text-xs bg-[#0f3a6b]/5 hover:bg-[#0f3a6b]/10 text-[#0f3a6b] px-3.5 py-2 rounded-lg font-sans font-bold flex items-center gap-1 cursor-pointer transition-colors"
+                            >
+                              <Edit2 size={12} />
+                              <span>Edit Affiliation</span>
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                 </div>
               )}
 
@@ -1288,6 +1511,101 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
                     localStorage.setItem('dpcl_cms_milestones', JSON.stringify(updated));
                     triggerStatus('success', `Milestone target tuned to ${msFormData.target} successfully.`);
                     setIsMilestoneModalOpen(false);
+                  }}
+                  className="bg-[#0F3A6B] hover:bg-[#3b82f6] text-white px-5 py-2 text-xs font-sans font-black tracking-widest uppercase rounded-xl cursor-pointer flex items-center gap-1"
+                >
+                  <Save size={12} />
+                  <span>SAVE LOCAL</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL 5: AFFILIATION MODAL */}
+      {isAffiliationModalOpen && editingAffiliation && (
+        <div className="fixed inset-0 bg-slate-950/75 flex items-center justify-center p-4 z-50 backdrop-blur-xs text-left animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl w-full max-w-md p-6 md:p-8 shadow-2xl font-sans">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+              <h3 className="font-sans text-xs font-black uppercase text-slate-900 flex items-center gap-1">
+                <Award size={14} className="text-[#3b82f6]" />
+                <span>EDIT PROFESSIONAL AFFILIATION</span>
+              </h3>
+              <button onClick={() => setIsAffiliationModalOpen(false)} className="text-slate-400 hover:text-slate-900 p-1">
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1.5">Affiliation Abbreviation (Initials)</label>
+                <input
+                  type="text"
+                  maxLength={12}
+                  value={affFormData.initials}
+                  onChange={e => setAffFormData({ ...affFormData, initials: e.target.value.toUpperCase() })}
+                  className="w-full text-xs font-sans tracking-wide p-3 border border-slate-200 bg-white rounded-xl focus:outline-none focus:border-[#3b82f6] font-bold"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1.5">Affiliation Full Name</label>
+                <textarea
+                  rows={2}
+                  value={affFormData.fullName}
+                  onChange={e => setAffFormData({ ...affFormData, fullName: e.target.value })}
+                  className="w-full text-xs font-sans tracking-wide p-3 border border-slate-200 bg-white rounded-xl focus:outline-none focus:border-[#3b82f6] font-semibold"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1.5">Affiliation Logo Image URL</label>
+                <input
+                  type="text"
+                  value={affFormData.imageUrl}
+                  onChange={e => setAffFormData({ ...affFormData, imageUrl: e.target.value })}
+                  className="w-full text-xs font-sans tracking-wide p-3 border border-slate-200 bg-white rounded-xl focus:outline-none focus:border-[#3b82f6] font-mono"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1.5">Accent Border Color (Hex code)</label>
+                <input
+                  type="color"
+                  value={affFormData.color}
+                  onChange={e => setAffFormData({ ...affFormData, color: e.target.value })}
+                  className="w-12 h-10 border border-slate-200 rounded-xl cursor-pointer"
+                />
+              </div>
+
+              <div className="pt-4 border-t border-slate-100 flex justify-end gap-2.5 font-semibold">
+                <button 
+                  type="button"
+                  onClick={() => setIsAffiliationModalOpen(false)}
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-sans uppercase rounded-xl cursor-pointer"
+                >
+                  CANCEL
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => {
+                    const updated = affiliations.map(a => {
+                      if (a.id === editingAffiliation.id) {
+                        return { 
+                          ...a, 
+                          fullName: affFormData.fullName, 
+                          initials: affFormData.initials, 
+                          imageUrl: affFormData.imageUrl, 
+                          color: affFormData.color 
+                        };
+                      }
+                      return a;
+                    });
+                    setAffiliations(updated);
+                    localStorage.setItem('dpcl_cms_affiliations', JSON.stringify(updated));
+                    triggerStatus('success', `Affiliation '${affFormData.initials}' updated locally.`);
+                    setIsAffiliationModalOpen(false);
                   }}
                   className="bg-[#0F3A6B] hover:bg-[#3b82f6] text-white px-5 py-2 text-xs font-sans font-black tracking-widest uppercase rounded-xl cursor-pointer flex items-center gap-1"
                 >

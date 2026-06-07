@@ -5,9 +5,11 @@ import { siteConfig } from '../data';
 interface FooterProps {
   onNavigate: (sectionId: string) => void;
   onOpenAdmin: () => void;
+  config?: any;
 }
 
-export default function Footer({ onNavigate, onOpenAdmin }: FooterProps) {
+export default function Footer({ onNavigate, onOpenAdmin, config }: FooterProps) {
+  const cfg = config || siteConfig;
   
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -26,16 +28,27 @@ export default function Footer({ onNavigate, onOpenAdmin }: FooterProps) {
               className="flex items-center space-x-2 cursor-pointer select-none"
               onClick={handleScrollToTop}
             >
-              <div className="h-7 w-7 bg-[#0F3A6B] text-white flex items-center justify-center font-serif font-black text-xs rounded-lg shadow-sm">
-                {siteConfig.logoText}
-              </div>
+              {cfg.logoUrl ? (
+                <div className="h-7 w-7 relative flex-shrink-0 flex items-center justify-center overflow-hidden rounded-lg bg-white p-0.5 shadow-sm">
+                  <img 
+                    src={cfg.logoUrl} 
+                    alt={cfg.logoText} 
+                    referrerPolicy="no-referrer" 
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              ) : (
+                <div className="h-7 w-7 bg-[#0F3A6B] text-white flex items-center justify-center font-serif font-black text-xs rounded-lg shadow-sm">
+                  {cfg.logoText}
+                </div>
+              )}
               <span className="font-sans text-sm font-black text-white tracking-tight uppercase">
-                ABOUT {siteConfig.shortName}
+                ABOUT {cfg.shortName}
               </span>
             </div>
             
             <p className="text-xs text-slate-300 leading-relaxed font-sans">
-              {siteConfig.companyName} is a premier development consulting firm established in 2021. Our team of specialists from health, policy, finance, and academia provides a wide range of analytical research, advocacy implementation, and policy audit services.
+              {cfg.companyName} is a premier development consulting firm established in 2021. Our team of specialists from health, policy, finance, and academia provides a wide range of analytical research, advocacy implementation, and policy audit services.
             </p>
           </div>
 
@@ -105,13 +118,13 @@ export default function Footer({ onNavigate, onOpenAdmin }: FooterProps) {
               <li className="flex items-start gap-2.5 text-slate-300">
                 <MapPin size={14} className="text-[#3b82f6] shrink-0 mt-0.5" />
                 <span className="leading-relaxed">
-                  {siteConfig.contactAddress}
+                  {cfg.contactAddress}
                 </span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail size={14} className="text-[#3b82f6] shrink-0" />
-                <a href={`mailto:${siteConfig.contactEmail}`} className="hover:text-white transition-colors hover:underline">
-                  {siteConfig.contactEmail}
+                <a href={`mailto:${cfg.contactEmail}`} className="hover:text-white transition-colors hover:underline">
+                  {cfg.contactEmail}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
@@ -127,11 +140,11 @@ export default function Footer({ onNavigate, onOpenAdmin }: FooterProps) {
         <div className="pt-12 mt-12 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-slate-400">
           
           <div className="font-mono text-[10px] text-center sm:text-left flex-1">
-            Registered Reg Number: {siteConfig.regNumber} • FEDERAL AUDIT VERIFIED
+            Registered Reg Number: {cfg.regNumber} • FEDERAL AUDIT VERIFIED
           </div>
 
           <div className="text-center font-sans tracking-wide">
-            © 2026 {siteConfig.companyName}. All Rights Reserved.
+            © 2026 {cfg.companyName}. All Rights Reserved.
           </div>
 
           <div className="flex-1 flex justify-center sm:justify-end">

@@ -3,6 +3,7 @@ export interface SiteConfig {
   shortName: string;
   logoText: string;
   logoPath: string; // Easily replaceable path or indicator
+  logoUrl?: string; // Custom real-time logo image link
   contactEmail: string;
   contactPhone: string;
   contactAddress: string;
@@ -21,6 +22,7 @@ export const siteConfig: SiteConfig = {
   shortName: "DPCL",
   logoText: "DP",
   logoPath: "/assets/logo.png",
+  logoUrl: "", // Users can input any live raw image URL here to replace the "DP" brand icon
   contactEmail: "k.ukwaja@dpcl-consulting.com",
   contactPhone: "+234.703.068.4093",
   contactAddress: "3rd Floor, Valley Plaza, Plot 215, Aminu Kano Crescent, Wuse II, Abuja, FCT, Nigeria.",
@@ -186,9 +188,8 @@ export interface AffiliationItem {
   id: string;
   fullName: string;
   initials: string;
-  iconName: string;
-  color: string;
-  svgTag?: string; // custom raw SVG markup option if requested
+  imageUrl: string; // Dynamic customizable logo image URL
+  color: string; // Accent color border or tint
 }
 
 export const AFFILIATIONS_DATA: AffiliationItem[] = [
@@ -196,35 +197,35 @@ export const AFFILIATIONS_DATA: AffiliationItem[] = [
     id: "aff-1",
     fullName: "INSTITUTE OF HEALTH INSURANCE AND MANAGED CARE OF NIGERIA",
     initials: "IHIMN",
-    iconName: "activity",
+    imageUrl: "https://images.unsplash.com/photo-1578496479531-32e296d5c6e1?auto=format&fit=crop&q=80&w=150",
     color: "#3b82f6"
   },
   {
     id: "aff-2",
     fullName: "PHARMACEUTICAL SOCIETY OF NIGERIA",
     initials: "PSN",
-    iconName: "pill",
+    imageUrl: "https://images.unsplash.com/photo-1628771065518-0d82f1116703?auto=format&fit=crop&q=80&w=150",
     color: "#10b981"
   },
   {
     id: "aff-3",
     fullName: "NIGERIA MEDICAL ASSOCIATION",
     initials: "NMA",
-    iconName: "heartpulse",
+    imageUrl: "https://images.unsplash.com/photo-1605684954998-c85c79d546a8?auto=format&fit=crop&q=80&w=150",
     color: "#ef4444"
   },
   {
     id: "aff-4",
     fullName: "ROYAL SOCIETY OF PUBLIC HEALTH OF GREAT BRITAIN",
     initials: "RSPH",
-    iconName: "globe",
+    imageUrl: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&q=80&w=150",
     color: "#f59e0b"
   },
   {
     id: "aff-5",
     fullName: "NATIONAL ASSOCIATION FOR PUBLIC HEALTH PRACTITIONERS COUNCIL IN NIGERIA",
     initials: "NAPHPPCN",
-    iconName: "shieldcheck",
+    imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=150",
     color: "#a855f7"
   }
 ];

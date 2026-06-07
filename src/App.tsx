@@ -13,6 +13,21 @@ import AdminPanel from './components/AdminPanel';
 export default function App() {
   const [partnerConsultationTopic, setPartnerConsultationTopic] = useState<string>('');
   const [currentView, setCurrentView] = useState<'public' | 'admin'>('public');
+  const [siteConfigState, setSiteConfigState] = useState<any>(null);
+  const [affiliations, setAffiliations] = useState<any[]>([]);
+
+  // Periodically fetch any changes saved inside CMS admin panels on switch or on mount
+  useEffect(() => {
+    const localConfig = localStorage.getItem('dpcl_cms_site_config');
+    if (localConfig) {
+      setSiteConfigState(JSON.parse(localConfig));
+    }
+    
+    const localAffs = localStorage.getItem('dpcl_cms_affiliations');
+    if (localAffs) {
+      setAffiliations(JSON.parse(localAffs));
+    }
+  }, [currentView]);
 
   const handleNavigate = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -47,7 +62,7 @@ export default function App() {
     >
       
       {/* SECTION 1: HEADER & TOP NAVIGATION BAR */}
-      <Navbar onNavigate={handleNavigate} onOpenAdmin={() => setCurrentView('admin')} />
+      <Navbar onNavigate={handleNavigate} onOpenAdmin={() => setCurrentView('admin')} config={siteConfigState} />
 
       {/* SECTION 2: HERO CAROUSEL / SLIDER */}
       <Hero onLearnMore={handleNavigate} />
@@ -62,7 +77,7 @@ export default function App() {
       <Team onContactPartner={handleContactPartner} />
 
       {/* SECTION 6: PROFESSIONAL AFFILIATIONS */}
-      <Affiliations />
+      <Affiliations items={affiliations.length > 0 ? affiliations : undefined} />
 
       {/* SECTION 7: BLOG & EVENTS */}
       <BlogEvents />
@@ -74,7 +89,7 @@ export default function App() {
       />
 
       {/* SECTION 8: FOOTER */}
-      <Footer onNavigate={handleNavigate} onOpenAdmin={() => setCurrentView('admin')} />
+      <Footer onNavigate={handleNavigate} onOpenAdmin={() => setCurrentView('admin')} config={siteConfigState} />
 
     </div>
   );
