@@ -100,12 +100,17 @@ export default function KnowledgeHub() {
                 {/* Upper Content container */}
                 <div className="p-6 md:p-8 space-y-4">
                   
-                  {/* Color-Coded Domain Badge */}
-                  <div className="flex items-center justify-between">
-                    <span className={`text-[10px] font-mono font-bold tracking-wider uppercase px-2.5 py-1 rounded-md border ${getBadgeStyles(pub.category)}`}>
-                      {pub.category}
-                    </span>
-                    <FileText size={16} className="text-slate-300" />
+                  {/* Color-Coded Domain Badge & Document Type */}
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className={`text-[10px] font-mono font-bold tracking-wider uppercase px-2.5 py-1 rounded-md border ${getBadgeStyles(pub.category)}`}>
+                        {pub.category}
+                      </span>
+                      <span className="text-slate-500 text-[10px] uppercase tracking-wider font-semibold bg-slate-100/60 px-2 py-0.5 rounded">
+                        {pub.documentType}
+                      </span>
+                    </div>
+                    <FileText size={16} className="text-slate-300 shrink-0 mt-1" />
                   </div>
 
                   {/* Document Title */}
