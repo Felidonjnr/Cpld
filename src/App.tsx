@@ -6,6 +6,7 @@ import Milestones from './components/Milestones';
 import Team from './components/Team';
 import Affiliations from './components/Affiliations';
 import BlogEvents from './components/BlogEvents';
+import KnowledgeHub from './components/KnowledgeHub';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AdminPanel from './components/AdminPanel';
@@ -133,6 +134,9 @@ export default function App() {
 
       {/* SECTION 6: PROFESSIONAL AFFILIATIONS */}
       <Affiliations items={affiliations.length > 0 ? affiliations : undefined} />
+
+      {/* KNOWLEDGE HUB RESOURCE ARCHIVE */}
+      <KnowledgeHub />
 
       {/* SECTION 7: BLOG & EVENTS */}
       <BlogEvents />

@@ -148,6 +148,13 @@ export default function Navbar({ onNavigate, onOpenAdmin, config }: NavbarProps)
               </button>
 
               <button 
+                onClick={() => handleLinkClick('knowledge-hub')} 
+                className="text-[12px] font-extrabold tracking-widest text-slate-600 hover:text-[#0F3A6B] transition-colors cursor-pointer uppercase py-1 relative"
+              >
+                KNOWLEDGE
+              </button>
+
+              <button 
                 onClick={onOpenAdmin} 
                 className="text-[12px] font-extrabold tracking-widest text-[#3b82f6] hover:text-[#0F3A6B] transition-colors cursor-pointer uppercase py-1 flex items-center gap-1 font-mono"
               >
@@ -212,6 +219,12 @@ export default function Navbar({ onNavigate, onOpenAdmin, config }: NavbarProps)
                 className="p-3 text-slate-600 hover:text-[#0F3A6B] text-xs font-black tracking-widest uppercase hover:bg-slate-50 rounded-xl text-left transition-all"
               >
                 ABOUT
+              </button>
+              <button 
+                onClick={() => handleLinkClick('knowledge-hub')}
+                className="p-3 text-slate-600 hover:text-[#0F3A6B] text-xs font-black tracking-widest uppercase hover:bg-slate-50 rounded-xl text-left transition-all"
+              >
+                KNOWLEDGE
               </button>
               <button 
                 onClick={() => {

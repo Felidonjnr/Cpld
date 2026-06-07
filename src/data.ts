@@ -24,11 +24,11 @@ export const siteConfig: SiteConfig = {
   shortName: "DPCL",
   logoText: "DP",
   logoPath: "/assets/logo.png",
-  logoUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780822868/Screenshot_20260607-095224_xnvdie.jpg", 
-  previewImageUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780822868/Screenshot_20260607-095224_xnvdie.jpg",
+  logoUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=150", 
+  previewImageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200",
   description: "Premium landing page and consulting hub for Development Consult Plus Limited (DPCL), an elite international development consulting firm.",
-  contactEmail: "info@dpcl.com.ng",
-  contactPhone: "+2348032597804",
+  contactEmail: "k.ukwaja@dpcl-consulting.com",
+  contactPhone: "+234.703.068.4093",
   contactAddress: "3rd Floor, Valley Plaza, Plot 215, Aminu Kano Crescent, Wuse II, Abuja, FCT, Nigeria.",
   officeHours: "Monday — Friday: 08:30 to 17:00 (GMT+1 / West Africa Time)",
   regNumber: "RC-2021-992-DPCL",
@@ -251,3 +251,71 @@ export const BLOGS_DATA: BlogItem[] = [
     category: "PUBLIC HYGIENE & WELLNESS"
   }
 ];
+
+export interface PublicationItem {
+  id: string;
+  category: "Health Systems" | "Public Finance" | "Institutional Strategy" | string;
+  title: string;
+  summary: string;
+  pdfUrl: string;
+}
+
+export const PUBLICATIONS_DATA: PublicationItem[] = [
+  {
+    id: "pub-01",
+    category: "Public Finance",
+    title: "Diagnostic Reports of Key Development Sectors: Plateau State",
+    summary: "This diagnostic report assesses Plateau State's performance gaps across education, public financial management, open governance, and health sectors relative to the Plateau State Development Strategy (PSDS). It provides actionable, context-driven recommendations to strengthen fiscal transparency, budget processes, and sectoral governance for improved donor assistance and state performance.",
+    pdfUrl: "/documents/pea_plateau_state.pdf"
+  },
+  {
+    id: "pub-02",
+    category: "Health Systems",
+    title: "Operations Research Phase I: Training Workshop Report for GoHealth",
+    summary: "This report details a four-day training workshop that equipped GoHealth management staff with operations research methodologies to identify system improvement needs and design strategic interventions. Participants learned to apply scientific, mathematical, and logical approaches to healthcare challenges, enhancing their capacity to conduct research and publish findings.",
+    pdfUrl: "/documents/operations_research-phase_1_gohealth_workshop_report.pdf"
+  },
+  {
+    id: "pub-03",
+    category: "Health Systems",
+    title: "Political Economy Analysis of the Health Sector: Plateau State",
+    summary: "This analysis examines health system structure, funding flows, and service delivery challenges in Plateau State, identifying critical bottlenecks such as memo approval delays and liquidity management constraints. It offers an influence-interest matrix to strategically target stakeholders and provides seven evidence-based recommendations to improve public health investment and accountability.",
+    pdfUrl: "/documents/dpcl-plateau_pea_report.pdf"
+  },
+  {
+    id: "pub-04",
+    category: "Health Systems",
+    title: "Inception Meeting Report: Institutional Strengthening of GoHealth",
+    summary: "This inception report outlines the technical assistance approach to strengthen Gombe State's Contributory Healthcare Management Agency (GoHealth) for achieving universal health coverage. It documents stakeholder engagement, OCAT deployment, and workplan adoption to align project scope with state health financing and primary care reforms.",
+    pdfUrl: "/documents/inception_meeting_report_institutional_strengthening_of_gohealth.pdf"
+  },
+  {
+    id: "pub-05",
+    category: "Health Systems",
+    title: "Training on Effective Communication Strategies: Concept and Strategies for GoHealth",
+    summary: "This training report equips GoHealth's communication team with social and behavioral change communication (SBCC) frameworks, theory of change models, and effective health communication characteristics. Participants co-created a communications plan to drive demand for social health insurance products and improve public engagement.",
+    pdfUrl: "/documents/gohealth_training_report_effective_communication_strategies.pdf"
+  },
+  {
+    id: "pub-06",
+    category: "Health Systems",
+    title: "Training in Monitoring & Evaluation: Fundamentals of M&E for GoHealth",
+    summary: "This four-day off-site training built GoHealth staff capacity in logic frameworks, indicator definitions, and M&E plan development to strengthen results-based management. The training yielded a draft M&E plan that enables data-driven course correction, resource allocation, and organizational learning.",
+    pdfUrl: "/documents/gohealth_training_report_on_m_&_e.pdf"
+  },
+  {
+    id: "pub-07",
+    category: "Institutional Strategy",
+    title: "Executive Brief: Key Findings from the OCAT Analysis - Gombe State Contributory Healthcare Management Agency (GoHealth)",
+    summary: "This organizational capacity assessment evaluates GoHealth across eleven domains including governance, finance, human resources, and monitoring & evaluation. The analysis identifies strengths and weaknesses, providing low-hanging fruit recommendations and a sequenced capacity-building roadmap to enhance institutional performance.",
+    pdfUrl: "/documents/executive_brief_of_key_findings_ocat_analysis.pdf"
+  },
+  {
+    id: "pub-08",
+    category: "Institutional Strategy",
+    title: "GoHealth Capacity Building Plan: Training Developed and Implemented",
+    summary: "This capacity building plan maps ten targeted training interventions across monitoring & evaluation, human resources, communication, operations research, and program management. Using a hybrid off-site and on-site handholding approach, the plan addresses critical gaps identified through OCAT analysis to strengthen GoHealth's institutional effectiveness.",
+    pdfUrl: "/documents/gohealth-capacity_building_plan_&_training_developed_&_implemented.pdf"
+  }
+];
+
