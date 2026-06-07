@@ -86,14 +86,14 @@ export const HERO_SLIDES: HeroSlideItem[] = [
     badge: "FISCAL ACCOUNTABILITY",
     title: "PUBLIC FINANCIAL MANAGEMENT",
     subtitle: "Financial Integrity, Strategy, Compliance, Accountability, and Leadership for Wise Economic Management.",
-    imageUrl: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=1600"
+    imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=1600"
   },
   {
     id: 4,
     badge: "DEMAND SIDE FINANCING",
     title: "HEALTH FINANCING",
     subtitle: "Financially Upholding Needs for Diverse Wellness Ensuring Lifelong Liveliness.",
-    imageUrl: "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80&w=1600"
+    imageUrl: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1600](https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1600)"
   }
 ];
 
