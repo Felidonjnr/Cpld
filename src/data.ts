@@ -322,7 +322,7 @@ export const technicalPublications: Publication[] = [
     "title": "Diagnostic Reports of Key Development Sectors: Plateau State",
     "documentType": "Diagnostic Assessment",
     "summary": "This comprehensive diagnostic report analyzes performance gaps across Plateau State's education, public financial management, open governance, and health sectors relative to the Plateau State Development Strategy. It delivers evidence-based, context-driven recommendations to strengthen fiscal transparency, budget processes, and sectoral governance.",
-    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_1/preview"
+    "pdfUrl": "https://drive.google.com/file/d/1WojNMu4KG4-6pFSEDi_Ue4pmCVfDvrce/preview"
   },
   {
     "id": "pub-02",
@@ -330,7 +330,7 @@ export const technicalPublications: Publication[] = [
     "title": "Operations Research Phase I: Training Workshop Report for GoHealth",
     "documentType": "Training Completion Report",
     "summary": "This report documents a four-day operations research training workshop delivered to GoHealth management staff, covering research methodologies, manuscript development, and system improvement design. Pre- and post-training assessments demonstrate marked improvement in participant understanding of operations research concepts.",
-    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_2/preview"
+    "pdfUrl": "https://drive.google.com/file/d/1JidKAOB5Sl6exUPvIdiu1Rv5nzra_olA/preview"
   },
   {
     "id": "pub-03",
@@ -338,7 +338,7 @@ export const technicalPublications: Publication[] = [
     "title": "Political Economy Analysis of the Health Sector: Plateau State",
     "documentType": "Diagnostic Assessment",
     "summary": "This political economy analysis examines health system structure, funding flows, and service delivery bottlenecks in Plateau State through key informant interviews and desk review. It presents an influence-interest matrix for strategic stakeholder targeting and offers seven actionable recommendations to improve public health investment.",
-    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_3/preview"
+    "pdfUrl": "https://drive.google.com/file/d/1by9k639mx9hKEx0p4eSP9X6SsQkU-s7i/preview"
   },
   {
     "id": "pub-04",
@@ -346,7 +346,7 @@ export const technicalPublications: Publication[] = [
     "title": "Inception Meeting Report: Institutional Strengthening of GoHealth",
     "documentType": "Inception Report",
     "summary": "This inception report establishes the scope, methodology, and stakeholder engagement framework for providing technical assistance to Gombe State's Contributory Healthcare Management Agency. It documents entry meetings, OCAT deployment planning, and workplan adoption for institutional strengthening.",
-    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_4/preview"
+    "pdfUrl": "https://drive.google.com/file/d/1lOH_dHH0tK0hSZutsUhbqvrR5SN8aN6y/preview"
   },
   {
     "id": "pub-05",
@@ -354,7 +354,7 @@ export const technicalPublications: Publication[] = [
     "title": "Training on Effective Communication Strategies: Concept and Strategies for GoHealth",
     "documentType": "Training Completion Report",
     "summary": "This training report details a three-day workshop that equipped GoHealth's communication team with social and behavioral change communication frameworks and theory of change models. Participants co-developed a communications plan to drive demand for social health insurance products and improve public engagement.",
-    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_5/preview"
+    "pdfUrl": "https://drive.google.com/file/d/1m54OoQeSVx-k19Rp1loFyXU_Iw1LGqdQ/preview"
   },
   {
     "id": "pub-06",
@@ -362,7 +362,7 @@ export const technicalPublications: Publication[] = [
     "title": "Training in Monitoring & Evaluation: Fundamentals of M&E for GoHealth",
     "documentType": "Training Completion Report",
     "summary": "This four-day training report documents capacity building for GoHealth staff on logic frameworks, indicator development, and M&E plan design. The training produced a draft M&E plan enabling data-driven course correction and resource allocation, with pre- and post-test results showing significant knowledge gains.",
-    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_6/preview"
+    "pdfUrl": "https://drive.google.com/file/d/1NPsI0CLrW3cVwC6emmbck8jYtOPkeYn-/preview"
   },
   {
     "id": "pub-07",
@@ -370,7 +370,7 @@ export const technicalPublications: Publication[] = [
     "title": "Executive Brief: Key Findings from the OCAT Analysis - Gombe State Contributory Healthcare Management Agency",
     "documentType": "Diagnostic Assessment",
     "summary": "This organizational capacity assessment evaluates GoHealth across eleven domains including governance, finance, human resources, and monitoring & evaluation. The analysis identifies institutional strengths, critical gaps, and low-hanging fruit recommendations with a sequenced capacity-building roadmap.",
-    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_7/preview"
+    "pdfUrl": "https://drive.google.com/file/d/1ZIJrUYXtM_-nEPnqQh1HV3rIraZEvMzn/preview"
   },
   {
     "id": "pub-08",
@@ -378,7 +378,7 @@ export const technicalPublications: Publication[] = [
     "title": "GoHealth Capacity Building Plan: Training Developed and Implemented",
     "documentType": "Capacity Building Plan",
     "summary": "This capacity building plan maps ten targeted training interventions across monitoring & evaluation, human resources, communication, operations research, and program management. The plan outlines a hybrid delivery model combining off-site workshops and on-site handholding sessions to address organizational capacity gaps.",
-    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_8/preview"
+    "pdfUrl": "https://drive.google.com/file/d/16jrjxzKxbUzQKhSC1R-wtKHCVdtmjT2T/preview"
   }
 ];
 
