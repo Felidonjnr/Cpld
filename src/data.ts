@@ -268,7 +268,7 @@ export const PUBLICATIONS_DATA: PublicationItem[] = [
     title: "Diagnostic Reports of Key Development Sectors: Plateau State",
     documentType: "Diagnostic Assessment",
     summary: "This comprehensive diagnostic report analyzes performance gaps across Plateau State's education, public financial management, open governance, and health sectors relative to the Plateau State Development Strategy. It delivers evidence-based, context-driven recommendations to strengthen fiscal transparency, budget processes, and sectoral governance.",
-    pdfUrl: "https://drive.google.com/file/d/1A2B3C4D5E6F01PlateauState/preview"
+    pdfUrl: "https://drive.google.com/file/d/1by9k639mx9hKEx0p4eSP9X6SsQkU-s7i/preview"
   },
   {
     id: "pub-02",
