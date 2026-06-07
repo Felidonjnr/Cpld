@@ -186,28 +186,28 @@ export const AFFILIATIONS_DATA: AffiliationItem[] = [
     id: "aff-2",
     fullName: "PHARMACEUTICAL SOCIETY OF NIGERIA",
     initials: "PSN",
-    imageUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780831357/PSN_t1gdti.png",
+    imageUrl: "https://images.unsplash.com/photo-1628771065518-0d82f1116703?auto=format&fit=crop&q=80&w=150",
     color: "#10b981"
   },
   {
     id: "aff-3",
     fullName: "NIGERIA MEDICAL ASSOCIATION",
     initials: "NMA",
-    imageUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780831357/nMA_t2xafx.png",
+    imageUrl: "https://images.unsplash.com/photo-1605684954998-c85c79d546a8?auto=format&fit=crop&q=80&w=150",
     color: "#ef4444"
   },
   {
     id: "aff-4",
     fullName: "ROYAL SOCIETY OF PUBLIC HEALTH OF GREAT BRITAIN",
     initials: "RSPH",
-    imageUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780831357/RSPH_echscd.png",
+    imageUrl: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&q=80&w=150",
     color: "#f59e0b"
   },
   {
     id: "aff-5",
     fullName: "NATIONAL ASSOCIATION FOR PUBLIC HEALTH PRACTITIONERS COUNCIL IN NIGERIA",
     initials: "NAPHPPCN",
-    imageUrl: "",
+    imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=150",
     color: "#a855f7"
   }
 ];

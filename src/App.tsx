@@ -9,6 +9,7 @@ import BlogEvents from './components/BlogEvents';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AdminPanel from './components/AdminPanel';
+import { siteConfig } from './data';
 
 export default function App() {
   const [partnerConsultationTopic, setPartnerConsultationTopic] = useState<string>('');
@@ -19,9 +20,12 @@ export default function App() {
 
   // Periodically fetch any changes saved inside CMS admin panels on switch or on mount
   useEffect(() => {
+    let activeConfig = siteConfig;
     const localConfig = localStorage.getItem('dpcl_cms_site_config');
     if (localConfig) {
-      setSiteConfigState(JSON.parse(localConfig));
+      const parsed = JSON.parse(localConfig);
+      setSiteConfigState(parsed);
+      activeConfig = parsed;
     }
     
     const localAffs = localStorage.getItem('dpcl_cms_affiliations');
@@ -34,6 +38,40 @@ export default function App() {
       const parsed = JSON.parse(localTeam).filter((m: any) => m.id !== 'ukwaja-kingsley' && m.id !== 'iro-okechukwu');
       setTeamMembers(parsed);
     }
+
+    // Dynamic Synchronization of Address Bar / Browser Tag Favicons and Social Link Previews
+    const logoUrlToUse = activeConfig.logoUrl || "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=150";
+    
+    // 1. Title Sync
+    document.title = activeConfig.companyName || "Development Consult Plus Limited (DPCL)";
+
+    // 2. Favicon Sync
+    const favicons = document.querySelectorAll("link[rel*='icon']");
+    if (favicons.length > 0) {
+      favicons.forEach((fav: any) => {
+        fav.href = logoUrlToUse;
+      });
+    } else {
+      const link = document.createElement('link');
+      link.rel = 'icon';
+      link.href = logoUrlToUse;
+      document.head.appendChild(link);
+    }
+
+    // 3. Open Graph Link Preview Elements Sync
+    const ogTitle = document.getElementById('og-title') || document.querySelector("meta[property='og:title']");
+    if (ogTitle) ogTitle.setAttribute('content', activeConfig.companyName || "Development Consult Plus Limited (DPCL)");
+
+    const ogImg = document.getElementById('og-image') || document.querySelector("meta[property='og:image']");
+    if (ogImg) ogImg.setAttribute('content', activeConfig.logoUrl || "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200");
+
+    // 4. Twitter Link Preview Elements Sync
+    const twTitle = document.getElementById('twitter-title') || document.querySelector("meta[name='twitter:title']");
+    if (twTitle) twTitle.setAttribute('content', activeConfig.companyName || "Development Consult Plus Limited (DPCL)");
+
+    const twImg = document.getElementById('twitter-image') || document.querySelector("meta[name='twitter:image']");
+    if (twImg) twImg.setAttribute('content', activeConfig.logoUrl || "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200");
+
   }, [currentView]);
 
   const handleNavigate = (sectionId: string) => {
