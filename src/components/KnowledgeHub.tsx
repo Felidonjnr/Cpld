@@ -1,12 +1,25 @@
-import React, { useState } from "react";
-import { FileText, ArrowUpRight, Search, BookOpen, Download } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { FileText, ArrowUpRight, Search, BookOpen, Download, X } from "lucide-react";
 import { PUBLICATIONS_DATA, PublicationItem } from "../data";
 
 export default function KnowledgeHub() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [activePublication, setActivePublication] = useState<PublicationItem | null>(null);
 
   const categories = ["All", "Health Systems", "Public Finance", "Institutional Strategy"];
+
+  // Keyboard accessibility for ESC close
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsModalOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   // Filter Publications based on category and search query
   const filteredPublications = PUBLICATIONS_DATA.filter((pub) => {
@@ -50,7 +63,7 @@ export default function KnowledgeHub() {
           <h2 className="mt-4 font-sans text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0F3A6B]">
             DPCL Knowledge Hub
           </h2>
-          <p className="mt-4 text-base text-slate-600 leading-relaxed font-sans">
+          <p className="mt-4 text-base text-slate-600 leading-relaxed font-sans mt-2">
             Access our elite publication archive featuring political economy analyses, structural diagnostic reports, capacity building guides, and operations research briefs.
           </p>
         </div>
@@ -132,15 +145,16 @@ export default function KnowledgeHub() {
                     TECHNICAL PORTAL PDF
                   </span>
 
-                  <a 
-                    href={pub.pdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-[#0F3A6B] text-slate-700 hover:text-white border border-slate-200/80 hover:border-[#0F3A6B] text-xs font-sans font-bold tracking-wider uppercase rounded-xl transition-all duration-300 hover:scale-103 shadow-xs"
+                  <button 
+                    onClick={() => {
+                      setActivePublication(pub);
+                      setIsModalOpen(true);
+                    }}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-[#0F3A6B] text-[#0F3A6B] hover:text-white border border-slate-200/80 hover:border-[#0F3A6B] text-xs font-sans font-bold tracking-wider uppercase rounded-xl transition-all duration-300 hover:scale-103 shadow-xs cursor-pointer"
                   >
                     <span>View Report</span>
                     <ArrowUpRight size={14} className="stroke-[2.5]" />
-                  </a>
+                  </button>
 
                 </div>
 
@@ -161,6 +175,83 @@ export default function KnowledgeHub() {
         )}
 
       </div>
+
+      {/* Interactive Modal Popup Window for Previewing Documents */}
+      {isModalOpen && activePublication && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md transition-opacity duration-300 animate-fade-in"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div 
+            className="bg-white rounded-2xl border border-slate-100 shadow-2xl w-full max-w-5xl overflow-hidden flex flex-col transform transition-all scale-100 animate-slide-up"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="px-6 py-4 bg-[#0F3A6B] text-white flex items-start justify-between gap-4">
+              <div className="space-y-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-[10px] font-mono font-bold tracking-wider uppercase px-2.5 py-0.5 rounded bg-white/10 text-white border border-white/20">
+                    {activePublication.category}
+                  </span>
+                  <span className="text-blue-100 text-[10px] uppercase tracking-wider font-semibold">
+                    {activePublication.documentType}
+                  </span>
+                </div>
+                <h3 className="font-sans text-sm sm:text-base font-extrabold tracking-tight pr-4">
+                  {activePublication.title}
+                </h3>
+              </div>
+              <button 
+                onClick={() => setIsModalOpen(false)}
+                className="text-white/80 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors shrink-0 cursor-pointer"
+                title="Close document viewer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Body / Sandbox-protected Iframe Document Embed */}
+            <div className="p-4 bg-slate-50 flex-1">
+              <div className="relative rounded-xl overflow-hidden border border-slate-200 bg-slate-100 shadow-inner">
+                <iframe 
+                  src={activePublication.pdfUrl} 
+                  className="w-full h-[65vh] md:h-[75vh] bg-white rounded-lg border-none"
+                  contentEditable="false"
+                  referrerPolicy="no-referrer"
+                  title={activePublication.title}
+                  allow="autoplay; encrypted-media"
+                  sandbox="allow-scripts allow-same-origin allow-popups"
+                />
+              </div>
+            </div>
+
+            {/* Modal Footer Controls */}
+            <div className="px-6 py-3.5 bg-white border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-500 text-xs">
+              <span className="font-sans font-medium flex items-center gap-1.5 text-slate-600">
+                <BookOpen className="w-4 h-4 text-[#3b82f6]" />
+                Secure Read-Only Document Embed (Google Drive Reader)
+              </span>
+              <div className="flex items-center gap-2">
+                <a
+                  href={activePublication.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-sans font-bold text-[#0F3A6B] hover:text-[#3b82f6] border border-slate-200 hover:border-slate-300 rounded-lg transition-colors bg-white shadow-xs"
+                >
+                  Open in New Tab
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-1.5 bg-[#0F3A6B] hover:bg-slate-800 text-white font-sans text-[11px] font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer"
+                >
+                  Close Viewer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
