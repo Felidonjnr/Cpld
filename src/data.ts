@@ -284,7 +284,7 @@ export const PUBLICATIONS_DATA: PublicationItem[] = [
     title: "Political Economy Analysis of the Health Sector: Plateau State",
     documentType: "Diagnostic Assessment",
     summary: "This political economy analysis examines health system structure, funding flows, and service delivery bottlenecks in Plateau State through key informant interviews and desk review. It presents an influence-interest matrix for strategic stakeholder targeting and offers seven actionable recommendations to improve public health investment.",
-    pdfUrl: "https://drive.google.com/file/d/1A2B3C4D5E6F03PlateauPEA/preview"
+    pdfUrl: "https://drive.google.com/file/d/1by9k639mx9hKEx0p4eSP9X6SsQkU-s7i/preview"
   },
   {
     id: "pub-04",
