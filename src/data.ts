@@ -42,8 +42,8 @@ export const siteConfig: SiteConfig = {
   shortName: "DPCL",
   logoText: "DP",
   logoPath: "/assets/logo.png",
-  logoUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=150", 
-  previewImageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200",
+  logoUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780822868/Screenshot_20260607-095224_xnvdie.jpg", 
+  previewImageUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780822868/Screenshot_20260607-095224_xnvdie.jpg",
   description: "Premium landing page and consulting hub for Development Plus Health Consult Limited (DPCL), an elite international development consulting firm.",
   contactEmail: "developmentplusconsult@gmail.com",
   contactPhone: "+234703-068-4093, +234-803-2597-804",
@@ -175,7 +175,7 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
     bio: "",
     isPending: false,
     avatarText: "UE",
-    avatarUrl: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=400"
+    avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780865977/Pharm_Uchenna_Ebenezer_vwdeed.jpg"
   },
   {
     id: "adamu-maikano",
@@ -184,7 +184,7 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
     bio: "",
     isPending: false,
     avatarText: "AM",
-    avatarUrl: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=400"
+    avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780865976/Dr.Adamu_Maikano_Director_Strategy_Partnerships_ng4qlr.jpg"
   },
   {
     id: "frank-emerenini",
@@ -193,7 +193,7 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
     bio: "",
     isPending: false,
     avatarText: "FE",
-    avatarUrl: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=400"
+    avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780865976/Dr.Franklin_Emerenini_Technical_Lead_Clinical_Services_hlfjej.jpg"
   },
   {
     id: "chima-ugwu",
@@ -202,7 +202,7 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
     bio: "",
     isPending: false,
     avatarText: "CU",
-    avatarUrl: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=400"
+    avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780869738/Screenshot_20260607-224008_rgddov.jpg"
   },
   {
     id: "michael-olawuyi",
@@ -211,7 +211,7 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
     bio: "",
     isPending: false,
     avatarText: "MO",
-    avatarUrl: "https://images.unsplash.com/photo-1594824813573-246434de83fb?auto=format&fit=crop&q=80&w=400"
+    avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780865977/Dr.Mike_Director_Global_Health_tgpi5s.png"
   },
   {
     id: "kingsley-ukwaja",
@@ -220,7 +220,7 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
     bio: "",
     isPending: false,
     avatarText: "KU",
-    avatarUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400"
+    avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780865975/Professor_Kingsely_Ukwaja_Director_Research_e7ru5k.jpg"
   }
 ];
 
@@ -244,21 +244,21 @@ export const AFFILIATIONS_DATA: AffiliationItem[] = [
     id: "aff-2",
     fullName: "PHARMACEUTICAL SOCIETY OF NIGERIA",
     initials: "PSN",
-    imageUrl: "https://images.unsplash.com/photo-1628771065518-0d82f1116703?auto=format&fit=crop&q=80&w=150",
+    imageUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780831357/PSN_t1gdti.png",
     color: "#10b981"
   },
   {
     id: "aff-3",
     fullName: "NIGERIA MEDICAL ASSOCIATION",
     initials: "NMA",
-    imageUrl: "https://images.unsplash.com/photo-1605684954998-c85c79d546a8?auto=format&fit=crop&q=80&w=150",
+    imageUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780831357/nMA_t2xafx.png",
     color: "#ef4444"
   },
   {
     id: "aff-4",
     fullName: "ROYAL SOCIETY OF PUBLIC HEALTH OF GREAT BRITAIN",
     initials: "RSPH",
-    imageUrl: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&q=80&w=150",
+    imageUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780831357/RSPH_echscd.png",
     color: "#f59e0b"
   },
   {
