@@ -15,6 +15,7 @@ export default function App() {
   const [currentView, setCurrentView] = useState<'public' | 'admin'>('public');
   const [siteConfigState, setSiteConfigState] = useState<any>(null);
   const [affiliations, setAffiliations] = useState<any[]>([]);
+  const [teamMembers, setTeamMembers] = useState<any[]>([]);
 
   // Periodically fetch any changes saved inside CMS admin panels on switch or on mount
   useEffect(() => {
@@ -26,6 +27,12 @@ export default function App() {
     const localAffs = localStorage.getItem('dpcl_cms_affiliations');
     if (localAffs) {
       setAffiliations(JSON.parse(localAffs));
+    }
+
+    const localTeam = localStorage.getItem('dpcl_cms_team');
+    if (localTeam) {
+      const parsed = JSON.parse(localTeam).filter((m: any) => m.id !== 'ukwaja-kingsley' && m.id !== 'iro-okechukwu');
+      setTeamMembers(parsed);
     }
   }, [currentView]);
 
@@ -74,7 +81,7 @@ export default function App() {
       <Milestones />
 
       {/* SECTION 5: OUR TEAM */}
-      <Team onContactPartner={handleContactPartner} />
+      <Team onContactPartner={handleContactPartner} items={teamMembers.length > 0 ? teamMembers : undefined} />
 
       {/* SECTION 6: PROFESSIONAL AFFILIATIONS */}
       <Affiliations items={affiliations.length > 0 ? affiliations : undefined} />

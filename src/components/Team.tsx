@@ -4,10 +4,11 @@ import { AlertCircle } from 'lucide-react';
 
 interface TeamProps {
   onContactPartner: (partnerName: string) => void;
+  items?: TeamProfileItem[];
 }
 
-export default function Team({ onContactPartner }: TeamProps) {
-  const team: TeamProfileItem[] = TEAM_MEMBERS_DATA;
+export default function Team({ onContactPartner, items }: TeamProps) {
+  const team: TeamProfileItem[] = items || TEAM_MEMBERS_DATA;
 
   return (
     <section 

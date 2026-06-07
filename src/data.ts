@@ -22,7 +22,7 @@ export const siteConfig: SiteConfig = {
   shortName: "DPCL",
   logoText: "DP",
   logoPath: "/assets/logo.png",
-  logoUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780822868/Screenshot_20260607-095224_xnvdie.jpg", // Users can input any live raw image URL here to replace the "DP" brand icon
+  logoUrl: "", // Users can input any live raw image URL here to replace the "DP" brand icon
   contactEmail: "k.ukwaja@dpcl-consulting.com",
   contactPhone: "+234.703.068.4093",
   contactAddress: "3rd Floor, Valley Plaza, Plot 215, Aminu Kano Crescent, Wuse II, Abuja, FCT, Nigeria.",
@@ -162,24 +162,6 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
     bio: "Maikano Adamu, a distinguished medical doctor, boasts a comprehensive academic background, holding a Master's in Public Health from London Metropolitan University, United Kingdom, and a Master's in Health Policy Planning and Financing from the prestigious London School of Economics and London School of Hygiene and Tropical Medicine.",
     isPending: false,
     avatarText: "MA",
-    avatarUrl: ""
-  },
-  {
-    id: "ukwaja-kingsley",
-    name: "UKWAJA KINGSLEY",
-    role: "PROGRAM AUDIT SPECIALIST",
-    bio: "Kingsley is an expert public health consultant with credentials in analytical diagnostic testing and system transparency audits. He coordinates active advisory operations with multiple international agencies.",
-    isPending: false,
-    avatarText: "UK",
-    avatarUrl: ""
-  },
-  {
-    id: "iro-okechukwu",
-    name: "IRO OKECHUKWU",
-    role: "LEAD OPERATIONS CONSULTANT",
-    bio: "Okechukwu leads our on-the-ground project monitoring frameworks, ensuring rigorous policy administration and execution across remote primary healthcare clinics.",
-    isPending: false,
-    avatarText: "IO",
     avatarUrl: ""
   }
 ];

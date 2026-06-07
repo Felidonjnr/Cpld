@@ -107,7 +107,9 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
     // 2. Team
     const localTeam = localStorage.getItem('dpcl_cms_team');
     if (localTeam) {
-      setTeam(JSON.parse(localTeam));
+      const parsed = JSON.parse(localTeam).filter((m: any) => m.id !== 'ukwaja-kingsley' && m.id !== 'iro-okechukwu');
+      setTeam(parsed);
+      localStorage.setItem('dpcl_cms_team', JSON.stringify(parsed));
     } else {
       setTeam(TEAM_MEMBERS_DATA);
       localStorage.setItem('dpcl_cms_team', JSON.stringify(TEAM_MEMBERS_DATA));
