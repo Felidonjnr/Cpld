@@ -169,7 +169,10 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
     // 6. Site Config
     const localConfig = localStorage.getItem('dpcl_cms_site_config');
     if (localConfig) {
-      setSiteConfigState(JSON.parse(localConfig));
+      const parsed = JSON.parse(localConfig);
+      // Merge with default siteConfig to backfill new metadata attributes
+      const merged = { ...siteConfig, ...parsed };
+      setSiteConfigState(merged);
     } else {
       setSiteConfigState(siteConfig);
       localStorage.setItem('dpcl_cms_site_config', JSON.stringify(siteConfig));
@@ -1030,6 +1033,58 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
                             </div>
                             <p className="text-[10px] text-slate-400 mt-1">
                               Leave this field blank to automatically fall back to the premium default stylized "DP" text-circle brand icon.
+                            </p>
+                          </div>
+
+                          <div className="md:col-span-2">
+                            <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1">
+                              Social Preview Image Link (og:image)
+                            </label>
+                            <div className="flex gap-3">
+                              <input 
+                                type="text" 
+                                placeholder="https://example.com/preview_banner.png"
+                                value={siteConfigState.previewImageUrl || ''}
+                                onChange={e => {
+                                  const updated = { ...siteConfigState, previewImageUrl: e.target.value };
+                                  setSiteConfigState(updated);
+                                  localStorage.setItem('dpcl_cms_site_config', JSON.stringify(updated));
+                                }}
+                                className="flex-1 text-xs font-sans tracking-wide p-3 border border-slate-200 bg-white rounded-xl focus:outline-none focus:border-[#3b82f6] font-mono"
+                              />
+                              {siteConfigState.previewImageUrl && (
+                                <div className="h-10 w-10 p-0.5 border border-slate-200 rounded-lg flex items-center justify-center bg-slate-50 overflow-hidden shrink-0">
+                                  <img 
+                                    src={siteConfigState.previewImageUrl} 
+                                    alt="Social Preview" 
+                                    referrerPolicy="no-referrer"
+                                    className="h-full w-full object-contain" 
+                                    onError={(e)=>{ (e.target as any).src='https://placehold.co/100x100?text=Error'; }}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-[10px] text-slate-400 mt-1">
+                              The premium image representation used when sharing the link on platforms like WhatsApp, LinkedIn, Facebook, and Twitter.
+                            </p>
+                          </div>
+
+                          <div className="md:col-span-2">
+                            <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1">
+                              Website Description Meta (og:description)
+                            </label>
+                            <textarea 
+                              rows={3}
+                              value={siteConfigState.description || ''}
+                              onChange={e => {
+                                const updated = { ...siteConfigState, description: e.target.value };
+                                setSiteConfigState(updated);
+                                localStorage.setItem('dpcl_cms_site_config', JSON.stringify(updated));
+                              }}
+                              className="w-full text-xs font-sans tracking-wide p-3 border border-slate-200 bg-white rounded-xl focus:outline-none focus:border-[#3b82f6] font-semibold"
+                            />
+                            <p className="text-[10px] text-slate-400 mt-1">
+                              The default site description text attached during link indexing, bookmarking, and messaging preview render loops.
                             </p>
                           </div>
                         </div>

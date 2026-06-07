@@ -4,6 +4,8 @@ export interface SiteConfig {
   logoText: string;
   logoPath: string; // Easily replaceable path or indicator
   logoUrl?: string; // Custom real-time logo image link
+  previewImageUrl?: string; // Social preview image link
+  description?: string; // Site preview metadata description
   contactEmail: string;
   contactPhone: string;
   contactAddress: string;
@@ -22,8 +24,10 @@ export const siteConfig: SiteConfig = {
   shortName: "DPCL",
   logoText: "DP",
   logoPath: "/assets/logo.png",
-  logoUrl: "", // Users can input any live raw image URL here to replace the "DP" brand icon
-  contactEmail: "info@dpcl.com.ng",
+  logoUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=150", 
+  previewImageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200",
+  description: "Premium landing page and consulting hub for Development Consult Plus Limited (DPCL), an elite international development consulting firm.",
+  contactEmail: "k.ukwaja@dpcl-consulting.com",
   contactPhone: "+234.703.068.4093",
   contactAddress: "3rd Floor, Valley Plaza, Plot 215, Aminu Kano Crescent, Wuse II, Abuja, FCT, Nigeria.",
   officeHours: "Monday — Friday: 08:30 to 17:00 (GMT+1 / West Africa Time)",
