@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FileText, ArrowUpRight, Search, BookOpen, Download, X } from "lucide-react";
-import { PUBLICATIONS_DATA, PublicationItem } from "../data";
+import { technicalPublications, Publication } from "../data";
 
 export default function KnowledgeHub() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [activePublication, setActivePublication] = useState<PublicationItem | null>(null);
+  const [activePublication, setActivePublication] = useState<Publication | null>(null);
 
   const categories = ["All", "Health Systems", "Public Finance", "Institutional Strategy"];
 
@@ -22,7 +22,7 @@ export default function KnowledgeHub() {
   }, []);
 
   // Filter Publications based on category and search query
-  const filteredPublications = PUBLICATIONS_DATA.filter((pub) => {
+  const filteredPublications = technicalPublications.filter((pub) => {
     const matchesCategory = selectedCategory === "All" || pub.category === selectedCategory;
     const matchesSearch = 
       pub.title.toLowerCase().includes(searchQuery.toLowerCase()) || 

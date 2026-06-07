@@ -139,9 +139,7 @@ export default function Footer({ onNavigate, onOpenAdmin, config }: FooterProps)
         {/* Absolute bottom: Centered stand-alone copyright bar & Top Scroll */}
         <div className="pt-12 mt-12 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-slate-400">
           
-          <div className="font-mono text-[10px] text-center sm:text-left flex-1">
-            Registered Reg Number: {cfg.regNumber} • FEDERAL AUDIT VERIFIED
-          </div>
+          <div className="flex-1 hidden sm:block" />
 
           <div className="text-center font-sans tracking-wide">
             © 2026 {cfg.companyName}. All Rights Reserved.

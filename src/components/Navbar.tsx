@@ -125,9 +125,6 @@ export default function Navbar({ onNavigate, onOpenAdmin, config }: NavbarProps)
                 <h1 className="font-sans text-sm sm:text-base font-black tracking-tight text-[#0F3A6B] leading-none uppercase">
                   {cfg.companyName}
                 </h1>
-                <span className="text-[9px] font-mono tracking-[0.22em] text-slate-500 font-bold mt-0.5 uppercase">
-                  PLUS LTD • {cfg.shortName}
-                </span>
               </div>
             </div>
 

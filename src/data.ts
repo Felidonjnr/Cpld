@@ -1,3 +1,21 @@
+export interface CompanyDetails {
+  legalName: string;
+  shortName: string;
+  cacNumber: string;
+  address: string;
+  email: string;
+  phones: string[];
+}
+
+export const companyDetails: CompanyDetails = {
+  legalName: "Development Plus Health Consult Limited",
+  shortName: "DPCL",
+  cacNumber: "1876089",
+  address: "Plot 337, Cherry Street, Mac Global Estate, Gwarinpa, Abuja, FCT, Nigeria",
+  email: "developmentplusconsult@gmail.com",
+  phones: ["+234703-068-4093", "+234-803-2597-804"]
+};
+
 export interface SiteConfig {
   companyName: string;
   shortName: string;
@@ -20,18 +38,18 @@ export interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  companyName: "Development Plus Health Consult Limited(DPCL)",
-  shortName: "",
-  logoText: "",
+  companyName: "Development Plus Health Consult Limited",
+  shortName: "DPCL",
+  logoText: "DP",
   logoPath: "/assets/logo.png",
   logoUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=150", 
   previewImageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200",
-  description: "Premium landing page and consulting hub for Development Consult Plus Limited (DPCL), an elite international development consulting firm.",
-  contactEmail: "k.ukwaja@dpcl-consulting.com",
-  contactPhone: "+234.703.068.4093",
-  contactAddress: "3rd Floor, Valley Plaza, Plot 215, Aminu Kano Crescent, Wuse II, Abuja, FCT, Nigeria.",
+  description: "Premium landing page and consulting hub for Development Plus Health Consult Limited (DPCL), an elite international development consulting firm.",
+  contactEmail: "developmentplusconsult@gmail.com",
+  contactPhone: "+234703-068-4093, +234-803-2597-804",
+  contactAddress: "Plot 337, Cherry Street, Mac Global Estate, Gwarinpa, Abuja, FCT, Nigeria",
   officeHours: "Monday — Friday: 08:30 to 17:00 (GMT+1 / West Africa Time)",
-  regNumber: "RC-2021-992-DPCL",
+  regNumber: "1876089",
   socials: {
     facebook: "https://facebook.com",
     twitter: "https://twitter.com",
@@ -52,7 +70,7 @@ export const HERO_SLIDES: HeroSlideItem[] = [
   {
     id: 1,
     badge: "EXPERT ADVISORY SOLUTIONS",
-    title: "DEVELOPMENT CONSULT PLUS LIMITED",
+    title: "DEVELOPMENT PLUS HEALTH CONSULT LIMITED",
     subtitle: "Empowering Lives through Expertise, Vision, and Advanced Technological Endeavors.",
     imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1600"
   },
@@ -151,22 +169,58 @@ export interface TeamProfileItem {
 
 export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
   {
-    id: "ebenezer-uchenna",
-    name: "EBENEZER UCHENNA",
-    role: "PRINCIPAL PARTNER",
-    bio: "As the principal partner, Uche Ebenezer brings extensive experience in the health development sector across Nigeria and sub-Saharan Africa. Specializing in health systems strengthening and health financing, Uche has contributed to projects funded by leading organizations like UNAIDS, USAID, BMGF, The World Bank, and The Global Fund.",
+    id: "uchenna-ebenezer",
+    name: "Pharm Uchenna Ebenezer",
+    role: "Director, Health Systems Strengthening/Health Financing",
+    bio: "",
     isPending: false,
-    avatarText: "EU",
-    avatarUrl: ""
+    avatarText: "UE",
+    avatarUrl: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=400"
   },
   {
-    id: "maikano-adamu",
-    name: "MAIKANO ADAMU",
-    role: "SENIOR MEDICAL REFORM PARTNER",
-    bio: "Maikano Adamu, a distinguished medical doctor, boasts a comprehensive academic background, holding a Master's in Public Health from London Metropolitan University, United Kingdom, and a Master's in Health Policy Planning and Financing from the prestigious London School of Economics and London School of Hygiene and Tropical Medicine.",
+    id: "adamu-maikano",
+    name: "Dr. Adamu Maikano",
+    role: "Director, Strategy & Partnerships",
+    bio: "",
     isPending: false,
-    avatarText: "MA",
-    avatarUrl: ""
+    avatarText: "AM",
+    avatarUrl: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=400"
+  },
+  {
+    id: "frank-emerenini",
+    name: "Dr. Frank Emerenini",
+    role: "Technical Lead - Clinical Services & Support",
+    bio: "",
+    isPending: false,
+    avatarText: "FE",
+    avatarUrl: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=400"
+  },
+  {
+    id: "chima-ugwu",
+    name: "Pharm Chima Ugwu",
+    role: "M & E Manager",
+    bio: "",
+    isPending: false,
+    avatarText: "CU",
+    avatarUrl: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=400"
+  },
+  {
+    id: "michael-olawuyi",
+    name: "Dr. Michael Olawuyi",
+    role: "Director, Global Health",
+    bio: "",
+    isPending: false,
+    avatarText: "MO",
+    avatarUrl: "https://images.unsplash.com/photo-1594824813573-246434de83fb?auto=format&fit=crop&q=80&w=400"
+  },
+  {
+    id: "kingsley-ukwaja",
+    name: "Prof. Kingsley Ukwaja",
+    role: "Director, Research & Innovation",
+    bio: "",
+    isPending: false,
+    avatarText: "KU",
+    avatarUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400"
   }
 ];
 
@@ -252,79 +306,79 @@ export const BLOGS_DATA: BlogItem[] = [
   }
 ];
 
-export interface PublicationItem {
+export interface Publication {
   id: string;
-  category: "Health Systems" | "Public Finance" | "Institutional Strategy" | string;
+  category: "Health Systems" | "Public Finance" | "Institutional Strategy";
   title: string;
   documentType: string;
   summary: string;
   pdfUrl: string;
 }
 
-export const PUBLICATIONS_DATA: PublicationItem[] = [
+export const technicalPublications: Publication[] = [
   {
-    id: "pub-01",
-    category: "Public Finance",
-    title: "Diagnostic Reports of Key Development Sectors: Plateau State",
-    documentType: "Diagnostic Assessment",
-    summary: "This comprehensive diagnostic report analyzes performance gaps across Plateau State's education, public financial management, open governance, and health sectors relative to the Plateau State Development Strategy. It delivers evidence-based, context-driven recommendations to strengthen fiscal transparency, budget processes, and sectoral governance.",
-    pdfUrl: "https://drive.google.com/file/d/1JidKAOB5Sl6exUPvIdiu1Rv5nzra_olA/preview"
+    "id": "pub-01",
+    "category": "Public Finance",
+    "title": "Diagnostic Reports of Key Development Sectors: Plateau State",
+    "documentType": "Diagnostic Assessment",
+    "summary": "This comprehensive diagnostic report analyzes performance gaps across Plateau State's education, public financial management, open governance, and health sectors relative to the Plateau State Development Strategy. It delivers evidence-based, context-driven recommendations to strengthen fiscal transparency, budget processes, and sectoral governance.",
+    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_1/preview"
   },
   {
-    id: "pub-02",
-    category: "Health Systems",
-    title: "Operations Research Phase I: Training Workshop Report for GoHealth",
-    documentType: "Training Completion Report",
-    summary: "This report documents a four-day operations research training workshop delivered to GoHealth management staff, covering research methodologies, manuscript development, and system improvement design. Pre- and post-training assessments demonstrate marked improvement in participant understanding of operations research concepts.",
-    pdfUrl: "https://drive.google.com/file/d/1JidKAOB5Sl6exUPvIdiu1Rv5nzra_olA/preview"
+    "id": "pub-02",
+    "category": "Health Systems",
+    "title": "Operations Research Phase I: Training Workshop Report for GoHealth",
+    "documentType": "Training Completion Report",
+    "summary": "This report documents a four-day operations research training workshop delivered to GoHealth management staff, covering research methodologies, manuscript development, and system improvement design. Pre- and post-training assessments demonstrate marked improvement in participant understanding of operations research concepts.",
+    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_2/preview"
   },
   {
-    id: "pub-03",
-    category: "Health Systems",
-    title: "Political Economy Analysis of the Health Sector: Plateau State",
-    documentType: "Diagnostic Assessment",
-    summary: "This political economy analysis examines health system structure, funding flows, and service delivery bottlenecks in Plateau State through key informant interviews and desk review. It presents an influence-interest matrix for strategic stakeholder targeting and offers seven actionable recommendations to improve public health investment.",
-    pdfUrl: "https://drive.google.com/file/d/1by9k639mx9hKEx0p4eSP9X6SsQkU-s7i/preview"
+    "id": "pub-03",
+    "category": "Health Systems",
+    "title": "Political Economy Analysis of the Health Sector: Plateau State",
+    "documentType": "Diagnostic Assessment",
+    "summary": "This political economy analysis examines health system structure, funding flows, and service delivery bottlenecks in Plateau State through key informant interviews and desk review. It presents an influence-interest matrix for strategic stakeholder targeting and offers seven actionable recommendations to improve public health investment.",
+    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_3/preview"
   },
   {
-    id: "pub-04",
-    category: "Health Systems",
-    title: "Inception Meeting Report: Institutional Strengthening of GoHealth",
-    documentType: "Inception Report",
-    summary: "This inception report establishes the scope, methodology, and stakeholder engagement framework for providing technical assistance to Gombe State's Contributory Healthcare Management Agency. It documents entry meetings, OCAT deployment planning, and workplan adoption for institutional strengthening.",
-    pdfUrl: "https://drive.google.com/file/d/1lOH_dHH0tK0hSZutsUhbqvrR5SN8aN6y/preview"
+    "id": "pub-04",
+    "category": "Health Systems",
+    "title": "Inception Meeting Report: Institutional Strengthening of GoHealth",
+    "documentType": "Inception Report",
+    "summary": "This inception report establishes the scope, methodology, and stakeholder engagement framework for providing technical assistance to Gombe State's Contributory Healthcare Management Agency. It documents entry meetings, OCAT deployment planning, and workplan adoption for institutional strengthening.",
+    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_4/preview"
   },
   {
-    id: "pub-05",
-    category: "Health Systems",
-    title: "Training on Effective Communication Strategies: Concept and Strategies for GoHealth",
-    documentType: "Training Completion Report",
-    summary: "This training report details a three-day workshop that equipped GoHealth's communication team with social and behavioral change communication frameworks and theory of change models. Participants co-developed a communications plan to drive demand for social health insurance products and improve public engagement.",
-    pdfUrl: "https://drive.google.com/file/d/1m54OoQeSVx-k19Rp1loFyXU_Iw1LGqdQ/preview"
+    "id": "pub-05",
+    "category": "Health Systems",
+    "title": "Training on Effective Communication Strategies: Concept and Strategies for GoHealth",
+    "documentType": "Training Completion Report",
+    "summary": "This training report details a three-day workshop that equipped GoHealth's communication team with social and behavioral change communication frameworks and theory of change models. Participants co-developed a communications plan to drive demand for social health insurance products and improve public engagement.",
+    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_5/preview"
   },
   {
-    id: "pub-06",
-    category: "Health Systems",
-    title: "Training in Monitoring & Evaluation: Fundamentals of M&E for GoHealth",
-    documentType: "Training Completion Report",
-    summary: "This four-day training report documents capacity building for GoHealth staff on logic frameworks, indicator development, and M&E plan design. The training produced a draft M&E plan enabling data-driven course correction and resource allocation, with pre- and post-test results showing significant knowledge gains.",
-    pdfUrl: "https://drive.google.com/file/d/1NPsI0CLrW3cVwC6emmbck8jYtOPkeYn-/preview"
+    "id": "pub-06",
+    "category": "Health Systems",
+    "title": "Training in Monitoring & Evaluation: Fundamentals of M&E for GoHealth",
+    "documentType": "Training Completion Report",
+    "summary": "This four-day training report documents capacity building for GoHealth staff on logic frameworks, indicator development, and M&E plan design. The training produced a draft M&E plan enabling data-driven course correction and resource allocation, with pre- and post-test results showing significant knowledge gains.",
+    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_6/preview"
   },
   {
-    id: "pub-07",
-    category: "Institutional Strategy",
-    title: "Executive Brief: Key Findings from the OCAT Analysis - Gombe State Contributory Healthcare Management Agency",
-    documentType: "Diagnostic Assessment",
-    summary: "This organizational capacity assessment evaluates GoHealth across eleven domains including governance, finance, human resources, and monitoring & evaluation. The analysis identifies institutional strengths, critical gaps, and low-hanging fruit recommendations with a sequenced capacity-building roadmap.",
-    pdfUrl: "https://drive.google.com/file/d/1ZIJrUYXtM_-nEPnqQh1HV3rIraZEvMzn/preview"
+    "id": "pub-07",
+    "category": "Institutional Strategy",
+    "title": "Executive Brief: Key Findings from the OCAT Analysis - Gombe State Contributory Healthcare Management Agency",
+    "documentType": "Diagnostic Assessment",
+    "summary": "This organizational capacity assessment evaluates GoHealth across eleven domains including governance, finance, human resources, and monitoring & evaluation. The analysis identifies institutional strengths, critical gaps, and low-hanging fruit recommendations with a sequenced capacity-building roadmap.",
+    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_7/preview"
   },
   {
-    id: "pub-08",
-    category: "Institutional Strategy",
-    title: "GoHealth Capacity Building Plan: Training Developed and Implemented",
-    documentType: "Capacity Building Plan",
-    summary: "This capacity building plan maps ten targeted training interventions across monitoring & evaluation, human resources, communication, operations research, and program management. The plan outlines a hybrid delivery model combining off-site workshops and on-site handholding sessions to address organizational capacity gaps.",
-    pdfUrl: "https://drive.google.com/file/d/16jrjxzKxbUzQKhSC1R-wtKHCVdtmjT2T/preview"
+    "id": "pub-08",
+    "category": "Institutional Strategy",
+    "title": "GoHealth Capacity Building Plan: Training Developed and Implemented",
+    "documentType": "Capacity Building Plan",
+    "summary": "This capacity building plan maps ten targeted training interventions across monitoring & evaluation, human resources, communication, operations research, and program management. The plan outlines a hybrid delivery model combining off-site workshops and on-site handholding sessions to address organizational capacity gaps.",
+    "pdfUrl": "https://drive.google.com/file/d/YOUR_REAL_ID_8/preview"
   }
 ];
 

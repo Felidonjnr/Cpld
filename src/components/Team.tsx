@@ -32,7 +32,7 @@ export default function Team({ onContactPartner, items }: TeamProps) {
         </div>
 
         {/* Modern Grid Layout Displaying Profile Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {team.map((member) => (
             <div
               key={member.id}
@@ -42,15 +42,25 @@ export default function Team({ onContactPartner, items }: TeamProps) {
               <div className="space-y-5">
                 
                 {/* Profile Picture Frame / Square Geometric initials block with friendly rounded edges */}
-                <div className="w-full aspect-square bg-gradient-to-br from-[#0B2340] to-[#0F3A6B] border border-slate-100 flex flex-col items-center justify-center p-4 relative select-none rounded-2xl shadow-xs">
-                  
-                  <div className="w-16 h-16 rounded-full bg-white text-[#0F3A6B] flex items-center justify-center font-serif font-black text-2xl shadow-md border border-slate-100">
-                    {member.avatarText}
-                  </div>
+                <div className="w-full aspect-square bg-[#0B2340] border border-slate-150 flex flex-col items-center justify-center relative select-none rounded-2xl shadow-xs overflow-hidden group">
+                  {member.avatarUrl ? (
+                    <img 
+                      src={member.avatarUrl} 
+                      alt={member.name}
+                      referrerPolicy="no-referrer"
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center justify-center p-4">
+                      <div className="w-16 h-16 rounded-full bg-white text-[#0F3A6B] flex items-center justify-center font-serif font-black text-2xl shadow-md border border-slate-100">
+                        {member.avatarText}
+                      </div>
 
-                  <span className="text-[10px] font-mono tracking-widest text-[#3b82f6] font-bold uppercase mt-4">
-                    {member.role ? member.role.split(' ')[0] : 'CONSULTANT'}
-                  </span>
+                      <span className="text-[10px] font-mono tracking-widest text-[#3b82f6] font-bold uppercase mt-4">
+                        {member.role ? member.role.split(' ')[0] : 'CONSULTANT'}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Profile Meta Details */}

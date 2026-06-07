@@ -130,7 +130,7 @@ export default function BlogEvents() {
                 
                 {/* Simulated extensive paragraphs to feel high fidelity and represent true intelligence memorandums */}
                 <p className="mt-4 pt-4 border-t border-slate-100 text-xs italic text-slate-500 font-sans font-normal">
-                  This document serves as an analytical brief distributed by Development Consult Plus Limited (DPCL). Our senior partners advise public agencies, ministries, and civil society taskforces with capacity development, policy modeling, and fiscal management frameworks. For collaboration or formal project consultations, reach out via our contact gateway.
+                  This document serves as an analytical brief distributed by Development Plus Health Consult Limited (DPCL). Our senior partners advise public agencies, ministries, and civil society taskforces with capacity development, policy modeling, and fiscal management frameworks. For collaboration or formal project consultations, reach out via our contact gateway.
                 </p>
               </div>
             </div>

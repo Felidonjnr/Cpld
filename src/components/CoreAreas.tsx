@@ -28,9 +28,6 @@ export default function CoreAreas({ onLearnMore }: CoreAreasProps) {
         
         {/* Swanky Centered Title Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <p className="text-[10px] font-mono tracking-[0.25em] font-extrabold text-[#0F3A6B] uppercase mb-2">
-            ORGANIZATIONAL DOMAINS
-          </p>
           <h2 className="text-3xl sm:text-4xl font-sans tracking-tight text-slate-800 leading-none uppercase font-black">
             CORE AREAS
           </h2>
