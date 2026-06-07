@@ -22,7 +22,7 @@ export const siteConfig: SiteConfig = {
   shortName: "DPCL",
   logoText: "DP",
   logoPath: "/assets/logo.png",
-  logoUrl: "", // Users can input any live raw image URL here to replace the "DP" brand icon
+  logoUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780822868/Screenshot_20260607-095224_xnvdie.jpg", // Users can input any live raw image URL here to replace the "DP" brand icon
   contactEmail: "k.ukwaja@dpcl-consulting.com",
   contactPhone: "+234.703.068.4093",
   contactAddress: "3rd Floor, Valley Plaza, Plot 215, Aminu Kano Crescent, Wuse II, Abuja, FCT, Nigeria.",
