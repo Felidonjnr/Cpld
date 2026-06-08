@@ -138,7 +138,7 @@ export const CORE_AREAS_DATA: CoreAreaItem[] = [
   {
     id: "digital-health-tools",
     title: "Digital Tools for Health & Strategic Information",
-    text: "DPCL combines public health expertise with advanced digital health and strategic information capabilities, including DHIS2, electronic medical records, dashboards, logistics management information systems, cloud-based platforms, data visualization tools, and database management systems but not limited to the electronic Nigeria National Response Information Management System (eNNRIMS), NAVSION to track HIV commodities and support quantification, dashboards, HRH registry and data visualization tools, LAMIS, CSPro, KoboCollect, Power BI, SPSS, and Microsoft Excel.",
+    text: "DPCL combines public health expertise with advanced digital health and strategic information capabilities, including DHIS2, electronic medical records, dashboards, logistics management information systems, cloud-based platforms, data visualization tools, and database management systems but not limited to the electronic Nigeria National Response Information Management System (eNNRIMS), NAVSION to track HIV commodities and support quantification, dashboards, HRH registry and data visualization tools, Lafiya Mgt Info Syst (LAMIS) , CSPro, KoboCollect, Power BI, SPSS, and Microsoft Excel.",
     badge: "STRATEGIC INFO",
     iconName: "Cpu",
     routeLink: "#contact"
