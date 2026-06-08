@@ -249,7 +249,7 @@ export const AFFILIATIONS_DATA: AffiliationItem[] = [
     id: "aff-1",
     fullName: "INSTITUTE OF HEALTH INSURANCE AND MANAGED CARE OF NIGERIA",
     initials: "IHIMN",
-    imageUrl: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=150",
+    imageUrl: "",
     color: "#3b82f6"
   },
   {
@@ -277,7 +277,7 @@ export const AFFILIATIONS_DATA: AffiliationItem[] = [
     id: "aff-5",
     fullName: "NATIONAL ASSOCIATION FOR PUBLIC HEALTH PRACTITIONERS COUNCIL IN NIGERIA",
     initials: "NAPHPPCN",
-    imageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=150",
+    imageUrl: "",
     color: "#a855f7"
   }
 ];
