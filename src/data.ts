@@ -192,7 +192,7 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
   {
     id: "adamu-maikano",
     name: "Dr. Adamu Maikano",
-    role: "Technical Advisor (Marketing)",
+    role: "Director, Partnerships and Collaborations",
     bio: "Dr. Adamu Maikano, who shall play the role of the Technical Advisor (Marketing). He holds a Medical Degree from the University of Jos, as well as a Master’s in Public Health from London Metropolitan University and a Masters in Health Policy Planning and Financing from London School of Economics and London School of Hygiene and Tropical Medicine.\n\nWith a 14 years’ experience, Dr. Maikano has held various roles in his career, including Regional Coordinator at the Foreign Commonwealth and Development Office (FCDO)-Kano, Health Financing Consultant at Development Plus Consult Limited (DPCL) and Result for Development (R4D), and Consultant for Political Economy Analysis for Improved Public Investment in Health for the FCDO-Lafiya Project in Kaduna State. He has also served as Technical Advisor for Public Financial Management/Domestic Resource Mobilization at Palladium Health Policy Plus, and Program Officer for Save One Million Lives (SOML) Project at AIDS Prevention Initiative in Nigeria (APIN) Public Health Initiatives in Abuja, Nigeria.",
     isPending: false,
     avatarText: "AM",
@@ -210,7 +210,7 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
   {
     id: "chima-ugwu",
     name: "Pharm. Chima Ugwu",
-    role: "M & E Manager",
+    role: "Technical Advisor - Monitoring & Evaluation",
     bio: "A public health pharmacist and results-driven Monitoring & Evaluation specialist with over a decade of technical leadership on large-scale, donor-funded health programmes across Nigeria. Expert in designing complex field assessments and data quality systems for the World Bank, Global Fund, WHO, and UN agencies.",
     isPending: false,
     avatarText: "CU",
