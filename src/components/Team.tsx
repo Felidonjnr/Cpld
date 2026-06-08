@@ -32,68 +32,70 @@ export default function Team({ onContactPartner, items }: TeamProps) {
         </div>
 
         {/* Modern Grid Layout Displaying Profile Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {team.map((member) => (
             <div
               key={member.id}
-              className="flex flex-col bg-slate-50 border border-slate-200/80 hover:border-[#3b82f6] transition-all duration-300 p-6 text-left justify-between rounded-2xl shadow-xs hover:shadow-xl transform hover:-translate-y-1.5"
+              className="h-full flex flex-col bg-slate-50 border border-slate-200/80 hover:border-[#3b82f6] transition-all duration-300 p-6 text-left rounded-2xl shadow-xs hover:shadow-xl transform hover:-translate-y-1.5"
             >
               
-              <div className="space-y-5">
+              <div className="flex-1 flex flex-col space-y-5">
                 
-                {/* Profile Picture Frame / Square Geometric initials block with friendly rounded edges */}
-                <div className="w-full aspect-square bg-[#0B2340] border border-slate-150 flex flex-col items-center justify-center relative select-none rounded-2xl shadow-xs overflow-hidden group">
-                  {member.avatarUrl ? (
-                    <img 
-                      src={member.avatarUrl} 
-                      alt={member.name}
-                      referrerPolicy="no-referrer"
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center justify-center p-4">
-                      <div className="w-16 h-16 rounded-full bg-white text-[#0F3A6B] flex items-center justify-center font-serif font-black text-2xl shadow-md border border-slate-100">
-                        {member.avatarText}
+                <div className="space-y-5 flex-1">
+                  {/* Profile Picture Frame / Square Geometric initials block with friendly rounded edges */}
+                  <div className="w-full aspect-square bg-[#0B2340] border border-slate-150 flex flex-col items-center justify-center relative select-none rounded-2xl shadow-xs overflow-hidden group">
+                    {member.avatarUrl ? (
+                      <img 
+                        src={member.avatarUrl} 
+                        alt={member.name}
+                        referrerPolicy="no-referrer"
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="flex flex-col items-center justify-center p-4">
+                        <div className="w-16 h-16 rounded-full bg-white text-[#0F3A6B] flex items-center justify-center font-serif font-black text-2xl shadow-md border border-slate-100">
+                          {member.avatarText}
+                        </div>
+
+                        <span className="text-[10px] font-mono tracking-widest text-[#3b82f6] font-bold uppercase mt-4">
+                          {member.role ? member.role.split(' ')[0] : 'CONSULTANT'}
+                        </span>
                       </div>
+                    )}
+                  </div>
 
-                      <span className="text-[10px] font-mono tracking-widest text-[#3b82f6] font-bold uppercase mt-4">
-                        {member.role ? member.role.split(' ')[0] : 'CONSULTANT'}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Profile Meta Details */}
-                <div>
-                  <h3 className="text-base font-sans font-extrabold text-[#0F3A6B] uppercase tracking-tight">
-                    {member.name}
-                  </h3>
-                  <p className="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-widest mt-1">
-                    {member.role}
-                  </p>
-                </div>
-
-                {/* Biography or Pending Placeholder */}
-                {member.isPending ? (
-                  /* Stylized, custom pending review placeholder block */
-                  <div className="bg-amber-50/70 border border-amber-200/80 p-4 rounded-xl space-y-2 flex flex-col items-start shadow-xs">
-                    <div className="flex items-center gap-1.5 text-amber-800">
-                      <AlertCircle size={14} className="shrink-0" />
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider">
-                        REVIEW DIRECTIVE
-                      </span>
-                    </div>
-                    <p className="text-xs text-amber-700 font-sans italic leading-relaxed">
-                      {member.bio}
+                  {/* Profile Meta Details */}
+                  <div>
+                    <h3 className="text-base font-sans font-extrabold text-[#0F3A6B] uppercase tracking-tight">
+                      {member.name}
+                    </h3>
+                    <p className="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-widest mt-1">
+                      {member.role}
                     </p>
                   </div>
-                ) : (
-                  member.bio && (
-                    <p className="text-xs text-slate-600 font-sans leading-relaxed">
-                      {member.bio}
-                    </p>
-                  )
-                )}
+
+                  {/* Biography or Pending Placeholder */}
+                  {member.isPending ? (
+                    /* Stylized, custom pending review placeholder block */
+                    <div className="bg-amber-50/70 border border-amber-200/80 p-4 rounded-xl space-y-2 flex flex-col items-start shadow-xs">
+                      <div className="flex items-center gap-1.5 text-amber-800">
+                        <AlertCircle size={14} className="shrink-0" />
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider">
+                          REVIEW DIRECTIVE
+                        </span>
+                      </div>
+                      <p className="text-xs text-amber-700 font-sans italic leading-relaxed">
+                        {member.bio}
+                      </p>
+                    </div>
+                  ) : (
+                    member.bio && (
+                      <p className="text-xs text-slate-600 font-sans leading-relaxed whitespace-pre-line">
+                        {member.bio}
+                      </p>
+                    )
+                  )}
+                </div>
 
               </div>
 

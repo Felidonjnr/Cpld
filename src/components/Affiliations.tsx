@@ -63,6 +63,33 @@ export default function Affiliations({ items }: AffiliationsProps) {
   const currentAff = affs[currentIndex] || affs[0];
   const prevAff = prevIndex !== null ? (affs[prevIndex] || affs[0]) : null;
 
+  const renderAffiliationLogo = (aff: AffiliationItem) => {
+    if (aff.imageUrl && aff.imageUrl.length > 0) {
+      return (
+        <img 
+          src={aff.imageUrl} 
+          alt={aff.initials} 
+          referrerPolicy="no-referrer"
+          className="w-full h-full object-cover rounded-lg"
+        />
+      );
+    }
+    
+    // Choose specific lucide icon style for the affiliation fallbacks
+    let FallbackIcon = Landmark;
+    if (aff.initials === "IHIMN") FallbackIcon = HeartPulse;
+    if (aff.initials === "NAPHPPCN") FallbackIcon = ShieldCheck;
+    
+    return (
+      <div className="flex flex-col items-center justify-center w-full h-full p-1 select-none text-center">
+        <FallbackIcon className="w-8 h-8 mb-1 opacity-90 stroke-[1.5]" style={{ color: aff.color || '#3b82f6' }} />
+        <span className="text-[9px] font-sans font-black tracking-tighter uppercase" style={{ color: aff.color || '#3b82f6' }}>
+          {aff.initials}
+        </span>
+      </div>
+    );
+  };
+
   return (
     <section 
       id="affiliations" 
@@ -112,12 +139,7 @@ export default function Affiliations({ items }: AffiliationsProps) {
                 className="p-1 w-20 h-20 rounded-xl bg-[#091E3A]/80 border shadow-sm mb-2 overflow-hidden flex items-center justify-center"
                 style={{ borderColor: prevAff.color || '#38bdf8' }}
               >
-                <img 
-                  src={prevAff.imageUrl} 
-                  alt={prevAff.initials} 
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover rounded-lg"
-                />
+                {renderAffiliationLogo(prevAff)}
               </div>
               <span className="text-[11px] font-mono font-black tracking-widest text-[#3b82f6]">
                 {prevAff.initials}
@@ -134,12 +156,7 @@ export default function Affiliations({ items }: AffiliationsProps) {
               className="p-1 w-20 h-20 rounded-xl bg-[#091E3A]/80 border shadow-sm mb-2 overflow-hidden flex items-center justify-center hover:scale-105 transition-transform duration-300"
               style={{ borderColor: currentAff.color || '#38bdf8' }}
             >
-              <img 
-                src={currentAff.imageUrl} 
-                alt={currentAff.initials} 
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover rounded-lg"
-              />
+              {renderAffiliationLogo(currentAff)}
             </div>
             <span className="text-[11px] font-mono font-black tracking-widest text-[#3b82f6]">
               {currentAff.initials}

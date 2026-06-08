@@ -138,7 +138,7 @@ export const CORE_AREAS_DATA: CoreAreaItem[] = [
   {
     id: "digital-health-tools",
     title: "Digital Tools for Health & Strategic Information",
-    text: "DPCL combines public health expertise with advanced digital health and strategic information capabilities, including DHIS2, electronic medical records, dashboards, logistics management information systems, cloud-based platforms, data visualization tools, and database management systems but not limited to the electronic Nigeria National Response Information Management System (eNNRIMS), NAVSION to track HIV commodities and support quantification, dashboards, HRH registry and data visualization tools, Lafiya Mgt Info Syst (LAMIS) , CSPro, KoboCollect, Power BI, SPSS, and Microsoft Excel.",
+    text: "DPCL combines public health expertise with advanced digital health and strategic information capabilities, including DHIS2, electronic medical records, dashboards, logistics management information systems, cloud-based platforms, data visualization tools, and database management systems but not limited to the electronic Nigeria National Response Information Management System (eNNRIMS), NAVSION to track HIV commodities and support quantification, dashboards, HRH registry and data visualization tools, LAMIS, CSPro, KoboCollect, Power BI, SPSS, and Microsoft Excel.",
     badge: "STRATEGIC INFO",
     iconName: "Cpu",
     routeLink: "#contact"
@@ -192,8 +192,8 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
   {
     id: "adamu-maikano",
     name: "Dr. Adamu Maikano",
-    role: "Director, Strategy & Partnerships",
-    bio: "Dr. Adamu Maikano holds a Medical Degree from the University of Jos, a Master’s in Public Health from London Metropolitan University, and a Master’s in Health Policy, Planning, and Financing from the London School of Economics and the London School of Hygiene and Tropical Medicine. With 14 years of experience, he has served as Regional Coordinator at FCDO-Kano, Health Financing Consultant at DPCL and R4D, and Consultant for the FCDO-Lafiya Project. He has also worked with Palladium Health Policy Plus and APIN Public Health Initiatives.",
+    role: "Technical Advisor (Marketing)",
+    bio: "Dr. Adamu Maikano, who shall play the role of the Technical Advisor (Marketing). He holds a Medical Degree from the University of Jos, as well as a Master’s in Public Health from London Metropolitan University and a Masters in Health Policy Planning and Financing from London School of Economics and London School of Hygiene and Tropical Medicine.\n\nWith a 14 years’ experience, Dr. Maikano has held various roles in his career, including Regional Coordinator at the Foreign Commonwealth and Development Office (FCDO)-Kano, Health Financing Consultant at Development Plus Consult Limited (DPCL) and Result for Development (R4D), and Consultant for Political Economy Analysis for Improved Public Investment in Health for the FCDO-Lafiya Project in Kaduna State. He has also served as Technical Advisor for Public Financial Management/Domestic Resource Mobilization at Palladium Health Policy Plus, and Program Officer for Save One Million Lives (SOML) Project at AIDS Prevention Initiative in Nigeria (APIN) Public Health Initiatives in Abuja, Nigeria.",
     isPending: false,
     avatarText: "AM",
     avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780865976/Dr.Adamu_Maikano_Director_Strategy_Partnerships_ng4qlr.jpg"

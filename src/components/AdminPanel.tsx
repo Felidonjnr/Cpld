@@ -107,7 +107,18 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
     // 2. Team
     const localTeam = localStorage.getItem('dpcl_cms_team');
     if (localTeam) {
-      const parsed = JSON.parse(localTeam).filter((m: any) => m.id !== 'ukwaja-kingsley' && m.id !== 'iro-okechukwu');
+      let parsed = JSON.parse(localTeam).filter((m: any) => m.id !== 'ukwaja-kingsley' && m.id !== 'iro-okechukwu');
+      let updated = false;
+      parsed = parsed.map((m: any) => {
+        if (m.id === 'adamu-maikano') {
+          if (m.role !== "Technical Advisor (Marketing)" || !m.bio.includes("Technical Advisor (Marketing)")) {
+            m.role = "Technical Advisor (Marketing)";
+            m.bio = "Dr. Adamu Maikano, who shall play the role of the Technical Advisor (Marketing). He holds a Medical Degree from the University of Jos, as well as a Master’s in Public Health from London Metropolitan University and a Masters in Health Policy Planning and Financing from London School of Economics and London School of Hygiene and Tropical Medicine.\n\nWith a 14 years’ experience, Dr. Maikano has held various roles in his career, including Regional Coordinator at the Foreign Commonwealth and Development Office (FCDO)-Kano, Health Financing Consultant at Development Plus Consult Limited (DPCL) and Result for Development (R4D), and Consultant for Political Economy Analysis for Improved Public Investment in Health for the FCDO-Lafiya Project in Kaduna State. He has also served as Technical Advisor for Public Financial Management/Domestic Resource Mobilization at Palladium Health Policy Plus, and Program Officer for Save One Million Lives (SOML) Project at AIDS Prevention Initiative in Nigeria (APIN) Public Health Initiatives in Abuja, Nigeria.";
+            updated = true;
+          }
+        }
+        return m;
+      });
       setTeam(parsed);
       localStorage.setItem('dpcl_cms_team', JSON.stringify(parsed));
     } else {
@@ -181,7 +192,23 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
     // 7. Affiliations
     const localAffs = localStorage.getItem('dpcl_cms_affiliations');
     if (localAffs) {
-      setAffiliations(JSON.parse(localAffs));
+      let parsed = JSON.parse(localAffs);
+      let updated = false;
+      parsed = parsed.map((aff: any) => {
+        if (aff.initials === "IHIMN" && aff.imageUrl !== "") {
+          aff.imageUrl = "";
+          updated = true;
+        }
+        if (aff.initials === "NAPHPPCN" && aff.imageUrl !== "") {
+          aff.imageUrl = "";
+          updated = true;
+        }
+        return aff;
+      });
+      setAffiliations(parsed);
+      if (updated) {
+        localStorage.setItem('dpcl_cms_affiliations', JSON.stringify(parsed));
+      }
     } else {
       setAffiliations(AFFILIATIONS_DATA);
       localStorage.setItem('dpcl_cms_affiliations', JSON.stringify(AFFILIATIONS_DATA));

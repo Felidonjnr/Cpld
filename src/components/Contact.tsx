@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Mail, Phone, MapPin, Landmark, Clock, Send, Award, UploadCloud, FileText, X, Check } from 'lucide-react';
+import { Mail, Phone, MapPin, Landmark, Clock, Send, UploadCloud, FileText, X, Check } from 'lucide-react';
 import { siteConfig } from '../data';
 
 export interface ConsultationInquiry {
@@ -294,18 +294,6 @@ export default function Contact({
               </div>
             </div>
 
-            {/* Corporate stamp block */}
-            <div className="mt-12 pt-6 border-t border-slate-100 hidden lg:block text-left">
-              <div className="flex items-center gap-3">
-                <div className="border border-slate-200 p-2.5 bg-[#0F3A6B]/5 text-[#3b82f6] rounded-xl shrink-0">
-                  <Award size={24} className="stroke-[1.5]" />
-                </div>
-                <div className="text-[10px] text-slate-500 leading-tight">
-                  <p className="font-extrabold text-slate-800 uppercase tracking-widest font-sans">FISCAL AUDITING COMPLIANCE CERTIFICATION</p>
-                  <p className="mt-1 font-mono text-slate-400">ID Code: DPCL-SEC/99R-22</p>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Right Side: Friendly Inquiry Form with curved layout, smooth inputs, and PDF support */}
