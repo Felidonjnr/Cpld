@@ -38,7 +38,7 @@ export default function Navbar({ onNavigate, onOpenAdmin, config }: NavbarProps)
             <div className="flex items-center gap-1.5 text-slate-300">
               <MapPin size={11} className="text-[#3b82f6]" />
               <span className="font-medium">
-                {cfg.contactAddress}
+                {cfg.operationalAddress}
               </span>
             </div>
             <div className="flex items-center gap-1.5 text-slate-300">
@@ -121,8 +121,8 @@ export default function Navbar({ onNavigate, onOpenAdmin, config }: NavbarProps)
                   <span className="absolute bottom-0.5 right-0.5 h-1.5 w-1.5 bg-[#3b82f6] rounded-full" />
                 </div>
               )}
-              <div className="flex flex-col">
-                <h1 className="font-sans text-sm sm:text-base font-black tracking-tight text-[#0F3A6B] leading-none uppercase">
+              <div className="flex flex-col min-w-0 max-w-[160px] xs:max-w-[220px] sm:max-w-[320px] md:max-w-none">
+                <h1 className="font-sans text-[10px] xs:text-xs sm:text-sm md:text-base font-black tracking-tight text-[#0F3A6B] leading-[1.2] uppercase whitespace-normal break-words">
                   {cfg.companyName}
                 </h1>
               </div>
@@ -184,16 +184,22 @@ export default function Navbar({ onNavigate, onOpenAdmin, config }: NavbarProps)
 
       {/* MOBILE FULL-DRAWER NAVIGATION PANEL */}
       <div 
-        className={`fixed inset-0 z-40 transition-transform duration-300 transform md:hidden ${
-          isMenuOpen ? 'translate-x-0' : 'translate-x-[100%]'
+        className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
+          isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'
         }`}
       >
         <div 
-          className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs" 
+          className={`fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity duration-300 ${
+            isMenuOpen ? 'opacity-100' : 'opacity-0'
+          }`} 
           onClick={() => setIsMenuOpen(false)} 
         />
         
-        <div className="fixed top-0 right-0 w-[80%] max-w-xs h-full bg-white shadow-2xl border-l border-slate-200 p-6 flex flex-col justify-between overflow-y-auto">
+        <div 
+          className={`fixed top-0 right-0 w-[80%] max-w-xs h-full bg-white shadow-2xl border-l border-slate-200 p-6 flex flex-col justify-between overflow-y-auto transition-transform duration-300 ${
+            isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+        >
           <div className="space-y-8 text-left">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <span className="font-serif text-xs tracking-wider text-[#0F3A6B] font-extrabold uppercase">
@@ -246,8 +252,11 @@ export default function Navbar({ onNavigate, onOpenAdmin, config }: NavbarProps)
               <p className="font-bold text-[#0F3A6B] uppercase text-[10px] tracking-wider mb-1">
                 SECRETARIAT ADDRESS
               </p>
-              <p className="leading-tight text-[11px]">
-                {cfg.contactAddress}
+              <p className="leading-tight text-[11px] mb-2 text-slate-700">
+                <strong>Operational:</strong> {cfg.operationalAddress}
+              </p>
+              <p className="leading-tight text-[11px] text-slate-400">
+                <strong>Registered:</strong> {cfg.registeredAddress}
               </p>
             </div>
             <div>

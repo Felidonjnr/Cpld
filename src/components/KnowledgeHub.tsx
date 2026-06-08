@@ -139,12 +139,8 @@ export default function KnowledgeHub() {
                 </div>
 
                 {/* Footer/Action area */}
-                <div className="px-6 py-4 bg-slate-50 border-t border-slate-100/80 flex items-center justify-between">
+                <div className="px-6 py-4 bg-slate-50 border-t border-slate-100/80 flex items-center justify-end">
                   
-                  <span className="text-[10px] font-mono font-bold tracking-widest text-slate-400 uppercase">
-                    TECHNICAL PORTAL PDF
-                  </span>
-
                   <button 
                     onClick={() => {
                       setActivePublication(pub);

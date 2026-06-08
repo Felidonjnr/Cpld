@@ -123,7 +123,7 @@ const INITIAL_DATA: DbSchema = {
       id: "blog-3",
       title: "Diagnostic Assessment of the Ministry of Budget and Economic Planning",
       date: "August 14, 2025",
-      imageUrl: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80",
+      imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80",
       text: "Comprehensive advisory review detailing structural optimization, capacity audits, and resources efficiency scaling indicators of provincial public financial frameworks.",
       category: "PUBLIC FINANCIAL MANAGEMENT",
       status: "Published"
@@ -192,12 +192,44 @@ const INITIAL_DATA: DbSchema = {
   ]
 };
 
-// Simple active in-memory store
-const DB_STORE_INSTANCE: DbSchema = JSON.parse(JSON.stringify(INITIAL_DATA));
+import fs from 'fs';
+import path from 'path';
+
+const DB_FILE_PATH = path.join(process.cwd(), 'db_store.json');
+
+// Simple active store initialized from disk or template
+const DB_STORE_INSTANCE: DbSchema = (() => {
+  try {
+    if (fs.existsSync(DB_FILE_PATH)) {
+      console.log("[DB] Loading existing database from disk:", DB_FILE_PATH);
+      const fileData = fs.readFileSync(DB_FILE_PATH, 'utf-8');
+      return JSON.parse(fileData);
+    }
+  } catch (err) {
+    console.error("[DB] Failed to read database from disk, using template:", err);
+  }
+
+  const initialCopy = JSON.parse(JSON.stringify(INITIAL_DATA));
+  try {
+    fs.writeFileSync(DB_FILE_PATH, JSON.stringify(initialCopy, null, 2), 'utf-8');
+    console.log("[DB] Created initial database file:", DB_FILE_PATH);
+  } catch (err) {
+    console.error("[DB] Failed to write initial database file:", err);
+  }
+  return initialCopy;
+})();
+
+function saveDb() {
+  try {
+    fs.writeFileSync(DB_FILE_PATH, JSON.stringify(DB_STORE_INSTANCE, null, 2), 'utf-8');
+  } catch (err) {
+    console.error("[DB] Critical error saving database state to disk:", err);
+  }
+}
 
 export class DbStore {
   static async seedIfEmpty(): Promise<void> {
-    console.log("Supabase direct-client architecture is active. Local cache seeded successfully.");
+    console.log("Database file persistence architecture is active.");
   }
 
   // USERS
@@ -213,6 +245,7 @@ export class DbStore {
   static async addBlog(blog: Omit<BlogPost, 'id'>): Promise<BlogPost> {
     const newBlog = { ...blog, id: `blog-${Date.now()}` };
     DB_STORE_INSTANCE.blogs.unshift(newBlog);
+    saveDb();
     return newBlog;
   }
 
@@ -220,12 +253,14 @@ export class DbStore {
     const idx = DB_STORE_INSTANCE.blogs.findIndex(b => b.id === id);
     if (idx === -1) return null;
     DB_STORE_INSTANCE.blogs[idx] = { ...DB_STORE_INSTANCE.blogs[idx], ...updated };
+    saveDb();
     return DB_STORE_INSTANCE.blogs[idx];
   }
 
   static async deleteBlog(id: string): Promise<boolean> {
     const len = DB_STORE_INSTANCE.blogs.length;
     DB_STORE_INSTANCE.blogs = DB_STORE_INSTANCE.blogs.filter(b => b.id !== id);
+    saveDb();
     return DB_STORE_INSTANCE.blogs.length < len;
   }
 
@@ -247,6 +282,7 @@ export class DbStore {
 
   static async updateMilestones(milestones: Milestone[]): Promise<Milestone[]> {
     DB_STORE_INSTANCE.milestones = milestones;
+    saveDb();
     return milestones;
   }
 
@@ -254,6 +290,7 @@ export class DbStore {
     const idx = DB_STORE_INSTANCE.coreAreas.findIndex(c => c.id === id);
     if (idx !== -1) {
       DB_STORE_INSTANCE.coreAreas[idx] = { ...DB_STORE_INSTANCE.coreAreas[idx], ...updatedFields };
+      saveDb();
       return DB_STORE_INSTANCE.coreAreas[idx];
     }
     return null;
@@ -272,6 +309,7 @@ export class DbStore {
       read: false
     };
     DB_STORE_INSTANCE.inquiries.unshift(newInq);
+    saveDb();
     return newInq;
   }
 
@@ -279,11 +317,19 @@ export class DbStore {
     const idx = DB_STORE_INSTANCE.inquiries.findIndex(i => i.id === id);
     if (idx === -1) return null;
     DB_STORE_INSTANCE.inquiries[idx].read = !DB_STORE_INSTANCE.inquiries[idx].read;
+    saveDb();
     return DB_STORE_INSTANCE.inquiries[idx];
   }
 
   static async toggleReadInquiry(id: string): Promise<Inquiry | null> {
     return this.toggleInquiryRead(id);
+  }
+
+  static async deleteInquiry(id: string): Promise<boolean> {
+    const len = DB_STORE_INSTANCE.inquiries.length;
+    DB_STORE_INSTANCE.inquiries = DB_STORE_INSTANCE.inquiries.filter(i => i.id !== id);
+    saveDb();
+    return DB_STORE_INSTANCE.inquiries.length < len;
   }
 
   // TEAM MEMBERS
@@ -298,6 +344,7 @@ export class DbStore {
   static async addTeamMember(member: Omit<TeamMember, 'id'>): Promise<TeamMember> {
     const newMember = { ...member, id: `team-${Date.now()}` };
     DB_STORE_INSTANCE.teamMembers.push(newMember);
+    saveDb();
     return newMember;
   }
 
@@ -305,12 +352,14 @@ export class DbStore {
     const idx = DB_STORE_INSTANCE.teamMembers.findIndex(t => t.id === id);
     if (idx === -1) return null;
     DB_STORE_INSTANCE.teamMembers[idx] = { ...DB_STORE_INSTANCE.teamMembers[idx], ...updated };
+    saveDb();
     return DB_STORE_INSTANCE.teamMembers[idx];
   }
 
   static async deleteTeamMember(id: string): Promise<boolean> {
     const len = DB_STORE_INSTANCE.teamMembers.length;
     DB_STORE_INSTANCE.teamMembers = DB_STORE_INSTANCE.teamMembers.filter(t => t.id !== id);
+    saveDb();
     return DB_STORE_INSTANCE.teamMembers.length < len;
   }
 
@@ -322,6 +371,7 @@ export class DbStore {
   static async addHeroSlide(slide: Omit<DbHeroSlide, 'id'>): Promise<DbHeroSlide> {
     const newSlide = { ...slide, id: `slide-${Date.now()}` };
     DB_STORE_INSTANCE.heroSlides.push(newSlide);
+    saveDb();
     return newSlide;
   }
 
@@ -329,12 +379,14 @@ export class DbStore {
     const idx = DB_STORE_INSTANCE.heroSlides.findIndex(s => s.id === id);
     if (idx === -1) return null;
     DB_STORE_INSTANCE.heroSlides[idx] = { ...DB_STORE_INSTANCE.heroSlides[idx], ...updated };
+    saveDb();
     return DB_STORE_INSTANCE.heroSlides[idx];
   }
 
   static async deleteHeroSlide(id: string): Promise<boolean> {
     const len = DB_STORE_INSTANCE.heroSlides.length;
     DB_STORE_INSTANCE.heroSlides = DB_STORE_INSTANCE.heroSlides.filter(s => s.id !== id);
+    saveDb();
     return DB_STORE_INSTANCE.heroSlides.length < len;
   }
 
@@ -346,6 +398,7 @@ export class DbStore {
   static async addAffiliation(aff: Omit<DbAffiliation, 'id'>): Promise<DbAffiliation> {
     const newAff = { ...aff, id: `aff-${Date.now()}` };
     DB_STORE_INSTANCE.affiliations.push(newAff);
+    saveDb();
     return newAff;
   }
 
@@ -353,12 +406,14 @@ export class DbStore {
     const idx = DB_STORE_INSTANCE.affiliations.findIndex(a => a.id === id);
     if (idx === -1) return null;
     DB_STORE_INSTANCE.affiliations[idx] = { ...DB_STORE_INSTANCE.affiliations[idx], ...updated };
+    saveDb();
     return DB_STORE_INSTANCE.affiliations[idx];
   }
 
   static async deleteAffiliation(id: string): Promise<boolean> {
     const len = DB_STORE_INSTANCE.affiliations.length;
     DB_STORE_INSTANCE.affiliations = DB_STORE_INSTANCE.affiliations.filter(a => a.id !== id);
+    saveDb();
     return DB_STORE_INSTANCE.affiliations.length < len;
   }
 }

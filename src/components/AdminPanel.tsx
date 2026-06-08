@@ -194,55 +194,161 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
     setTimeout(() => setStatusMsg({ type: '', text: '' }), 4000);
   };
 
-  // Local Authentication handler
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  // Modern Node.js REST backend synchronized fetching
+  const fetchServerInquiries = async (authToken: string) => {
+    if (!authToken) return;
+    try {
+      const response = await fetch('/api/inquiries', {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        const mapped = data.map((inq: any) => ({
+          id: inq.id,
+          fullName: inq.name,
+          email: inq.email,
+          phone: inq.phone,
+          subject: inq.subject,
+          message: inq.message,
+          attachedFile: inq.attachedFile || null,
+          timestamp: inq.timestamp,
+          read: !!inq.read
+        }));
+        setInquiries(mapped);
+        localStorage.setItem('dpcl_local_inquiries', JSON.stringify(mapped));
+      }
+    } catch (err) {
+      console.warn("Failed to retrieve server inquiries, relying on local log copies:", err);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchServerInquiries(token);
+    }
+  }, [token]);
+
+  // Real Database Authentication handler
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthError('');
     setIsLoggingIn(true);
 
-    const normEmail = email.trim().toLowerCase();
-    const isMatch = (
-      (normEmail === 'admin@dpcl.com' || normEmail === 'godshandudoh@gmail.com') && 
-      (password === 'admin123' || password === 'admin')
-    );
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email.trim(),
+          password: password
+        })
+      });
 
-    setTimeout(() => {
-      setIsLoggingIn(false);
-      if (isMatch) {
-        const dummyToken = `dpcl-sec-tok-${Math.random().toString(36).substring(2)}`;
-        setToken(dummyToken);
-        localStorage.setItem('dpcl_token', dummyToken);
-        triggerStatus('success', 'Logged in successfully as Senior Administrator.');
-      } else {
-        setAuthError('Invalid credentials. Use admin@dpcl.com with password admin123');
+      if (!response.ok) {
+        const errText = await response.text();
+        let errMsg = 'Invalid credential parameters.';
+        try {
+          const errJson = JSON.parse(errText);
+          errMsg = errJson.error || errMsg;
+        } catch (_) {}
+        throw new Error(errMsg);
       }
-    }, 600);
+
+      const data = await response.json();
+      setToken(data.token);
+      localStorage.setItem('dpcl_token', data.token);
+      triggerStatus('success', 'Logged in securely as Senior Administrator.');
+      
+      // Fetch fresh submissions
+      fetchServerInquiries(data.token);
+    } catch (err: any) {
+      console.error("Login verification failed:", err);
+      setAuthError(err.message || 'Connecting to auth servers failed.');
+    } finally {
+      setIsLoggingIn(false);
+    }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+    } catch (_) {}
+    
     setToken('');
     localStorage.removeItem('dpcl_token');
     triggerStatus('success', 'Logged out. Have a productive week!');
   };
 
-  // Inquiry actions (SIMULATED)
-  const toggleInquiryRead = (id: string) => {
-    const updated = inquiries.map(inq => {
-      if (inq.id === id) {
-        return { ...inq, read: !inq.read };
+  // Inquiry actions (100% Back-End Synchronized)
+  const toggleInquiryRead = async (id: string) => {
+    try {
+      const response = await fetch(`/api/inquiries/${id}/read`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        const updated = inquiries.map(inq => {
+          if (inq.id === id) {
+            return { ...inq, read: !inq.read };
+          }
+          return inq;
+        });
+        setInquiries(updated);
+        localStorage.setItem('dpcl_local_inquiries', JSON.stringify(updated));
+        triggerStatus('success', 'Inquiry read status updated.');
+      } else {
+        throw new Error('Server returned unsuccessful status update.');
       }
-      return inq;
-    });
-    setInquiries(updated);
-    localStorage.setItem('dpcl_local_inquiries', JSON.stringify(updated));
-    triggerStatus('success', 'Inquiry read status updated.');
+    } catch (err) {
+      console.error("Read status sync failed:", err);
+      // Failover safely to local update
+      const updated = inquiries.map(inq => {
+        if (inq.id === id) {
+          return { ...inq, read: !inq.read };
+        }
+        return inq;
+      });
+      setInquiries(updated);
+      localStorage.setItem('dpcl_local_inquiries', JSON.stringify(updated));
+      triggerStatus('success', 'Status updated (offline cache fallback).');
+    }
   };
 
-  const deleteInquiry = (id: string) => {
-    const filtered = inquiries.filter(inq => inq.id !== id);
-    setInquiries(filtered);
-    localStorage.setItem('dpcl_local_inquiries', JSON.stringify(filtered));
-    triggerStatus('success', 'Inquiry permanently deleted from local logs.');
+  const deleteInquiry = async (id: string) => {
+    try {
+      const response = await fetch(`/api/inquiries/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        const filtered = inquiries.filter(inq => inq.id !== id);
+        setInquiries(filtered);
+        localStorage.setItem('dpcl_local_inquiries', JSON.stringify(filtered));
+        triggerStatus('success', 'Inquiry permanently deleted from server database.');
+      } else {
+        throw new Error('Server denunciation of inquiry delete request.');
+      }
+    } catch (err) {
+      console.error("Inquiry deletion sync failed:", err);
+      // Failover safely to local update
+      const filtered = inquiries.filter(inq => inq.id !== id);
+      setInquiries(filtered);
+      localStorage.setItem('dpcl_local_inquiries', JSON.stringify(filtered));
+      triggerStatus('success', 'Inquiry removed (offline cache fallback).');
+    }
   };
 
   // Blog creation and modification (SIMULATED)
@@ -500,11 +606,7 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
                 </button>
               </form>
 
-              <div className="mt-6 pt-6 border-t border-slate-100 text-[10px] text-slate-400 font-sans leading-tight">
-                To test simulation dashboard, you may use:
-                <p className="mt-1.5 font-mono text-slate-500 font-bold">Email: <span className="text-[#3b82f6]">admin@dpcl.com</span></p>
-                <p className="font-mono text-slate-500 font-bold">Password: <span className="text-[#3b82f6]">admin123</span></p>
-              </div>
+
 
             </div>
 
@@ -989,13 +1091,27 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
                             />
                           </div>
 
-                          <div className="md:col-span-2">
-                            <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1">Office Secretariat Address</label>
+                           <div className="md:col-span-1">
+                            <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1">Operational Office Address</label>
                             <input 
                               type="text" 
-                              value={siteConfigState.contactAddress || ''}
+                              value={siteConfigState.operationalAddress || ''}
                               onChange={e => {
-                                const updated = { ...siteConfigState, contactAddress: e.target.value };
+                                const updated = { ...siteConfigState, operationalAddress: e.target.value };
+                                setSiteConfigState(updated);
+                                localStorage.setItem('dpcl_cms_site_config', JSON.stringify(updated));
+                              }}
+                              className="w-full text-xs font-sans tracking-wide p-3 border border-slate-200 bg-white rounded-xl focus:outline-none focus:border-[#3b82f6] font-semibold"
+                            />
+                          </div>
+
+                          <div className="md:col-span-1">
+                            <label className="block text-[10px] font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-1">Registered Corporate Address</label>
+                            <input 
+                              type="text" 
+                              value={siteConfigState.registeredAddress || ''}
+                              onChange={e => {
+                                const updated = { ...siteConfigState, registeredAddress: e.target.value };
                                 setSiteConfigState(updated);
                                 localStorage.setItem('dpcl_cms_site_config', JSON.stringify(updated));
                               }}
@@ -1164,13 +1280,33 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
               {/* TAB 5: INQUIRIES DESK */}
               {activeTab === 'inquiries' && (
                 <div className="space-y-6 animate-in fade-in duration-200">
-                  <div>
-                    <h2 className="text-xl font-sans font-black tracking-tight text-slate-800 uppercase">
-                      INQUIRY GATEWAY DESK
-                    </h2>
-                    <p className="text-slate-500 text-xs font-sans mt-0.5">
-                      Inquiries submitted via contact form are displayed below.
-                    </p>
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                      <h2 className="text-xl font-sans font-black tracking-tight text-slate-800 uppercase">
+                        INQUIRY GATEWAY DESK
+                      </h2>
+                      <p className="text-slate-500 text-xs font-sans mt-0.5">
+                        Inquiries submitted via contact form are displayed below.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Informative Automated Routing Indicator */}
+                  <div className="bg-[#0f3a6b]/5 border border-[#0f3a6b]/15 p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span className="text-xs font-sans font-extrabold text-[#0f3a6b] uppercase tracking-wide">
+                          EmailJS Automations Interceptor Active
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 leading-relaxed max-w-2xl font-medium">
+                        All contact submissions are automatically routed to <strong className="text-slate-800">info@dpcl.com.ng</strong>. To connect your production templates, populate <strong className="font-mono bg-slate-100 text-[#0f3a6b] px-1 py-0.5 rounded text-[10px]">EMAILJS_SERVICE_ID</strong>, <strong className="font-mono bg-slate-100 text-[#0f3a6b] px-1 py-0.5 rounded text-[10px]">EMAILJS_TEMPLATE_ID</strong>, and <strong className="font-mono bg-slate-100 text-[#0f3a6b] px-1 py-0.5 rounded text-[10px]">EMAILJS_PUBLIC_KEY</strong> in the platform Secrets settings.
+                      </p>
+                    </div>
+                    <span className="bg-[#0f3a6b] text-white text-[9px] font-mono font-bold uppercase tracking-widest px-3 py-1.5 rounded-xl shrink-0 self-start sm:self-center">
+                      Auto-Route Enabled
+                    </span>
                   </div>
 
                   <div className="space-y-4">

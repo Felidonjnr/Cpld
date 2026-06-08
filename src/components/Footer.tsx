@@ -115,11 +115,19 @@ export default function Footer({ onNavigate, onOpenAdmin, config }: FooterProps)
               SECRETARIAT DIRECT
             </h4>
             <ul className="space-y-3 text-xs">
-              <li className="flex items-start gap-2.5 text-slate-300">
-                <MapPin size={14} className="text-[#3b82f6] shrink-0 mt-0.5" />
-                <span className="leading-relaxed">
-                  {cfg.contactAddress}
-                </span>
+              <li className="flex flex-col gap-2 text-slate-300">
+                <div className="flex items-start gap-2.5">
+                  <MapPin size={14} className="text-[#3b82f6] shrink-0 mt-0.5" />
+                  <span className="leading-relaxed">
+                    <strong>Operational Address:</strong> {cfg.operationalAddress}
+                  </span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <div className="w-3.5 shrink-0" />
+                  <span className="leading-relaxed text-slate-400 text-[11px]">
+                    <strong>Registered Address:</strong> {cfg.registeredAddress}
+                  </span>
+                </div>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail size={14} className="text-[#3b82f6] shrink-0" />

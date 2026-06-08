@@ -88,21 +88,13 @@ export default function Team({ onContactPartner, items }: TeamProps) {
                     </p>
                   </div>
                 ) : (
-                  <p className="text-xs text-slate-600 font-sans leading-relaxed">
-                    {member.bio}
-                  </p>
+                  member.bio && (
+                    <p className="text-xs text-slate-600 font-sans leading-relaxed">
+                      {member.bio}
+                    </p>
+                  )
                 )}
 
-              </div>
-
-              {/* Action consultation buttons at the bottom of card */}
-              <div className="pt-6 mt-6 border-t border-slate-200/50">
-                <button
-                  onClick={() => onContactPartner(member.name)}
-                  className="w-full bg-[#0F3A6B] hover:bg-[#3b82f6] text-white text-[10px] font-sans font-extrabold tracking-widest uppercase py-3 rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer text-center"
-                >
-                  CONSULT PARTNER
-                </button>
               </div>
 
             </div>

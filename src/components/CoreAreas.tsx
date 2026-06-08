@@ -1,6 +1,6 @@
 import React from 'react';
 import { CORE_AREAS_DATA, CoreAreaItem } from '../data';
-import { Shield, Landmark, Coins, Users, ArrowRight } from 'lucide-react';
+import { Shield, Landmark, Coins, Users, Cpu, ArrowRight } from 'lucide-react';
 
 interface CoreAreasProps {
   onLearnMore: (title: string) => void;
@@ -15,6 +15,7 @@ export default function CoreAreas({ onLearnMore }: CoreAreasProps) {
       case 'Landmark': return <Landmark size={24} className="text-[#0F3A6B]" />;
       case 'Coins': return <Coins size={24} className="text-[#0F3A6B]" />;
       case 'Users': return <Users size={24} className="text-[#0F3A6B]" />;
+      case 'Cpu': return <Cpu size={24} className="text-[#0F3A6B]" />;
       default: return <Shield size={24} className="text-[#0F3A6B]" />;
     }
   };
@@ -38,7 +39,7 @@ export default function CoreAreas({ onLearnMore }: CoreAreasProps) {
         </div>
 
         {/* 4-Column Responsive Layout Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {items.map((item, index) => (
             <div 
               key={item.id}
@@ -61,17 +62,6 @@ export default function CoreAreas({ onLearnMore }: CoreAreasProps) {
                   {item.text}
                 </p>
 
-              </div>
-
-              {/* [More] Action Link anchor with rounded active background item */}
-              <div className="pt-5 mt-4 border-t border-slate-100">
-                <button
-                  onClick={() => onLearnMore(item.title)}
-                  className="text-[#0F3A6B] hover:text-[#3b82f6] text-xs font-sans font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer transition-colors"
-                >
-                  <span>[More]</span>
-                  <ArrowRight size={12} className="group-hover:translate-x-1.5 transition-transform" />
-                </button>
               </div>
 
             </div>

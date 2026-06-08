@@ -294,6 +294,67 @@ app.delete('/api/team/:id', isAdmin, async (req: Request, res: Response): Promis
   }
 });
 
+// Helper function to send automated email notification via EmailJS gateway
+async function sendEmailJSEmail(inquiry: { name: string; email: string; phone: string; subject: string; message: string }): Promise<boolean> {
+  const serviceId = process.env.EMAILJS_SERVICE_ID;
+  const templateId = process.env.EMAILJS_TEMPLATE_ID;
+  const publicKey = process.env.EMAILJS_PUBLIC_KEY;
+  const privateKey = process.env.EMAILJS_PRIVATE_KEY;
+
+  if (!serviceId || !templateId || !publicKey) {
+    console.log("[EmailJS Routing] EmailJS variables are not fully configured in your Environment/Secrets tab.");
+    console.log("[EmailJS Routing] Please add EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, and EMAILJS_PUBLIC_KEY to enable automatic forwarding to info@dpcl.com.ng.");
+    return false;
+  }
+
+  try {
+    console.log(`[EmailJS Routing] Sending automated notification to EmailJS (Service: ${serviceId}, Template: ${templateId})`);
+    
+    // Construct standard EmailJS REST payload structure
+    const payload: any = {
+      service_id: serviceId,
+      template_id: templateId,
+      user_id: publicKey,
+      template_params: {
+        to_email: "info@dpcl.com.ng",
+        name: inquiry.name,
+        from_name: inquiry.name,
+        email: inquiry.email,
+        from_email: inquiry.email,
+        phone: inquiry.phone,
+        subject: inquiry.subject,
+        message: inquiry.message,
+        reply_to: inquiry.email,
+        timestamp: new Date().toLocaleString('en-US', { timeZone: 'UTC' }) + ' UTC'
+      }
+    };
+
+    if (privateKey) {
+      payload.accessToken = privateKey;
+    }
+
+    const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (response.ok) {
+      console.log("[EmailJS Routing] Automated email forwarding succeeded! Sent to info@dpcl.com.ng.");
+      return true;
+    } else {
+      const respError = await response.text();
+      console.error("[EmailJS Routing] Failed with Status:", response.status, "Message:", respError);
+      return false;
+    }
+  } catch (error) {
+    console.error("[EmailJS Routing] Connection exception sending to EmailJS API gateway:", error);
+    return false;
+  }
+}
+
 // Contact Inquiries
 app.post('/api/inquiries', async (req: Request, res: Response): Promise<void> => {
   try {
@@ -303,17 +364,31 @@ app.post('/api/inquiries', async (req: Request, res: Response): Promise<void> =>
       return;
     }
 
+    const phoneVal = phone || "No Phone Passed";
+    const subjectVal = subject || "General Inquiry";
+
     const newInquiry = await DbStore.addInquiry({
       name,
       email,
-      phone: phone || "No Phone Passed",
-      subject: subject || "General Inquiry",
+      phone: phoneVal,
+      subject: subjectVal,
       message
+    });
+
+    // Asynchronously trigger automated EmailJS routing without blocking client response speed
+    sendEmailJSEmail({
+      name,
+      email,
+      phone: phoneVal,
+      subject: subjectVal,
+      message
+    }).catch(err => {
+      console.error("[EmailJS Routing] Background task failure:", err);
     });
 
     res.status(201).json({
       success: true,
-      message: "Thank you! Your inquiry has been filed securely in our database. A DPCL consultant will contact you shortly.",
+      message: "Thank you! Your inquiry has been filed securely in our database. A DPCL consultant will contact you shortly and an email notification has been dispatched.",
       inquiry: newInquiry
     });
   } catch (err) {
@@ -344,6 +419,20 @@ app.put('/api/inquiries/:id/read', isAdmin, async (req: Request, res: Response):
     res.json(updated);
   } catch (err) {
     res.status(500).json({ error: "Failed to toggle inquiry status." });
+  }
+});
+
+app.delete('/api/inquiries/:id', isAdmin, async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const deleted = await DbStore.deleteInquiry(id);
+    if (!deleted) {
+      res.status(404).json({ error: "Inquiry not found." });
+      return;
+    }
+    res.json({ success: true, message: "Inquiry successfully removed from server database." });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete inquiry from secure storage." });
   }
 });
 

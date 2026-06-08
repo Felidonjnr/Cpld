@@ -2,7 +2,8 @@ export interface CompanyDetails {
   legalName: string;
   shortName: string;
   cacNumber: string;
-  address: string;
+  registeredAddress: string;
+  operationalAddress: string;
   email: string;
   phones: string[];
 }
@@ -11,8 +12,9 @@ export const companyDetails: CompanyDetails = {
   legalName: "Development Plus Health Consult Limited",
   shortName: "DPCL",
   cacNumber: "1876089",
-  address: "Plot 337, Cherry Street, Mac Global Estate, Gwarinpa, Abuja, FCT, Nigeria",
-  email: "developmentplusconsult@gmail.com",
+  registeredAddress: "Plot 337, Cherry Street, Mac Global Estate, Gwarinpa, Abuja, FCT, Nigeria",
+  operationalAddress: "Centre La Sharp Building Complex, No. 4 & 6 Gut Road, Rayfield, Jos, Plateau State, Nigeria",
+  email: "info@dpcl.com.ng",
   phones: ["+234703-068-4093", "+234-803-2597-804"]
 };
 
@@ -20,13 +22,14 @@ export interface SiteConfig {
   companyName: string;
   shortName: string;
   logoText: string;
-  logoPath: string; // Easily replaceable path or indicator
-  logoUrl?: string; // Custom real-time logo image link
-  previewImageUrl?: string; // Social preview image link
-  description?: string; // Site preview metadata description
+  logoPath: string;
+  logoUrl?: string;
+  previewImageUrl?: string;
+  description?: string;
   contactEmail: string;
   contactPhone: string;
-  contactAddress: string;
+  operationalAddress: string;
+  registeredAddress: string;
   officeHours: string;
   regNumber: string;
   socials: {
@@ -45,9 +48,10 @@ export const siteConfig: SiteConfig = {
   logoUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780822868/Screenshot_20260607-095224_xnvdie.jpg", 
   previewImageUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780822868/Screenshot_20260607-095224_xnvdie.jpg",
   description: "Premium landing page and consulting hub for Development Plus Health Consult Limited (DPCL), an elite international development consulting firm.",
-  contactEmail: "developmentplusconsult@gmail.com",
+  contactEmail: "info@dpcl.com.ng",
   contactPhone: "+234703-068-4093, +234-803-2597-804",
-  contactAddress: "Plot 337, Cherry Street, Mac Global Estate, Gwarinpa, Abuja, FCT, Nigeria",
+  operationalAddress: "Centre La Sharp Building Complex, No. 4 & 6 Gut Road, Rayfield, Jos, Plateau State, Nigeria",
+  registeredAddress: "Plot 337, Cherry Street, Mac Global Estate, Gwarinpa, Abuja, FCT, Nigeria",
   officeHours: "Monday — Friday: 08:30 to 17:00 (GMT+1 / West Africa Time)",
   regNumber: "1876089",
   socials: {
@@ -71,29 +75,29 @@ export const HERO_SLIDES: HeroSlideItem[] = [
     id: 1,
     badge: "EXPERT ADVISORY SOLUTIONS",
     title: "DEVELOPMENT PLUS HEALTH CONSULT LIMITED",
-    subtitle: "Empowering Lives through Expertise, Vision, and Advanced Technological Endeavors.",
+    subtitle: "Empowering communities and strengthening governance through evidence-based strategic advisory solutions.",
     imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1600"
   },
   {
     id: 2,
     badge: "CAPACITY BUILDING",
     title: "HEALTH SYSTEMS STRENGTHENING",
-    subtitle: "Health Enhancements Achieved through Leadership, Technology, and Systems Strengthening.",
-    imageUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1600"
+    subtitle: "Optimizing healthcare infrastructure, clinical service delivery frameworks, and institutional performance monitoring.",
+    imageUrl: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&q=80&w=1600"
   },
   {
     id: 3,
     badge: "FISCAL ACCOUNTABILITY",
     title: "PUBLIC FINANCIAL MANAGEMENT",
-    subtitle: "Financial Integrity, Strategy, Compliance, Accountability, and Leadership for Wise Economic Management.",
+    subtitle: "Driving public sector integrity, budget transparency, compliance audits, and fiscal sustainability programs.",
     imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=1600"
   },
   {
     id: 4,
     badge: "DEMAND SIDE FINANCING",
-    title: "HEALTH FINANCING",
-    subtitle: "Financially Upholding Needs for Diverse Wellness Ensuring Lifelong Liveliness.",
-    imageUrl: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1600](https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1600)"
+    title: "HEALTH FINANCING & POLICY",
+    subtitle: "Designing sustainable health insurance architectures to ensure affordable, quality healthcare access for all citizens.",
+    imageUrl: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1600"
   }
 ];
 
@@ -102,7 +106,7 @@ export interface CoreAreaItem {
   title: string;
   text: string;
   badge: string;
-  iconName: string; // lucide icon name representation
+  iconName: string;
   routeLink: string;
 }
 
@@ -132,6 +136,14 @@ export const CORE_AREAS_DATA: CoreAreaItem[] = [
     routeLink: "#contact"
   },
   {
+    id: "digital-health-tools",
+    title: "Digital Tools for Health & Strategic Information",
+    text: "DPCL combines public health expertise with advanced digital health and strategic information capabilities, including DHIS2, electronic medical records, dashboards, logistics management information systems, cloud-based platforms, data visualization tools, and database management systems but not limited to the electronic Nigeria National Response Information Management System (eNNRIMS), NAVSION to track HIV commodities and support quantification, dashboards, HRH registry and data visualization tools, LAMIS, CSPro, KoboCollect, Power BI, SPSS, and Microsoft Excel.",
+    badge: "STRATEGIC INFO",
+    iconName: "Cpu",
+    routeLink: "#contact"
+  },
+  {
     id: "governance-engagement",
     title: "Governance & Citizen Engagement",
     text: "Empowering communities through fiscal audits, interactive capacity building program implementations, health advocacy boards, and policy compliance verification tasks.",
@@ -145,7 +157,7 @@ export interface MilestoneItem {
   id: string;
   target: number;
   label: string;
-  displayValue: string; // display string representation like "45+", "12", etc.
+  displayValue: string;
   suffix?: string;
   iconName: string;
 }
@@ -164,15 +176,15 @@ export interface TeamProfileItem {
   bio: string;
   isPending: boolean;
   avatarText: string;
-  avatarUrl?: string; // easy replacement for custom team avatar paths
+  avatarUrl?: string;
 }
 
 export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
   {
     id: "uchenna-ebenezer",
-    name: "Pharm Uchenna Ebenezer",
+    name: "Pharm. Uchenna Ebenezer",
     role: "Director, Health Systems Strengthening/Health Financing",
-    bio: "",
+    bio: "An outstanding professional with 20+ years of international health leadership experience within Africa. Proven technical expertise in deploying strategic, governance, operational, and programmatic approaches in HIV, Tuberculosis (TB), Malaria, and Maternal, Newborn and Child Health (MNCH) interventions.",
     isPending: false,
     avatarText: "UE",
     avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780865977/Pharm_Uchenna_Ebenezer_vwdeed.jpg"
@@ -181,7 +193,7 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
     id: "adamu-maikano",
     name: "Dr. Adamu Maikano",
     role: "Director, Strategy & Partnerships",
-    bio: "",
+    bio: "Expert in development programming, strategic alignment, and multi-stakeholder international partnerships across subnational and national health portfolios.",
     isPending: false,
     avatarText: "AM",
     avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780865976/Dr.Adamu_Maikano_Director_Strategy_Partnerships_ng4qlr.jpg"
@@ -190,16 +202,16 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
     id: "frank-emerenini",
     name: "Dr. Frank Emerenini",
     role: "Technical Lead - Clinical Services & Support",
-    bio: "",
+    bio: "Senior HIV Technical Advisor, Pediatrician, Implementation Scientist, and Public Health Researcher with over 20 years of experience supporting HIV prevention, treatment, PMTCT, adolescent health services, and technical assistance across sub-Saharan Africa. Proven track record in translating evidence into policy and guideline development.",
     isPending: false,
     avatarText: "FE",
     avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780865976/Dr.Franklin_Emerenini_Technical_Lead_Clinical_Services_hlfjej.jpg"
   },
   {
     id: "chima-ugwu",
-    name: "Pharm Chima Ugwu",
+    name: "Pharm. Chima Ugwu",
     role: "M & E Manager",
-    bio: "",
+    bio: "A public health pharmacist and results-driven Monitoring & Evaluation specialist with over a decade of technical leadership on large-scale, donor-funded health programmes across Nigeria. Expert in designing complex field assessments and data quality systems for the World Bank, Global Fund, WHO, and UN agencies.",
     isPending: false,
     avatarText: "CU",
     avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780869738/Screenshot_20260607-224008_rgddov.jpg"
@@ -208,7 +220,7 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
     id: "michael-olawuyi",
     name: "Dr. Michael Olawuyi",
     role: "Director, Global Health",
-    bio: "",
+    bio: "A results-driven development and public health expert with more than a decade of experience leading the design, implementation, and evaluation of health systems strengthening initiatives across international, national, and subnational contexts, with deep expertise in Sexual and Reproductive Health (SRH) and HIV platforms.",
     isPending: false,
     avatarText: "MO",
     avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780865977/Dr.Mike_Director_Global_Health_tgpi5s.png"
@@ -217,7 +229,7 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
     id: "kingsley-ukwaja",
     name: "Prof. Kingsley Ukwaja",
     role: "Director, Research & Innovation",
-    bio: "",
+    bio: "A clinician-scientist and public health specialist with deep expertise in internal medicine, pulmonology, and health systems research. Blends advanced clinical training (FWACP, MSc LSHTM) with over 15 years of field-driven epidemiological and operational research, alongside high-impact academic publishing (130+ papers).",
     isPending: false,
     avatarText: "KU",
     avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780865975/Professor_Kingsely_Ukwaja_Director_Research_e7ru5k.jpg"
@@ -228,8 +240,8 @@ export interface AffiliationItem {
   id: string;
   fullName: string;
   initials: string;
-  imageUrl: string; // Dynamic customizable logo image URL
-  color: string; // Accent color border or tint
+  imageUrl: string;
+  color: string;
 }
 
 export const AFFILIATIONS_DATA: AffiliationItem[] = [
@@ -237,7 +249,7 @@ export const AFFILIATIONS_DATA: AffiliationItem[] = [
     id: "aff-1",
     fullName: "INSTITUTE OF HEALTH INSURANCE AND MANAGED CARE OF NIGERIA",
     initials: "IHIMN",
-    imageUrl: "https://images.unsplash.com/photo-1578496479531-32e296d5c6e1?auto=format&fit=crop&q=80&w=150",
+    imageUrl: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=150",
     color: "#3b82f6"
   },
   {
@@ -265,7 +277,7 @@ export const AFFILIATIONS_DATA: AffiliationItem[] = [
     id: "aff-5",
     fullName: "NATIONAL ASSOCIATION FOR PUBLIC HEALTH PRACTITIONERS COUNCIL IN NIGERIA",
     initials: "NAPHPPCN",
-    imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=150",
+    imageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=150",
     color: "#a855f7"
   }
 ];
@@ -282,27 +294,27 @@ export interface BlogItem {
 export const BLOGS_DATA: BlogItem[] = [
   {
     id: "blog-1",
-    title: "USA, International Triathlon Event",
+    title: "Optimizing State Health Schemes: Key Operational Requirements",
     date: "June 12, 2026",
-    imageUrl: "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?auto=format&fit=crop&w=600&q=80",
-    text: "Reviewing international healthcare preparedness guidelines, participant support benchmarks, and emergency response structures compiled for global extreme athletic formats.",
+    imageUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80",
+    text: "Reviewing comprehensive institutional protocols, risk management frameworks, and data tracking matrices necessary to support public equity health enrollment programs safely.",
     category: "HEALTH POLICY"
   },
   {
     id: "blog-2",
-    title: "New Device Developed by Microsoft",
+    title: "Fiscal Sustainability: Technical Insights from SFTAS Implementations",
     date: "May 28, 2026",
-    imageUrl: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
-    text: "An administrative breakdown exploring cloud-connected diagnostic integration tools designed by Microsoft to improve clinical accuracy in remote decentralization clinics.",
-    category: "DIGITAL INNOVATION"
+    imageUrl: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80",
+    text: "An administrative assessment analyzing budget execution tracking systems, open governance criteria, and strategic revenue transparency metrics deployed across subnational units.",
+    category: "PUBLIC FINANCE"
   },
   {
     id: "blog-3",
-    title: "Healthy Lifestyle & Living",
+    title: "Strengthening Monitoring & Evaluation in Social Health Insurance",
     date: "April 15, 2026",
-    imageUrl: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=600&q=80",
-    text: "Strategic steps targeting localized preventive disease frameworks, nutrition campaigns, physical fitness integration, and active community wellness guidelines.",
-    category: "PUBLIC HYGIENE & WELLNESS"
+    imageUrl: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=600&q=80",
+    text: "A technical blueprint showcasing evidence-driven course correction metrics, data visualization pathways, and indicator structures optimized for state-level capacity managers.",
+    category: "RESEARCH & DEVELOPMENT"
   }
 ];
 
@@ -353,7 +365,7 @@ export const technicalPublications: Publication[] = [
     "category": "Health Systems",
     "title": "Training on Effective Communication Strategies: Concept and Strategies for GoHealth",
     "documentType": "Training Completion Report",
-    "summary": "This training report details a three-day workshop that equipped GoHealth's communication team with social and behavioral change communication frameworks and theory of change models. Participants co-developed a communications plan to drive demand for social health insurance products and improve public engagement.",
+    "summary": "This training report details a three-day workshop that equipped GoHealth's communication team with social and behavioral change communication frameworks and theory of change models. Participants co-created a communications plan to drive demand for social health insurance products and improve public engagement.",
     "pdfUrl": "https://drive.google.com/file/d/1m54OoQeSVx-k19Rp1loFyXU_Iw1LGqdQ/preview"
   },
   {
@@ -381,4 +393,3 @@ export const technicalPublications: Publication[] = [
     "pdfUrl": "https://drive.google.com/file/d/16jrjxzKxbUzQKhSC1R-wtKHCVdtmjT2T/preview"
   }
 ];
-

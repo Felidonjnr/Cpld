@@ -130,29 +130,58 @@ export default function Contact({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setFileError('');
 
-    // Dynamic instant offline processor
-    setTimeout(() => {
-      const generatedId = `DPCL-REQ-${Math.floor(100000 + Math.random() * 900000)}`;
+    try {
+      const response = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone || 'No Phone Passed',
+          subject: formData.subject || 'General Inquiry',
+          message: formData.message,
+        })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        let errMsg = 'Failed to submit inquiry to security database.';
+        try {
+          const errJson = JSON.parse(errorText);
+          errMsg = errJson.error || errMsg;
+        } catch (_) {}
+        throw new Error(errMsg);
+      }
+
+      const resData = await response.json();
+      const generatedId = resData.inquiry ? resData.inquiry.id : `DPCL-REQ-${Math.floor(100000 + Math.random() * 900000)}`;
       setSubmissionId(generatedId);
-      setIsSubmitting(false);
       setFormSuccess(true);
       
-      // Save submission descriptor in localStorage if user wants to check past inquiries locally
+      // Save client backup copy in localStorage
       try {
         const existing = JSON.parse(localStorage.getItem('dpcl_local_inquiries') || '[]');
         existing.push({
           id: generatedId,
-          ...formData,
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone || 'No Phone Passed',
+          subject: formData.subject || 'General Inquiry',
+          message: formData.message,
           attachedFile: pdfFile ? pdfFile.name : null,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
+          read: false
         });
         localStorage.setItem('dpcl_local_inquiries', JSON.stringify(existing));
       } catch (err) {
-        console.warn("Could not save inquiry details to localStorage:", err);
+        console.warn("Could not save secondary client copy to localStorage:", err);
       }
 
       setFormData({
@@ -162,7 +191,12 @@ export default function Contact({
         subject: '',
         message: '',
       });
-    }, 900);
+    } catch (err: any) {
+      console.error("Submission failed on server:", err);
+      setFileError(err.message || 'Error communicating with security servers. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleResetForm = () => {
@@ -210,13 +244,23 @@ export default function Contact({
                   <div className="p-2.5 bg-[#0F3A6B] text-white rounded-xl shrink-0 shadow-sm">
                     <MapPin size={18} />
                   </div>
-                  <div>
-                    <h4 className="text-xs font-sans font-extrabold tracking-wide text-slate-900 uppercase">
-                      Physical Secretariat (Nigeria)
-                    </h4>
-                    <p className="text-xs text-slate-600 mt-1 font-sans leading-relaxed">
-                      {siteConfig.contactAddress}
-                    </p>
+                  <div className="space-y-2">
+                    <div>
+                      <h4 className="text-xs font-sans font-extrabold tracking-wide text-[#0F3A6B] uppercase">
+                        Operational Office
+                      </h4>
+                      <p className="text-xs text-slate-600 mt-1 font-sans leading-relaxed">
+                        {siteConfig.operationalAddress}
+                      </p>
+                    </div>
+                    <div className="pt-2 border-t border-slate-100">
+                      <h4 className="text-xs font-sans font-extrabold tracking-wide text-slate-500 uppercase">
+                        Registered Address
+                      </h4>
+                      <p className="text-xs text-slate-500 mt-1 font-sans leading-relaxed">
+                        {siteConfig.registeredAddress}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
@@ -230,9 +274,6 @@ export default function Contact({
                     </h4>
                     <p className="text-xs text-[#0F3A6B] mt-1 font-mono font-bold hover:underline break-all">
                       {siteConfig.contactEmail}
-                    </p>
-                    <p className="text-[10px] text-slate-500 mt-1.5 font-normal">
-                      Support file limits: max 50MB PDF materials.
                     </p>
                   </div>
                 </div>
@@ -387,9 +428,8 @@ export default function Contact({
 
                 {/* PDF Document Attachment Section */}
                 <div>
-                  <label className="block text-xs font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-2 flex items-center justify-between">
-                    <span>Attach PDF Document (Optional)</span>
-                    <span className="text-[10px] text-slate-400 font-mono">Max size 50MB</span>
+                  <label className="block text-xs font-sans font-extrabold tracking-wider text-slate-700 uppercase mb-2">
+                    Attach PDF Document (Optional)
                   </label>
 
                   {/* Hidden Input File Field */}

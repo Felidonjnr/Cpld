@@ -1,0 +1,122 @@
+{
+  "users": [
+    {
+      "id": "admin-1",
+      "email": "admin@dpcl.com",
+      "passwordHash": "21232f297a57a5a743894a0e4a801fc3",
+      "role": "admin"
+    },
+    {
+      "id": "admin-2",
+      "email": "godshandudoh@gmail.com",
+      "passwordHash": "21232f297a57a5a743894a0e4a801fc3",
+      "role": "admin"
+    }
+  ],
+  "blogs": [
+    {
+      "id": "blog-1",
+      "title": "USA, International Triathlon Event",
+      "date": "June 12, 2026",
+      "imageUrl": "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?auto=format&fit=crop&w=600&q=80",
+      "text": "Reviewing international healthcare preparedness guidelines, participant support benchmarks, and emergency response structures compiled for global extreme athletic formats.",
+      "category": "HEALTH POLICY",
+      "status": "Published"
+    },
+    {
+      "id": "blog-2",
+      "title": "New Device Developed by Microsoft",
+      "date": "May 28, 2026",
+      "imageUrl": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
+      "text": "An administrative breakdown exploring cloud-connected diagnostic integration tools designed by Microsoft to improve clinical accuracy in remote decentralization clinics.",
+      "category": "DIGITAL INNOVATION",
+      "status": "Published"
+    },
+    {
+      "id": "blog-3",
+      "title": "Diagnostic Assessment of the Ministry of Budget and Economic Planning",
+      "date": "August 14, 2025",
+      "imageUrl": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80",
+      "text": "Comprehensive advisory review detailing structural optimization, capacity audits, and resources efficiency scaling indicators of provincial public financial frameworks.",
+      "category": "PUBLIC FINANCIAL MANAGEMENT",
+      "status": "Published"
+    }
+  ],
+  "coreAreas": [
+    {
+      "id": "health-systems",
+      "title": "Health Systems Strengthening",
+      "text": "Foreign Commonwealth and Development Office (FCDO) funded Health Programme in Nigeria...",
+      "badge": "FCDO"
+    },
+    {
+      "id": "financial-mgmt",
+      "title": "Public Financial Management",
+      "text": "Federal Ministry of Finance and Nigeria Governors' Forum funded Strengthening the Fiscal Sustainability, Transparency and Accountability of Nigerian States (SFTAS)...",
+      "badge": "SFTAS"
+    },
+    {
+      "id": "health-financing",
+      "title": "Health Financing",
+      "text": "Demand Side Financing (DSF) Program implemented in collaboration with the Kaduna State Contributory Health Management Authority (KADCHMA)...",
+      "badge": "BMGF & R4D"
+    },
+    {
+      "id": "governance-engagement",
+      "title": "Governance & Accountability",
+      "text": "Advising statutory public health committees, legislative circles, and inter-agency working teams on policy framework delivery, program evaluation, and service integration metrics.",
+      "badge": "GOVERNMENT OF NIGERIA"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "stat-1",
+      "target": 45,
+      "label": "States & Federal agencies advised"
+    },
+    {
+      "id": "stat-2",
+      "target": 80,
+      "label": "Core policy framework reports delivered"
+    },
+    {
+      "id": "stat-3",
+      "target": 12,
+      "label": "National program audits executed"
+    },
+    {
+      "id": "stat-4",
+      "target": 15,
+      "label": "Years of excellence since incorporation"
+    }
+  ],
+  "teamMembers": [
+    {
+      "id": "partner-1",
+      "name": "Dr. Godshand Udoh",
+      "role": "Managing Partner",
+      "bio": "An eminent administrator, health economist, and policy consultant who has directed multiple high-level ministerial audits and health systems strengthening missions.",
+      "isPending": false,
+      "avatarText": "GU"
+    }
+  ],
+  "inquiries": [],
+  "heroSlides": [
+    {
+      "id": "slide-1",
+      "title": "HEALTH POLICY ADVISORY & SYSTEMS TRANSFORMATION",
+      "subtitle": "Empowering governments, corporate partners, and international development agencies with evidence-based advisory panels and program evaluation systems.",
+      "badge": "EXPERT SOLUTIONS",
+      "imageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1600"
+    }
+  ],
+  "affiliations": [
+    {
+      "id": "aff-1",
+      "fullName": "INSTITUTE OF HEALTH INSURANCE AND MANAGED CARE OF NIGERIA",
+      "initials": "IHIMN",
+      "icon": "activity",
+      "color": "#3b82f6"
+    }
+  ]
+}
