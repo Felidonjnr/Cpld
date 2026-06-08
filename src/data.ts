@@ -193,7 +193,7 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
     id: "adamu-maikano",
     name: "Dr. Adamu Maikano",
     role: "Director, Strategy & Partnerships",
-    bio: "Expert in development programming, strategic alignment, and multi-stakeholder international partnerships across subnational and national health portfolios.",
+    bio: "Dr. Adamu Maikano holds a Medical Degree from the University of Jos, a Master’s in Public Health from London Metropolitan University, and a Master’s in Health Policy, Planning, and Financing from the London School of Economics and the London School of Hygiene and Tropical Medicine. With 14 years of experience, he has served as Regional Coordinator at FCDO-Kano, Health Financing Consultant at DPCL and R4D, and Consultant for the FCDO-Lafiya Project. He has also worked with Palladium Health Policy Plus and APIN Public Health Initiatives.",
     isPending: false,
     avatarText: "AM",
     avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780865976/Dr.Adamu_Maikano_Director_Strategy_Partnerships_ng4qlr.jpg"
