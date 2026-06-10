@@ -192,17 +192,17 @@ export const TEAM_MEMBERS_DATA: TeamProfileItem[] = [
   {
     id: "adamu-maikano",
     name: "Dr. Adamu Maikano",
-    role: "Director, Partnerships and Collaborations",
-    bio: "Dr. Adamu Maikano, who shall play the role of the Technical Advisor (Marketing). He holds a Medical Degree from the University of Jos, as well as a Master’s in Public Health from London Metropolitan University and a Masters in Health Policy Planning and Financing from London School of Economics and London School of Hygiene and Tropical Medicine.\n\nWith a 14 years’ experience, Dr. Maikano has held various roles in his career, including Regional Coordinator at the Foreign Commonwealth and Development Office (FCDO)-Kano, Health Financing Consultant at Development Plus Consult Limited (DPCL) and Result for Development (R4D), and Consultant for Political Economy Analysis for Improved Public Investment in Health for the FCDO-Lafiya Project in Kaduna State. He has also served as Technical Advisor for Public Financial Management/Domestic Resource Mobilization at Palladium Health Policy Plus, and Program Officer for Save One Million Lives (SOML) Project at AIDS Prevention Initiative in Nigeria (APIN) Public Health Initiatives in Abuja, Nigeria.",
+    role: "Director, Strategy and Partnerships",
+    bio: "Dr. Adamu Maikano, He holds a Medical Degree from the University of Jos, as well as a Master’s in Public Health from London Metropolitan University and a Masters in Health Policy Planning and Financing from London School of Economics and London School of Hygiene and Tropical Medicine.\n\nWith a 14 years’ experience, Dr. Maikano has held various roles in his career, including Regional Coordinator at the Foreign Commonwealth and Development Office (FCDO)-Kano, Health Financing Consultant at Development Plus Consult Limited (DPCL) and Result for Development (R4D), and Consultant for Political Economy Analysis for Improved Public Investment in Health for the FCDO-Lafiya Project in Kaduna State. He has also served as Technical Advisor for Public Financial Management/Domestic Resource Mobilization at Palladium Health Policy Plus, and Program Officer for Save One Million Lives (SOML) Project at AIDS Prevention Initiative in Nigeria (APIN) Public Health Initiatives in Abuja, Nigeria.",
     isPending: false,
     avatarText: "AM",
     avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780865976/Dr.Adamu_Maikano_Director_Strategy_Partnerships_ng4qlr.jpg"
   },
   {
     id: "frank-emerenini",
-    name: "Dr. Frank Emerenini",
+    name: "Dr. Franklin Emerenini",
     role: "Technical Lead - Clinical Services & Support",
-    bio: "Senior HIV Technical Advisor, Pediatrician, Implementation Scientist, and Public Health Researcher with over 20 years of experience supporting HIV prevention, treatment, PMTCT, adolescent health services, and technical assistance across sub-Saharan Africa. Proven track record in translating evidence into policy and guideline development.",
+    bio: "Dr Franklin Emerenini is a Pediatrician with Msc in Public Health, Masters in International Affairs and diplomacy, has over 20 years of experience leading high-impact RMNCH, newborn survival, nutrition, and HIV/PMTCT programs across multiple African countries. Proven expertise in providing global and country-level technical leadership, designing and scaling evidence-based interventions, strengthening health systems, and ensuring alignment with WHO, World bank, Gates and USG/PEPFAR guidelines. Extensive experience delivering technical assistance to Ministries of Health, managing multi-country teams, supporting consortium partners, and driving quality improvement through data-driven approaches. Strong track record in policy development, operational research, and knowledge dissemination, with demonstrated ability to translate state-of-the-art science into sustainable program impact. He has proven ability in institutional capacity building, and training manual development.",
     isPending: false,
     avatarText: "FE",
     avatarUrl: "https://res.cloudinary.com/drcroxtgs/image/upload/v1780865976/Dr.Franklin_Emerenini_Technical_Lead_Clinical_Services_hlfjej.jpg"
