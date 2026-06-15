@@ -556,6 +556,92 @@ app.delete('/api/affiliations/:id', isAdmin, async (req: Request, res: Response)
 
 
 // ==========================================
+// GLOBALLY OPTIMIZED SEO ENDPOINTS (Sitemap & Robots)
+// ==========================================
+
+app.get('/robots.txt', (req: Request, res: Response) => {
+  res.type('text/plain');
+  res.send(`User-agent: *
+Allow: /
+Disallow: /api/
+Sitemap: https://dpcl.com.ng/sitemap.xml`);
+});
+
+app.get('/sitemap.xml', async (req: Request, res: Response): Promise<void> => {
+  res.setHeader('Content-Type', 'application/xml');
+  
+  // Fetch dynamic blogs to add to the sitemap too!
+  let blogs: any[] = [];
+  try {
+    blogs = await DbStore.getBlogs();
+  } catch (err) {
+    // fallback if DB call has issues
+    blogs = [];
+  }
+
+  const currentDate = new Date().toISOString().split('T')[0];
+  
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Static Sections / Pages (SEO optimized anchor fallbacks) -->
+  <url>
+    <loc>https://dpcl.com.ng/</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://dpcl.com.ng/#services</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dpcl.com.ng/#team</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dpcl.com.ng/#blog-events</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dpcl.com.ng/#publications</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dpcl.com.ng/#contact</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+`;
+
+  // Dynamically inject all published blogs into the Sitemap for incredible SEO ranking power
+  blogs.forEach(blog => {
+    if (blog.status === 'Published') {
+      const idOrSlug = blog.id || String(blog.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+      xml += `  <url>
+    <loc>https://dpcl.com.ng/#blog-${idOrSlug}</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+`;
+    }
+  });
+
+  xml += `</urlset>`;
+  res.send(xml);
+});
+
+
+// ==========================================
 // VITE AND STATIC SERVING PLATFORM INFRASTRUCTURE
 // ==========================================
 

@@ -5,8 +5,10 @@ import CoreAreas from './components/CoreAreas';
 import Milestones from './components/Milestones';
 import Team from './components/Team';
 import Affiliations from './components/Affiliations';
+import Testimonials from './components/Testimonials';
 import BlogEvents from './components/BlogEvents';
 import KnowledgeHub from './components/KnowledgeHub';
+import FAQs from './components/FAQs';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AdminPanel from './components/AdminPanel';
@@ -114,6 +116,10 @@ export default function App() {
     const ogDesc = document.getElementById('og-description') || document.querySelector("meta[property='og:description']");
     if (ogDesc) ogDesc.setAttribute('content', descriptionToUse || '');
 
+    // 3.5 Standard Meta Description Sync
+    const stdDesc = document.getElementById('meta-description') || document.querySelector("meta[name='description']");
+    if (stdDesc) stdDesc.setAttribute('content', descriptionToUse || '');
+
     // 4. Twitter Link Preview Elements Sync
     const twTitle = document.getElementById('twitter-title') || document.querySelector("meta[name='twitter:title']");
     if (twTitle) twTitle.setAttribute('content', companyTitleToUse);
@@ -176,11 +182,17 @@ export default function App() {
       {/* SECTION 6: PROFESSIONAL AFFILIATIONS */}
       <Affiliations items={affiliations.length > 0 ? affiliations : undefined} />
 
+      {/* PREMIUM UPGRADE 4: EXECUTIVE PARTNER TESTIMONIALS CAROUSEL */}
+      <Testimonials />
+
       {/* KNOWLEDGE HUB RESOURCE ARCHIVE */}
       <KnowledgeHub />
 
       {/* SECTION 7: BLOG & EVENTS */}
       <BlogEvents />
+
+      {/* PREMIUM UPGRADE 5: STRATEGIC ADVISORY FAQ ACCORDION */}
+      <FAQs />
 
       {/* SECURE ENGAGEMENT SUB-SECTION (Matches the nav Contact link perfectly) */}
       <Contact 
